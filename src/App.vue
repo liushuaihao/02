@@ -11,11 +11,11 @@ export default {
   watch: {
     '$i18n.locale': 'i18nHandle'
   },
-  created() {
+  created () {
     this.i18nHandle(this.$i18n.locale)
   },
   methods: {
-    i18nHandle(val, oldVal) {
+    i18nHandle (val, oldVal) {
       Cookies.set('language', val)
       document.querySelector('html').setAttribute('lang', val)
       document.title = messages[val].brand.lg
