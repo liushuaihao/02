@@ -12,7 +12,7 @@ export const pageRoutes = [
     component: () => import('@/views/pages/404'),
     name: '404',
     meta: { title: '404未找到' },
-    beforeEnter (to, from, next) {
+    beforeEnter(to, from, next) {
       // 拦截处理特殊业务场景
       // 如果, 重定向路由包含__双下划线, 为临时添加路由
       if (/__.*/.test(to.redirectedFrom)) {
@@ -31,12 +31,10 @@ export const moduleRoutes = {
   name: 'main',
   redirect: { name: 'home' },
   meta: { title: '主入口布局' },
-  children: [
-    { path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } }
-  ]
+  children: [{ path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } }]
 }
 
-export function addDynamicRoute (routeParams, router) {
+export function addDynamicRoute(routeParams, router) {
   // 组装路由名称, 并判断是否已添加, 如是: 则直接跳转
   var routeName = routeParams.routeName
   var dynamicRoute = window.SITE_CONFIG['dynamicRoutes'].filter(item => item.name === routeName)[0]
@@ -79,24 +77,30 @@ router.beforeEach((to, from, next) => {
     return next()
   }
   // 获取字典列表, 添加并全局变量保存
-  http.get('/sys/dict/type/all').then(({ data: res }) => {
-    if (res.code !== 0) {
-      return
-    }
-    window.SITE_CONFIG['dictList'] = res.data
-  }).catch(() => {})
+  http
+    .get('/sys/dict/type/all')
+    .then(({ data: res }) => {
+      if (res.code !== 0) {
+        return
+      }
+      window.SITE_CONFIG['dictList'] = res.data
+    })
+    .catch(() => {})
   // 获取菜单列表, 添加并全局变量保存
-  http.get('/sys/menu/nav').then(({ data: res }) => {
-    if (res.code !== 0) {
-      Vue.prototype.$message.error(res.msg)
-      return next({ name: 'login' })
-    }
-    window.SITE_CONFIG['menuList'] = res.data
-    fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
-    next({ ...to, replace: true })
-  }).catch(() => {
-    next({ name: 'login' })
-  })
+  http
+    .get('/sys/menu/nav')
+    .then(({ data: res }) => {
+      if (res.code !== 0) {
+        Vue.prototype.$message.error(res.msg)
+        return next({ name: 'login' })
+      }
+      window.SITE_CONFIG['menuList'] = res.data
+      fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
+      next({ ...to, replace: true })
+    })
+    .catch(() => {
+      next({ name: 'login' })
+    })
 })
 
 /**
@@ -104,7 +108,7 @@ router.beforeEach((to, from, next) => {
  * @param {*} route 当前路由
  * @param {*} pageRoutes 页面路由
  */
-function fnCurrentRouteIsPageRoute (route, pageRoutes = []) {
+function fnCurrentRouteIsPageRoute(route, pageRoutes = []) {
   var temp = []
   for (var i = 0; i < pageRoutes.length; i++) {
     if (route.path === pageRoutes[i].path) {
@@ -122,7 +126,7 @@ function fnCurrentRouteIsPageRoute (route, pageRoutes = []) {
  * @param {*} menuList 菜单列表
  * @param {*} routes 递归创建的动态(菜单)路由
  */
-function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
+function fnAddDynamicMenuRoutes(menuList = [], routes = []) {
   var temp = []
   for (var i = 0; i < menuList.length; i++) {
     if (menuList[i].children && menuList[i].children.length >= 1) {
