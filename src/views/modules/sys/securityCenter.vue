@@ -48,17 +48,41 @@
         </el-col>
         <el-col :span="8">
           <div>
-			  <el-buttom></el-buttom>
-			  <el-buttom></el-buttom>
-		  </div>
+            <el-buttom></el-buttom>
+            <el-buttom></el-buttom>
+          </div>
           <div></div>
         </el-col>
       </el-row>
+    </div>
+
+    <div class="securityCenter">
+      <h3>分析运动员</h3>
+      <el-form size="small" label-width="80px">
+        <el-form-item label="统计时间">
+          <time-selection @getData="datePicker" />
+        </el-form-item>
+        <el-form-item label="粒度">
+            <el-select
+              @change="selectGranularity"
+              v-model="dataForm.type"
+              style="width: 140px;margin-right:12px;"
+              placeholder="请选择"
+            >
+              <el-option label="日粒度" value="1"></el-option>
+              <el-option label="周粒度" value="2"></el-option>
+              <el-option label="月粒度" value="3"></el-option>
+            </el-select>
+        </el-form-item>
+      </el-form>
     </div>
   </el-card>
 </template>
 <script>
 export default {
+  components: {
+    timeSelection: () => import("./../components/timeSelection"),
+  },
   data() {
     return {
       //查询条件
@@ -91,11 +115,21 @@ export default {
           id: 1,
         },
       ],
+      dataForm: {
+        type: "1"
+      },
     };
   },
   computed: {},
   created() {},
   mounted() {},
+  methods: {
+    // 统计时间
+    datePicker(e) {
+      this.$set(this.dataForm, "end_time", e.end_time);
+      this.$set(this.dataForm, "start_time", e.start_time);
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>
