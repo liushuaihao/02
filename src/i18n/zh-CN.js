@@ -3,8 +3,8 @@ const t = {}
 t.loading = '加载中...'
 
 t.brand = {}
-t.brand.lg = '5G云摄影'
-t.brand.mini = '5G云'
+t.brand.lg = ''
+t.brand.mini = ''
 
 t.add = '添加'
 t.delete = '删除'

@@ -3,8 +3,8 @@ const t = {}
 t.loading = 'Loading...'
 
 t.brand = {}
-t.brand.lg = '5G cloud photography'
-t.brand.mini = '5G cloud'
+t.brand.lg = ''
+t.brand.mini = ''
 
 t.add = 'Add'
 t.delete = 'Delete'
