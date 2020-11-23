@@ -53,12 +53,21 @@
         </el-form>
         <!--  -->
         <el-tabs type="border-card" v-model="tabPane">
+          <el-tab-pane name="origina" label="原始数据">
+            <originalView />
+          </el-tab-pane>
           <el-tab-pane name="data" label="统计数据">
             <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
+<<<<<<< HEAD
             <!-- <data-chart v-if="tabPane == 'chart'" /> -->
             <chartView></chartView>
+=======
+			  <template v-if="tabPane == 'chart'"> 
+				<chartView></chartView>
+			  </template>
+>>>>>>> 18bcc279584a42984215f0a8731a5ab15f96f173
           </el-tab-pane>
           <el-tab-pane name="target" label="指标生成">
             <targetView />
@@ -71,10 +80,18 @@
 <script>
 export default {
   components: {
+<<<<<<< HEAD
     timeSelection: () => import('./../components/timeSelection'),
     dataView: () => import('./components/dataView'),
     chartView: () => import('./components/chartView'),
     targetView: () => import('./components/targetView')
+=======
+    timeSelection: () => import("./../components/timeSelection"),
+    originalView: () => import("./components/originalView"),
+    dataView: () => import("./components/dataView"),
+    chartView: () => import("./components/chartView"),
+    targetView: () => import("./components/targetView"),
+>>>>>>> 18bcc279584a42984215f0a8731a5ab15f96f173
   },
   data () {
     const generateData = _ => {

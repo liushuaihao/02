@@ -49,12 +49,12 @@ window.SITE_CONFIG['storeState'] = cloneDeep(store.state)
 
 // 过滤时间戳
 // 方法一: yyyy-MM-dd hh:mm
-Vue.filter('formatDate1', function (time) {
+Vue.filter('formatDate1', function(time) {
   let date = new Date(time)
   return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
 })
 // 方法二: yyyy-MM-dd
-Vue.filter('formatDate2', function (time) {
+Vue.filter('formatDate2', function(time) {
   // time = time * 1000
   let date = new Date(time)
   return formatDate(date, 'yyyy-MM-dd')
