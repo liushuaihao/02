@@ -79,7 +79,7 @@
             <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
-			  <template v-show="chart"> 
+			  <template v-if="tabPane == 'chart'"> 
 				<chartView></chartView>
 			  </template>
           </el-tab-pane>
