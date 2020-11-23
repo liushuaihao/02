@@ -1,95 +1,92 @@
 <template>
-  <el-card>
-    <div class="securityCenter">
-      <!-- 头部 -->
-      <h3>分析运动员</h3>
-      <el-row>
-        <el-col :span="8">
-          <!-- 表单部分 -->
-          <div class="form">
-            <el-form
-              :model="formQurey"
-              label-width="80px"
-              size="small"
-              class="demo-form-inline"
-            >
-              <el-form-item label="运动员:">
-                <el-select v-model="value" placeholder="请选择">
-                  <el-option
-                    :label="item.label"
-                    :value="item.value"
-                    :key="item.value"
-                    v-for="(item, index) in selectOption"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="运动类型:">
-                <el-select v-model="value" placeholder="请选择">
-                  <el-option
-                    :label="item.label"
-                    :value="item.value"
-                    :key="item.value"
-                    v-for="(item, index) in selectOption"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-form>
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <el-form
-            :model="formQurey"
-            label-width="80px"
-            size="small"
-            class="demo-form-inline"
-          >
-            <el-form-item label="基本参数:"> </el-form-item>
+  <div>
+    <el-card>
+      <div class="securityCenter">
+        <!-- 头部 -->
+        <h3>分析运动员</h3>
+        <!-- 表单部分 -->
+        <p>
+          <el-form class="el-form--inline" :model="formQurey" size="small">
+            <el-form-item label="运动员:">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  :label="item.label"
+                  :value="item.value"
+                  :key="item.value"
+                  v-for="(item, index) in selectOption"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="运动类型:">
+              <el-select v-model="value" placeholder="请选择">
+                <el-option
+                  :label="item.label"
+                  :value="item.value"
+                  :key="item.value"
+                  v-for="(item, index) in selectOption"
+                ></el-option>
+              </el-select>
+            </el-form-item>
           </el-form>
-        </el-col>
-        <el-col :span="8">
-          <div>
-            <el-buttom></el-buttom>
-            <el-buttom></el-buttom>
-          </div>
-          <div></div>
-        </el-col>
-      </el-row>
-    </div>
-
-    <div class="securityCenter">
-      <h3>分析阶段</h3>
-      <el-form size="small" label-width="80px">
-        <el-form-item label="时间范围">
-          <time-selection @getData="datePicker" />
+        </p>
+      </div>
+      <el-form :model="formQurey" class="el-form--inline">
+        <el-form-item label="基本参数:">
+          <el-card>
+            <div>身高：</div>
+            <div>体重：</div>
+            <div>近半年最佳成绩：</div>
+            <div>近半年成绩排名：</div>
+            <div>近半年训练强度：</div>
+            <div>近半年训练时间：</div>
+          </el-card>
         </el-form-item>
-        <el-form-item label="时间周期">
-          <el-select
-            @change="selectGranularity"
-            v-model="dataForm.type"
-            style="width: 140px; margin-right: 12px"
-            placeholder="请选择"
-          >
-            <el-option label="日" value="1"></el-option>
-            <el-option label="周" value="2"></el-option>
-            <el-option label="月" value="3"></el-option>
-          </el-select>
+        <el-form-item>
+          <el-transfer
+            :titles="['运动员', '合格运动员']"
+            v-model="value1"
+            :data="data"
+            filterable
+            filter-placeholder="请输入运动员名称"
+            @change="handleChange"
+          ></el-transfer>
         </el-form-item>
       </el-form>
-      <!--  -->
-      <el-tabs type="border-card"
-      v-model="tabPane">
-        <el-tab-pane v-if="tabPane != 'data'" name="data"  label="统计数据">
-          <data-view/>
-        </el-tab-pane>
-        <el-tab-pane v-if="tabPane != 'chart'" name="chart" label="图表显示">
-          <data-chart/>
-        </el-tab-pane>
-        <el-tab-pane v-if="tabPane != 'target'" name="target" label="指标生成">
-          <data-target/>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
-  </el-card>
+    </el-card>
+    <el-card>
+      <div class="securityCenter">
+        <h3>分析阶段</h3>
+        <el-form size="small" label-width="80px">
+          <el-form-item label="时间范围">
+            <time-selection @getData="datePicker" />
+          </el-form-item>
+          <el-form-item label="时间周期">
+            <el-select
+              @change="selectGranularity"
+              v-model="dataForm.type"
+              style="width: 140px; margin-right: 12px"
+              placeholder="请选择"
+            >
+              <el-option label="日" value="1"></el-option>
+              <el-option label="周" value="2"></el-option>
+              <el-option label="月" value="3"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <!--  -->
+        <el-tabs type="border-card" v-model="tabPane">
+          <el-tab-pane name="data" label="统计数据">
+            <data-view v-if="tabPane == 'data'" />
+          </el-tab-pane>
+          <el-tab-pane name="chart" label="图表显示">
+            <data-chart v-if="tabPane == 'chart'" />
+          </el-tab-pane>
+          <el-tab-pane name="target" label="指标生成">
+            <data-target v-if="tabPane == 'target'" />
+          </el-tab-pane>
+        </el-tabs></div
+    ></el-card>
+  </div>
 </template>
 <script>
 export default {
@@ -100,8 +97,22 @@ export default {
     targetView: () => import("./components/targetView"),
   },
   data() {
+    const generateData = (_) => {
+      const data = [];
+      const cities = ["小明", "小王", "小花"];
+      cities.forEach((city, index) => {
+        data.push({
+          label: city,
+          key: index,
+        });
+      });
+      return data;
+    };
+
     return {
-      tabPane:"data",
+      data: generateData(),
+      value1: [0],
+      tabPane: "data",
       //查询条件
       formQurey: {
         region: "", //运动员
@@ -145,6 +156,14 @@ export default {
     datePicker(e) {
       this.$set(this.dataForm, "end_time", e.end_time);
       this.$set(this.dataForm, "start_time", e.start_time);
+    },
+    //
+    handleChange(value, direction, movedKeys) {
+      console.log(value, direction, movedKeys);
+    },
+    // 粒度
+    selectGranularity(e) {
+      console.log(e);
     },
   },
 };

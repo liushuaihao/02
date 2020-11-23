@@ -336,7 +336,7 @@
   color: #fff;
   font-size: 18px;
   text-align: center;
-  padding: 90px 0 30px;
+  padding: 90px 0 90px;
   font-size:20px;
   font-weight:500;
   color:rgba(255,255,255,1);
@@ -366,6 +366,9 @@
     .login-footer{
       margin-top: 288px;
     }
+    .center-logo{
+      padding-bottom: 40px;
+    }
   }
 }
 
@@ -373,6 +376,9 @@
   #login-main{
     .login-footer{
       margin-top: 50px;
+    }
+    .center-logo{
+      padding-bottom: 20px;
     }
   }
 }
