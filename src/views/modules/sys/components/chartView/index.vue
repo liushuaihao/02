@@ -1,15 +1,21 @@
 <template>
-	<div>
-		图表显示666555
-		<div>
+	<div class="chartView">
+		<div class="chartbox">
 			<el-row>
-				<el-col :span="8" class="col">
+				<el-col :span="12" class="col">
+					<chartTemp :option="option"></chartTemp>
+				</el-col>
+				<el-col :span="12" class="col">
+					<chartTemp :option="option"></chartTemp>
+				</el-col>
+				<el-col :span="12" class="col">
+					<chartTemp :option="option"></chartTemp>
+				</el-col>
+				<el-col :span="12" class="col">
 					<chartTemp :option="option"></chartTemp>
 				</el-col>
 			</el-row>
-			
 		</div>
-		</el-row>
 	</div>
 </template>
 <script>
