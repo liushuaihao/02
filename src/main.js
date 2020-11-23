@@ -20,7 +20,8 @@ import { hasPermission, getDictLabel, formatDate } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import VueScroller from 'vue-scroller'
 Vue.config.productionTip = false
-
+import echarts from 'echarts'
+Vue.prototype.echarts = echarts
 Vue.use(Element, {
   size: 'default',
   i18n: (key, value) => i18n.t(key, value)

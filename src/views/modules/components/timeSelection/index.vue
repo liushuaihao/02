@@ -31,21 +31,21 @@
   </div>
 </template>
 <script>
-import {setData} from "@/utils/index";
+import { setData } from "@/utils/index";
 export default {
   data() {
     return {
       dataForm: {
         time: "2",
         startTime: "",
-        endTime: ""
+        endTime: "",
       },
       datetimerange: [],
       pickerOptions: {
         disabledDate(time) {
           return time.getTime() > Date.now() - 8.64e6;
-        }
-      }
+        },
+      },
     };
   },
   watch: {
@@ -58,7 +58,7 @@ export default {
           this.getData();
         }
       }
-    }
+    },
   },
   created() {
     this.datePicker("2");
@@ -67,8 +67,12 @@ export default {
     getData() {
       var end_time = this.timeParse(this.dataForm.endTime);
       var start_time = this.timeParse(this.dataForm.startTime);
-      this.$emit("getData", { end_time: end_time, start_time: start_time,
-      endTime: this.dataForm.endTime + ' 00:00:00', startTime: this.dataForm.startTime+ ' 23:59:59' });
+      this.$emit("getData", {
+        end_time: end_time,
+        start_time: start_time,
+        endTime: this.dataForm.endTime + " 00:00:00",
+        startTime: this.dataForm.startTime + " 23:59:59",
+      });
     },
     timeParse(tiem) {
       let data = new Date(tiem);
@@ -99,8 +103,8 @@ export default {
         this.datetimerange = null;
         return false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scope>
