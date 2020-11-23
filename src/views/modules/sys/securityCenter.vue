@@ -75,6 +75,19 @@
           </el-select>
         </el-form-item>
       </el-form>
+      <!--  -->
+      <el-tabs type="border-card"
+      v-model="tabPane">
+        <el-tab-pane v-if="tabPane != 'data'" name="data"  label="统计数据">
+          <data-view/>
+        </el-tab-pane>
+        <el-tab-pane v-if="tabPane != 'chart'" name="chart" label="图表显示">
+          <data-chart/>
+        </el-tab-pane>
+        <el-tab-pane v-if="tabPane != 'target'" name="target" label="指标生成">
+          <data-target/>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </el-card>
 </template>
@@ -82,9 +95,13 @@
 export default {
   components: {
     timeSelection: () => import("./../components/timeSelection"),
+    dataView: () => import("./components/dataView"),
+    chartView: () => import("./components/chartView"),
+    targetView: () => import("./components/targetView"),
   },
   data() {
     return {
+      tabPane:"data",
       //查询条件
       formQurey: {
         region: "", //运动员
