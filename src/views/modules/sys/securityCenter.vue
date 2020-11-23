@@ -76,14 +76,14 @@
         <!--  -->
         <el-tabs type="border-card" v-model="tabPane">
           <el-tab-pane name="data" label="统计数据">
-            <data-view v-if="tabPane == 'data'" />
+            <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
             <!-- <data-chart v-if="tabPane == 'chart'" /> -->
 			<chartView></chartView>
           </el-tab-pane>
           <el-tab-pane name="target" label="指标生成">
-            <data-target v-if="tabPane == 'target'" />
+            <targetView />
           </el-tab-pane>
         </el-tabs></div
     ></el-card>
