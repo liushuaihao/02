@@ -57,22 +57,22 @@
     </div>
 
     <div class="securityCenter">
-      <h3>分析运动员</h3>
+      <h3>分析阶段</h3>
       <el-form size="small" label-width="80px">
-        <el-form-item label="统计时间">
+        <el-form-item label="时间范围">
           <time-selection @getData="datePicker" />
         </el-form-item>
-        <el-form-item label="粒度">
-            <el-select
-              @change="selectGranularity"
-              v-model="dataForm.type"
-              style="width: 140px;margin-right:12px;"
-              placeholder="请选择"
-            >
-              <el-option label="日粒度" value="1"></el-option>
-              <el-option label="周粒度" value="2"></el-option>
-              <el-option label="月粒度" value="3"></el-option>
-            </el-select>
+        <el-form-item label="时间周期">
+          <el-select
+            @change="selectGranularity"
+            v-model="dataForm.type"
+            style="width: 140px; margin-right: 12px"
+            placeholder="请选择"
+          >
+            <el-option label="日" value="1"></el-option>
+            <el-option label="周" value="2"></el-option>
+            <el-option label="月" value="3"></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
     </div>
@@ -116,7 +116,7 @@ export default {
         },
       ],
       dataForm: {
-        type: "1"
+        type: "1",
       },
     };
   },
@@ -124,11 +124,11 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    // 统计时间
+    // 时间范围
     datePicker(e) {
       this.$set(this.dataForm, "end_time", e.end_time);
       this.$set(this.dataForm, "start_time", e.start_time);
-    }
+    },
   },
 };
 </script>
