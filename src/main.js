@@ -23,7 +23,7 @@ Vue.config.productionTip = false
 import echarts from 'echarts'
 Vue.prototype.echarts = echarts
 Vue.use(Element, {
-  size: 'default',
+  size: "small",
   i18n: (key, value) => i18n.t(key, value)
 })
 
