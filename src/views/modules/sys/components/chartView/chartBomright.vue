@@ -1,5 +1,5 @@
 <template>
-	<div class="chartTopleft"><chartTemp :option="option"></chartTemp></div>
+	<div class="chartBomright"><chartTemp :option="option"></chartTemp></div>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
 		getEchartsData() {
 			this.option = {
 				 title : {
-				        text: '体重',
+				        text: '血红蛋白',
 				        x:'center'
 				    },
 				//悬停
@@ -58,7 +58,7 @@ export default {
 				],
 				series: [
 					{
-						name: '体重',
+						name: '血红蛋白',
 						type: 'line',
 						data: this.yData
 					}
@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chartTopleft {
+.chartBomright {
 	height: 300px;
 }
 </style>

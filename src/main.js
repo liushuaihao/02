@@ -19,11 +19,12 @@ import renRegionTree from '@/components/ren-region-tree'
 import { hasPermission, getDictLabel, formatDate } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import VueScroller from 'vue-scroller'
+import moment from 'moment'
 Vue.config.productionTip = false
 import echarts from 'echarts'
 Vue.prototype.echarts = echarts
 Vue.use(Element, {
-  size: 'default',
+  size: 'small',
   i18n: (key, value) => i18n.t(key, value)
 })
 
@@ -41,18 +42,19 @@ Vue.use(renProcessDetail)
 Vue.prototype.$http = http
 Vue.prototype.$hasPermission = hasPermission
 Vue.prototype.$getDictLabel = getDictLabel
+Vue.prototype.$moment = moment
 
 // 保存整站vuex本地储存初始状态
 window.SITE_CONFIG['storeState'] = cloneDeep(store.state)
 
 // 过滤时间戳
 // 方法一: yyyy-MM-dd hh:mm
-Vue.filter('formatDate1', function (time) {
+Vue.filter('formatDate1', function(time) {
   let date = new Date(time)
   return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
 })
 // 方法二: yyyy-MM-dd
-Vue.filter('formatDate2', function (time) {
+Vue.filter('formatDate2', function(time) {
   // time = time * 1000
   let date = new Date(time)
   return formatDate(date, 'yyyy-MM-dd')

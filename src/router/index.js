@@ -31,7 +31,21 @@ export const moduleRoutes = {
   name: 'main',
   redirect: { name: 'home' },
   meta: { title: '主入口布局' },
-  children: [{ path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } }]
+  children: [{ path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } },
+  {
+    path: '/sys/securityCenter',
+    component: () =>
+      import('@/views/modules/sys/securityCenter'),
+    name: 'shops',
+    meta: { title: '经济状态分析', isTab: true }
+  },
+  {
+    path: '/sys/securityCenter',
+    component: () =>
+      import('@/views/modules/sys/securityCenter'),
+    name: 'shops',
+    meta: { title: '运动员表现分析', isTab: true }
+  }]
 }
 
 export function addDynamicRoute(routeParams, router) {
