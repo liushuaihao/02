@@ -79,8 +79,9 @@
             <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
-            <!-- <data-chart v-if="tabPane == 'chart'" /> -->
-			<chartView></chartView>
+			  <template v-show="chart"> 
+				<chartView></chartView>
+			  </template>
           </el-tab-pane>
           <el-tab-pane name="target" label="指标生成">
             <targetView />
