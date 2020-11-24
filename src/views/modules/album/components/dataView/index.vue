@@ -1,15 +1,19 @@
 <template>
   <div>
+    <el-form class="el-form--inline" :model="formQurey" size="small">
+      <el-form-item label="指标选择:">
+        <el-select v-model="value" placeholder="请选择">
+          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="(item, index) in option"></el-option>
+        </el-select>
+      </el-form-item>
+    </el-form>
     <el-table :data="tableData" style="width: 100%" align="center">
-      <el-table-column prop="median" label="训练时间" min-width="100"> </el-table-column>
-      <el-table-column prop="mean" label="性别" min-width="100"> </el-table-column>
-      <el-table-column prop="id" label="年龄" min-width="100"> </el-table-column>
-      <el-table-column prop="median" label="身高" min-width="100"> </el-table-column>
-      <el-table-column prop="median" label="体重" min-width="100"> </el-table-column>
-      <el-table-column prop="median" label="血红蛋白" min-width="100"> </el-table-column>
-      <el-table-column prop="median" label="血尿素" min-width="100"> </el-table-column>
-      <el-table-column prop="median" label="血乳酸" min-width="100"> </el-table-column>
-      <el-table-column prop="median" label="血压" min-width="100"> </el-table-column>
+      <el-table-column prop="name" label="姓名" min-width="100"> </el-table-column>
+      <el-table-column prop="mean" label="均值" min-width="100"> </el-table-column>
+      <el-table-column prop="max" label="最大" min-width="100"> </el-table-column>
+      <el-table-column prop="min" label="最小" min-width="100"> </el-table-column>
+      <el-table-column prop="std" label="标准差" min-width="100"> </el-table-column>
+      <el-table-column prop="median" label="中位数" min-width="100"> </el-table-column>
     </el-table>
   </div>
 </template>
@@ -18,6 +22,7 @@
 export default {
   data() {
     return {
+      formQurey: {},
       value: 1,
       option: [
         {
