@@ -15,6 +15,12 @@ export default {
       yData: [50, 60, 10, 13, 12, 13, 10]
     }
   },
+  props: {
+    title: {
+      type: [String],
+      default: ''
+    }
+  },
   mounted() {
     this.getEchartsData()
   },
@@ -23,7 +29,7 @@ export default {
       this.option = {
         color: ['#409EFF'],
         title: {
-          text: '',
+          text: this.title,
           x: 'center'
         },
         tooltip: {

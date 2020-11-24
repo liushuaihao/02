@@ -22,7 +22,9 @@ export default {
     getEchartsData() {
       this.option = {
         color: ['#409EFF'],
-        title: {},
+        title: {
+          
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {

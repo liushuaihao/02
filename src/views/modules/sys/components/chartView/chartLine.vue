@@ -28,7 +28,7 @@ export default {
     getEchartsData() {
       this.option = {
         title: {
-          text: this.props,
+          text: this.title,
           x: 'center'
         },
         //悬停
