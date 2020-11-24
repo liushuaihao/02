@@ -1,6 +1,33 @@
 <template>
-  <el-card v-if="false" shadow="never" class="aui-card--fill">
-    <div class="mod-home">
+  <el-card shadow="never" class="aui-card--fill">
+    <div class="pageList">
+      <div @click="goPage1">
+        <el-card>
+          数据查询与可视化
+        </el-card>
+      </div>
+      <div @click="goPage2">
+        <el-card>
+          运动员表现分析
+        </el-card>
+      </div>
+      <div @click="goPage3">
+        <el-card>
+          成绩分析
+        </el-card>
+      </div>
+      <div @click="goPage5">
+        <el-card>
+          竞技状态分析 1
+        </el-card>
+      </div>
+      <div @click="goPage4">
+        <el-card @click="goPage4">
+          竞技状态分析 2
+        </el-card>
+      </div>
+    </div>
+    <div class="mod-home" v-if="false">
       <el-row :gutter="20">
         <el-col :span="12" :xs="24">
           <table>
@@ -93,12 +120,13 @@
       </el-row>
     </div>
   </el-card>
-  <div v-else class="home-bg"></div>
+  <!-- <div v-else class="home-bg"></div> -->
 </template>
 
 <script>
+import { addDynamicRoute } from '@/router'
 export default {
-  data () {
+  data() {
     return {
       sysInfo: {
         osName: '',
@@ -122,18 +150,73 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     // this.getSysInfo()
   },
   methods: {
-    getSysInfo () {
-      this.$http.get('/sys/info').then(({ data: res }) => {
-        if (res.code !== 0) {
-          return this.$message.error(res.msg)
-        }
-        this.sysInfo = res.data
-      }).catch(() => {})
+    getSysInfo() {
+      this.$http
+        .get('/sys/info')
+        .then(({ data: res }) => {
+          if (res.code !== 0) {
+            return this.$message.error(res.msg)
+          }
+          this.sysInfo = res.data
+        })
+        .catch(() => {})
+    },
+    goPage1() {
+      const routeParams = {
+        routeName: `${this.$route.name}__page1`,
+        title: '数据分析1',
+        path: 'sys/personalData'
+      }
+      // 动态路由
+      addDynamicRoute(routeParams, this.$router)
+    },
+    goPage2() {
+      const routeParams = {
+        routeName: `${this.$route.name}__page2`,
+        title: '数据分析2',
+        path: 'sys/appletconfig'
+      }
+      // 动态路由
+      addDynamicRoute(routeParams, this.$router)
+    },
+    goPage3() {
+      const routeParams = {
+        routeName: `${this.$route.name}__page3`,
+        title: '数据分析3',
+        path: 'album/albumManage'
+      }
+      // 动态路由
+      addDynamicRoute(routeParams, this.$router)
+    },
+    goPage4() {
+      const routeParams = {
+        routeName: `${this.$route.name}__page4`,
+        title: '数据分析4',
+        path: 'sys/securityCenter'
+      }
+      // 动态路由
+      addDynamicRoute(routeParams, this.$router)
+    },
+    goPage5() {
+      const routeParams = {
+        routeName: `${this.$route.name}__page5`,
+        title: '数据分析5',
+        path: 'sys/carouselMap'
+      }
+      // 动态路由
+      addDynamicRoute(routeParams, this.$router)
     }
   }
 }
 </script>
+<style lang="scss">
+.pageList {
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
+}
+</style>

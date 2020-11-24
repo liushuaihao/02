@@ -31,21 +31,21 @@ export const moduleRoutes = {
   name: 'main',
   redirect: { name: 'home' },
   meta: { title: '主入口布局' },
-  children: [{ path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } },
-  {
-    path: '/sys/1',
-    component: () =>
-      import('@/views/modules/sys/securityCenter'),
-    name: '1',
-    meta: { title: '经济状态分析', isTab: true }
-  },
-  {
-    path: '/sys/2',
-    component: () =>
-      import('@/views/modules/sys/securityCenter'),
-    name: '2',
-    meta: { title: '运动员表现分析', isTab: true }
-  }]
+  children: [
+    { path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } },
+    {
+      path: '/sys/1',
+      component: () => import('@/views/modules/sys/securityCenter'),
+      name: '1',
+      meta: { title: '经济状态分析', isTab: true }
+    },
+    {
+      path: '/sys/2',
+      component: () => import('@/views/modules/sys/personalData'),
+      name: '2',
+      meta: { title: '运动员表现分析', isTab: true }
+    }
+  ]
 }
 
 export function addDynamicRoute(routeParams, router) {
@@ -83,39 +83,39 @@ const router = new Router({
   routes: pageRoutes.concat(moduleRoutes)
 })
 
-router.beforeEach((to, from, next) => {
-  console.log(router.options.routes)
-  // 添加动态(菜单)路由
-  // 已添加或者当前路由为页面路由, 可直接访问
-  if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
-    return next()
-  }
-  // 获取字典列表, 添加并全局变量保存
-  http
-    .get('/sys/dict/type/all')
-    .then(({ data: res }) => {
-      if (res.code !== 0) {
-        return
-      }
-      window.SITE_CONFIG['dictList'] = res.data
-    })
-    .catch(() => {})
-  // 获取菜单列表, 添加并全局变量保存
-  http
-    .get('/sys/menu/nav')
-    .then(({ data: res }) => {
-      if (res.code !== 0) {
-        Vue.prototype.$message.error(res.msg)
-        return next({ name: 'login' })
-      }
-      window.SITE_CONFIG['menuList'] = res.data
-      fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
-      next({ ...to, replace: true })
-    })
-    .catch(() => {
-      next({ name: 'login' })
-    })
-})
+// router.beforeEach((to, from, next) => {
+//   console.log(router.options.routes)
+//   // 添加动态(菜单)路由
+//   // 已添加或者当前路由为页面路由, 可直接访问
+//   if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
+//     return next()
+//   }
+//   // 获取字典列表, 添加并全局变量保存
+//   http
+//     .get('/sys/dict/type/all')
+//     .then(({ data: res }) => {
+//       if (res.code !== 0) {
+//         return
+//       }
+//       window.SITE_CONFIG['dictList'] = res.data
+//     })
+//     .catch(() => {})
+//   // 获取菜单列表, 添加并全局变量保存
+//   http
+//     .get('/sys/menu/nav')
+//     .then(({ data: res }) => {
+//       if (res.code !== 0) {
+//         Vue.prototype.$message.error(res.msg)
+//         return next({ name: 'login' })
+//       }
+//       window.SITE_CONFIG['menuList'] = res.data
+//       fnAddDynamicMenuRoutes(window.SITE_CONFIG['menuList'])
+//       next({ ...to, replace: true })
+//     })
+//     .catch(() => {
+//       next({ name: 'login' })
+//     })
+// })
 
 /**
  * 判断当前路由是否为页面路由
