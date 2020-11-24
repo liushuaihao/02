@@ -10,7 +10,7 @@
     </el-card>
     <el-card class="content_right">
       <h3>分析数据加载</h3>
-      <el-form class="timing" ref="form" :model="form">
+      <el-form ref="form" :model="form">
         <p>运动员/时间场次筛选</p>
         <el-form-item
           label="指定时间范围
@@ -25,7 +25,9 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <div></div>
+      <div>
+        <div></div>
+      </div>
     </el-card>
   </div>
 </template>
@@ -57,16 +59,7 @@ export default {
       ],
       value: '',
       value1: "",
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
+      form: {}
     }
   },
   computed: {},
@@ -121,38 +114,6 @@ export default {
     height: calc(100vh - 120px);
     margin-top: 0;
     margin-left: 15px;
-    .timing {
-      border: 1px solid #ccc;
-      position: relative;
-      padding-top: 30px;
-      border-radius: 5px;
-      p {
-        background-color: #fff;
-        display: inline-block;
-        position: absolute;
-        top: -28px;
-        left: 20px;
-        font-size: 18px;
-        padding: 0 10px;
-      }
-      .T_time {
-        display: flex;
-        padding-left: 20px;
-        .T_time_l {
-          line-height: 40px;
-          padding-left: 30px;
-          padding-right: 10px;
-        }
-        .T_time_r {
-        }
-      }
-      .period {
-        width: 20%;
-      }
-      .period:nth-child(2) {
-        margin: 0 5%;
-      }
-    }
   }
 }
 </style>
