@@ -27,11 +27,11 @@
         <div class="info_title">指标参考成绩</div>
         <el-row>
           <el-col :span="12" class="target_score_visaul_cont_l">
-              <div class="left_rectangle_cont">
-                <div class="title">成绩采样范围</div>
-                <el-radio v-model="scoreRange" :label="1">全程成绩分析</el-radio>
-                <el-radio v-model="scoreRange" :label="2">赛段成绩分析</el-radio>
-              </div>
+            <div class="left_rectangle_cont">
+              <div class="title">成绩采样范围</div>
+              <el-radio v-model="scoreRange" :label="1">全程成绩分析</el-radio>
+              <el-radio v-model="scoreRange" :label="2">赛段成绩分析</el-radio>
+            </div>
           </el-col>
           <el-col :span="12" class="target_score_visaul_cont_r">
             <div class="title">赛段选择</div>
