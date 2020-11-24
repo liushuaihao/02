@@ -1,4 +1,3 @@
-# security-enterprise-admin
 
 ## Project setup
 ```
@@ -21,6 +20,6 @@ npm run lint
 ```
 ### API
 ```
-https://1231.w.eolinker.com/#/share/index?shareCode=AW1UJn
+
 ```
 
