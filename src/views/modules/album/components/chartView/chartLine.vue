@@ -22,7 +22,6 @@ export default {
 		getEchartsData() {
 			this.option = {
 				 title : {
-				        text: '血红蛋白',
 				        x:'center'
 				    },
 				//悬停

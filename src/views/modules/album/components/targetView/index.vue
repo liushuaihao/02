@@ -1,72 +1,87 @@
 <template>
   <div>
-    <!-- 上面横向滚动数据 -->
-    <div class="x_target_data_cont">
-      <div class="x_target_data">
-        <el-card class="item_cont" v-for="item in targetData" :key="item.id">
-          <div class="title item">
-            <span>个人指标：</span>
-            <span>{{ item.name }}</span>
-          </div>
-          <div class="updata_time item">
-            <span>更新时间：</span>
-            <span>{{ item.updateTime }}</span>
-          </div>
-          <div class="pursuant_btn item">
-            <span>依照数据：</span>
-            <el-link type="primary">点击查看</el-link>
-          </div>
-          <el-button class="create_target">更新/生成指标</el-button>
-        </el-card>
-      </div>
-    </div>
+    <el-row :gutter="20">
+      <el-col :span="12">
+        <el-card>
+          <h3>速度策略分析</h3>
+          <chartBomright title="全程速度" :series="series" ref="chartBomright"></chartBomright>
 
-    <!-- 指标参考./可视化 -->
-    <el-row class="target_score_visaul_cont">
-      <el-col :span="13" class="target_score">
-        <div class="info_title">指标参考成绩</div>
-        <el-row>
-          <el-col :span="12" class="target_score_visaul_cont_l">
-            <div class="left_rectangle_cont">
-              <div class="title">成绩采样范围</div>
-              <el-radio v-model="scoreRange" :label="1">全程成绩分析</el-radio>
-              <el-radio v-model="scoreRange" :label="2">赛段成绩分析</el-radio>
+          <div>
+            <div>
+              <div v-for="i in 8" :key="i">位{{ i }}</div>
             </div>
-          </el-col>
-          <el-col :span="12" class="target_score_visaul_cont_r">
-            <div class="title">赛段选择</div>
-            <div class="track"></div>
-          </el-col>
-        </el-row>
+          </div>
+        </el-card>
       </el-col>
-      <el-col :offset="1" :span="10" class="target_visual">
-        <div class="info_title">指标参数可视化</div>
-        <div>
-					<chartTopright ref="chartRight"></chartTopright>
-        </div>
+      <el-col :span="12">
+        <el-card>
+          <h3>赛段成绩分析</h3>
+        </el-card>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
-import chartTopright from './../chartView/chartTopright.vue'
-const targetData = [
-  { id: 1, name: '小张', updateTime: '2020-02-02 14:11:11' },
-  { id: 2, name: '小张', updateTime: '2020-02-02 14:11:11' },
-  { id: 3, name: '小张', updateTime: '2020-02-02 14:11:11' },
-  { id: 4, name: '小张', updateTime: '2020-02-02 14:11:11' },
-  { id: 5, name: '小张', updateTime: '2020-02-02 14:11:11' },
-  { id: 6, name: '小张', updateTime: '2020-02-02 14:11:11' },
-  { id: 7, name: '小张', updateTime: '2020-02-02 14:11:11' }
-]
+import chartBomright from './../chartView/chartBomright.vue'
 export default {
   components: {
-    chartTopright
+    chartBomright
   },
   data() {
     return {
       targetData: [],
-      scoreRange: 1
+      scoreRange: 1,
+      series: [
+        {
+          name: '邮件营销',
+          type: 'line',
+          stack: '总量',
+          data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name: '联盟广告',
+          type: 'line',
+          stack: '总量',
+          data: [220, 182, 191, 234, 290, 330, 310]
+        }
+      ],
+      tableData: [
+        {
+          number: '第一圈',
+          number1: {
+            a: 1,
+            b: -1
+          },
+          number2: {
+            a: 1,
+            b: -1
+          },
+          number3: {
+            a: 1,
+            b: -1
+          },
+          number4: {
+            a: 1,
+            b: -1
+          },
+          number5: {
+            a: 1,
+            b: -1
+          },
+          number6: {
+            a: 1,
+            b: -1
+          },
+          number7: {
+            a: 1,
+            b: -1
+          },
+          number8: {
+            a: 1,
+            b: -1
+          }
+        }
+      ]
     }
   },
   mounted() {

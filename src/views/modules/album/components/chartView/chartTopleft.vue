@@ -23,7 +23,7 @@ export default {
       this.option = {
         color: ['#409EFF'],
         title: {
-          text: '血红蛋白',
+          text: '',
           x: 'center'
         },
         tooltip: {

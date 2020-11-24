@@ -64,8 +64,8 @@
               <chartView></chartView>
             </template>
           </el-tab-pane>
-          <el-tab-pane name="target" label="指标生成">
-            <targetView  v-if="tabPane == 'target'"/>
+          <el-tab-pane name="target" label="成绩分析">
+            <targetView v-if="tabPane == 'target'" />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -79,16 +79,16 @@ export default {
     originalView: () => import('./components/originalView'),
     dataView: () => import('./components/dataView'),
     chartView: () => import('./components/chartView'),
-    targetView: () => import('./components/targetView'),
+    targetView: () => import('./components/targetView')
   },
   data() {
-    const generateData = (_) => {
+    const generateData = _ => {
       const data = []
       const cities = ['小明', '小王', '小花']
       cities.forEach((city, index) => {
         data.push({
           label: city,
-          key: index,
+          key: index
         })
       })
       return data
@@ -100,37 +100,37 @@ export default {
       tabPane: 'data',
       // 查询条件
       formQurey: {
-        region: '', // 运动员
+        region: '' // 运动员
       },
       value: '',
       // 选择框
       selectOption: [
         {
           label: '小明',
-          value: 0,
+          value: 0
         },
         {
           label: '小王',
-          value: 1,
+          value: 1
         },
         {
           label: '小花',
-          value: 2,
-        },
+          value: 2
+        }
       ],
       listData: [
         {
           name: '小张',
-          id: 0,
+          id: 0
         },
         {
           name: '小王',
-          id: 1,
-        },
+          id: 1
+        }
       ],
       dataForm: {
-        type: '1',
-      },
+        type: '1'
+      }
     }
   },
   computed: {},
@@ -149,8 +149,8 @@ export default {
     // 粒度
     selectGranularity(e) {
       console.log(e)
-    },
-  },
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
