@@ -56,16 +56,13 @@
           <el-tab-pane name="origina" label="原始数据">
             <originalView />
           </el-tab-pane>
-          <el-tab-pane name="data" label="统计数据">
-            <dataView />
-          </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
             <template v-if="tabPane == 'chart'">
               <chartView></chartView>
             </template>
           </el-tab-pane>
-          <el-tab-pane name="target" label="指标生成">
-            <targetView  v-if="tabPane == 'target'"/>
+          <el-tab-pane name="score" label="成绩分析">
+            <targetView  v-if="tabPane == 'score'"/>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -75,9 +72,8 @@
 <script>
 export default {
   components: {
-    timeSelection: () => import('./../components/timeSelection'),
+    timeSelection: () => import("./../components/timeSelection"),
     originalView: () => import('./components/originalView'),
-    dataView: () => import('./components/dataView'),
     chartView: () => import('./components/chartView'),
     targetView: () => import('./components/targetView'),
   },
@@ -97,7 +93,7 @@ export default {
     return {
       data: generateData(),
       value1: [0],
-      tabPane: 'data',
+      tabPane: 'origina',
       // 查询条件
       formQurey: {
         region: '', // 运动员

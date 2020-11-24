@@ -119,6 +119,7 @@ export default {
         padding: 0 20px 0 10px;
       }
       .el-radio {
+        display: block;
         margin: 6px 0;
       }
     }
