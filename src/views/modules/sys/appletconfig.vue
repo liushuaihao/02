@@ -53,9 +53,6 @@
         </el-form>
         <!--  -->
         <el-tabs type="border-card" v-model="tabPane">
-          <el-tab-pane name="origina" label="原始数据">
-            <originalView />
-          </el-tab-pane>
           <el-tab-pane name="data" label="统计数据">
             <dataView />
           </el-tab-pane>
@@ -77,8 +74,8 @@ export default {
   components: {
     timeSelection: () => import('./../components/timeSelection'),
     originalView: () => import('./components/originalView'),
-    dataView: () => import('./components/dataView'),
-    chartView: () => import('./components/chartView'),
+    dataView: () => import('./components/dataView/index2.vue'),
+    chartView: () => import('./components/chartView/index2.vue'),
     targetView: () => import('./components/targetView'),
   },
   data() {

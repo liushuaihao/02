@@ -61,7 +61,6 @@ export default {
 						itemStyle: {
 							normal: {
 								color: '#ab78ba', //柱状颜色
-								
 								label: {
 									show: false, //柱头数字
 									position: 'top',

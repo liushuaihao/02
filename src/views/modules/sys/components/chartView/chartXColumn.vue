@@ -1,5 +1,5 @@
 <template>
-  <div class="chartTopleft"><chartTemp :option="option"></chartTemp></div>
+  <div class="chartBomleft"><chartTemp :option="option"></chartTemp></div>
 </template>
 
 <script>
@@ -12,7 +12,7 @@ export default {
     return {
       option: {},
       xData: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-      yData: [50, 60, 10, 13, 12, 13, 10]
+      yData: [11, 11, 15, 13, 12, 13, 10]
     }
   },
   mounted() {
@@ -22,10 +22,7 @@ export default {
     getEchartsData() {
       this.option = {
         color: ['#409EFF'],
-        title: {
-          text: '血红蛋白',
-          x: 'center'
-        },
+        title: {},
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -34,26 +31,13 @@ export default {
           }
         },
         grid: {
-          top: '5%',
+          top: '10%',
           left: '3%',
-          right: '10%',
+          right: '3%',
           bottom: '5%',
           containLabel: true
         },
         xAxis: [
-          {
-            type: 'value',
-            axisTick: {
-              alignWithLabel: true,
-              show: false
-            },
-            axisLine: { show: false }, // 坐标轴轴线
-            axisLabel: {
-              formatter: '{value} %'
-            }
-          }
-        ],
-        yAxis: [
           {
             type: 'category',
             data: this.xData,
@@ -63,23 +47,35 @@ export default {
             },
             axisLine: { show: false }, // 坐标轴轴线
             axisLabel: {
-              formatter: '{value}'
+              show: true,
+              interval: 0,
+              formatter: function(name) {
+                return name.length > 4 ? name.slice(0, 4) + '...' : name
+              }
             }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            axisTick: {
+              alignWithLabel: true,
+              show: false
+            },
+            axisLine: { show: false } // 坐标轴轴线
           }
         ],
         series: [
           {
-            name: '%', // 系列名称
             type: 'bar',
-            barWidth: '60%',
+            barWidth: '50px',
             data: this.yData,
             label: {
               // 图形上的文本标签
               show: true,
-              position: 'right', // 标签的位置
+              position: 'top', // 标签的位置
               offset: [0, 0], // 标签文字的偏移，此处表示向上偏移40
-              formatter: '{c}{a}', // 标签内容格式器 {a}-系列名,{b}-数据名,{c}-数据值
-              color: '#666666', // 标签字体颜色
+              color: '#409EFF', // 标签字体颜色
               fontSize: '14px' // 标签字号
             }
           }
@@ -91,7 +87,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chartTopleft {
+.chartBomleft {
   height: 300px;
 }
 </style>
