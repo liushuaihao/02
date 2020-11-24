@@ -33,17 +33,17 @@ export const moduleRoutes = {
   meta: { title: '主入口布局' },
   children: [{ path: '/home', component: () => import('@/views/modules/home'), name: 'home', meta: { title: '首页', isTab: true } },
   {
-    path: '/sys/securityCenter',
+    path: '/sys/1',
     component: () =>
       import('@/views/modules/sys/securityCenter'),
-    name: 'shops',
+    name: '1',
     meta: { title: '经济状态分析', isTab: true }
   },
   {
-    path: '/sys/securityCenter',
+    path: '/sys/2',
     component: () =>
       import('@/views/modules/sys/securityCenter'),
-    name: 'shops',
+    name: '2',
     meta: { title: '运动员表现分析', isTab: true }
   }]
 }

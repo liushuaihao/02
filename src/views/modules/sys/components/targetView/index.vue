@@ -41,11 +41,15 @@
       </el-col>
       <el-col :offset="1" :span="10" class="target_visual">
         <div class="info_title">指标参数可视化</div>
+        <div>
+					<chartTopright ref="chartRight"></chartTopright>
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
+import chartTopright from './../chartView/chartTopright.vue'
 const targetData = [
   { id: 1, name: '小张', updateTime: '2020-02-02 14:11:11' },
   { id: 2, name: '小张', updateTime: '2020-02-02 14:11:11' },
@@ -56,6 +60,9 @@ const targetData = [
   { id: 7, name: '小张', updateTime: '2020-02-02 14:11:11' }
 ]
 export default {
+  components: {
+    chartTopright
+  },
   data() {
     return {
       targetData: [],

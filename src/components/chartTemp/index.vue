@@ -16,7 +16,8 @@
 			<img v-if="icon!=''" :src="icon" alt class="chart-icon-img">
 			<span class="chart-title-text" v-html="title"></span>
 		</div>
-		<div class="chart-body" ref="chartDiv" :style="layout" ></div>
+		<div class="chart-body" ref="chartDiv" 
+        :id="echartsId" :style="layout" ></div>
 		<!-- -->
 	</div>
 </template>
@@ -61,7 +62,8 @@
 		//created () {},
 		mounted() {
 			//console.log(11111, this.option)
-			this.chartDom = this.$refs.chartDiv
+			this.chartDom = document.getElementById(this.echartsId)
+			console.log(this.chartDom)
 			this.chartObj = this.echarts.init(this.chartDom)
 			this.chartObj.on('click', params => {
 				this.itemClick(params)
@@ -71,8 +73,12 @@
 			//添加尺寸改变事件
 			window.addEventListener('resize', this.resizeHanlder)
 		},
-		//watch: {},
-		computed: {},
+		//watch: {},,
+		computed: {
+			echartsId() {
+			return 'echarts' + Math.random() * 100000
+			}
+		},
 		methods: {
 			//刷新图标
 			refresh() {

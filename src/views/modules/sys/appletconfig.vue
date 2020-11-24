@@ -53,16 +53,13 @@
         </el-form>
         <!--  -->
         <el-tabs type="border-card" v-model="tabPane">
-          <el-tab-pane name="origina" label="原始数据">
-            <originalView />
-          </el-tab-pane>
           <el-tab-pane name="data" label="统计数据">
             <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
-			  <template v-if="tabPane == 'chart'"> 
-				<chartView></chartView>
-			  </template>
+            <template v-if="tabPane == 'chart'">
+              <chartView></chartView>
+            </template>
           </el-tab-pane>
           <el-tab-pane name="target" label="指标生成">
             <targetView  v-if="tabPane == 'target'"/>
@@ -75,20 +72,20 @@
 <script>
 export default {
   components: {
-    timeSelection: () => import("./../components/timeSelection"),
-    originalView: () => import("./components/originalView"),
-    dataView: () => import("./components/dataView"),
-    chartView: () => import("./components/chartView"),
-    targetView: () => import("./components/targetView"),
+    timeSelection: () => import('./../components/timeSelection'),
+    originalView: () => import('./components/originalView'),
+    dataView: () => import('./components/dataView/index2.vue'),
+    chartView: () => import('./components/chartView/index2.vue'),
+    targetView: () => import('./components/targetView'),
   },
-  data () {
-    const generateData = _ => {
+  data() {
+    const generateData = (_) => {
       const data = []
       const cities = ['小明', '小王', '小花']
       cities.forEach((city, index) => {
         data.push({
           label: city,
-          key: index
+          key: index,
         })
       })
       return data
@@ -100,57 +97,57 @@ export default {
       tabPane: 'data',
       // 查询条件
       formQurey: {
-        region: '' // 运动员
+        region: '', // 运动员
       },
       value: '',
       // 选择框
       selectOption: [
         {
           label: '小明',
-          value: 0
+          value: 0,
         },
         {
           label: '小王',
-          value: 1
+          value: 1,
         },
         {
           label: '小花',
-          value: 2
-        }
+          value: 2,
+        },
       ],
       listData: [
         {
           name: '小张',
-          id: 0
+          id: 0,
         },
         {
           name: '小王',
-          id: 1
-        }
+          id: 1,
+        },
       ],
       dataForm: {
-        type: '1'
-      }
+        type: '1',
+      },
     }
   },
   computed: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   methods: {
     // 时间范围
-    datePicker (e) {
+    datePicker(e) {
       this.$set(this.dataForm, 'end_time', e.end_time)
       this.$set(this.dataForm, 'start_time', e.start_time)
     },
     //
-    handleChange (value, direction, movedKeys) {
+    handleChange(value, direction, movedKeys) {
       console.log(value, direction, movedKeys)
     },
     // 粒度
-    selectGranularity (e) {
+    selectGranularity(e) {
       console.log(e)
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
