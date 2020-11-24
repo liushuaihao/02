@@ -8,6 +8,12 @@ export default {
   components: {
     chartTemp
   },
+  props: {
+    title: {
+      type: [String],
+      default: ''
+    }
+  },
   data() {
     return {
       option: {},
@@ -22,7 +28,7 @@ export default {
     getEchartsData() {
       this.option = {
         title: {
-          text: '血红蛋白',
+          text: this.title,
           x: 'center'
         },
         tooltip: {

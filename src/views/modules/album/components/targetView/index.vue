@@ -5,17 +5,40 @@
         <el-card>
           <h3>速度策略分析</h3>
           <chartBomright title="全程速度" :series="series" ref="chartBomright"></chartBomright>
-
-          <div>
-            <div>
-              <div v-for="i in 8" :key="i">位{{ i }}</div>
-            </div>
-          </div>
+          <el-card style="margin-top:20px">
+            <el-row :gutter="10" class="row-item" v-for="item in 4" :key="item">
+              <el-col :span="4">第{{ item }}圈</el-col>
+              <el-col :span="20">
+                <div>
+                  <div class="flex-item">
+                    <div></div>
+                    <div v-for="i in 8" :key="i">位{{ i }}</div>
+                  </div>
+                  <div class="flex-item">
+                    <div>同比</div>
+                    <div v-for="i in 8" :class="i % 2 ? 'color1' : 'color2'" :key="i">1</div>
+                  </div>
+                  <div class="flex-item">
+                    <div>环比</div>
+                    <div v-for="i in 8" :class="i % 3 ? 'color1' : 'color2'" :key="i">1</div>
+                  </div>
+                </div>
+              </el-col>
+            </el-row>
+          </el-card>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card>
           <h3>赛段成绩分析</h3>
+          <p>
+            <el-radio class="radio" v-model="raceType" :label="1">全场分析</el-radio>
+            <el-radio class="radio" v-model="raceType" :label="2">赛段分析</el-radio>
+          </p>
+          <p>成绩变化</p>
+          <chartXColumn ref="chartXColumn"></chartXColumn>
+          <p>综合排名</p>
+          <chartTopleft ref="chartTopleft"></chartTopleft>
         </el-card>
       </el-col>
     </el-row>
@@ -23,12 +46,17 @@
 </template>
 <script>
 import chartBomright from './../chartView/chartBomright.vue'
+import chartTopleft from './../chartView/chartTopleft.vue'
+import chartXColumn from './../chartView/chartXColumn.vue'
 export default {
   components: {
-    chartBomright
+    chartBomright,
+    chartXColumn,
+    chartTopleft
   },
   data() {
     return {
+      raceType: 1,
       targetData: [],
       scoreRange: 1,
       series: [
@@ -151,5 +179,25 @@ export default {
       height: 180px;
     }
   }
+}
+.flex-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+  div {
+    flex: 1;
+    line-height: 25px;
+  }
+}
+.row-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.color1 {
+  color: green;
+}
+.color2 {
+  color: red;
 }
 </style>

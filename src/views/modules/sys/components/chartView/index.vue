@@ -3,19 +3,16 @@
     <div class="chartbox">
       <el-row>
         <el-col :span="12" class="col">
-          <chartTopleft ref="chartTopleft"></chartTopleft>
+          <chartLine title="体重" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine ref="chartBomleft"></chartLine>
+          <chartLine title="体脂" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartTopright ref="chartTopright"></chartTopright>
+          <chartLine title="血红蛋白" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartBomright ref="chartBomright"></chartBomright>
-        </el-col>
-        <el-col :span="12" class="col">
-          <chartXColumn ref="chartXColumn"></chartXColumn>
+          <chartLine title="血尿素指数" ref="chartBomleft"></chartLine>
         </el-col>
       </el-row>
     </div>
