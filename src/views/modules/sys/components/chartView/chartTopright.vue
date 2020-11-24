@@ -57,7 +57,7 @@ export default {
 					{
 						name: '测试',
 						type: 'bar',
-						barWidth :40,//柱图宽度
+						barWidth :20,//柱图宽度
 						itemStyle: {
 							normal: {
 								color: '#ab78ba', //柱状颜色
