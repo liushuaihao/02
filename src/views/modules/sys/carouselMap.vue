@@ -36,9 +36,9 @@
           </el-form-item>
         </el-form>
         <el-row>
-          <el-col :span="8"><chartTopright /></el-col>
-          <el-col :span="8"><chartTopright /></el-col>
-          <el-col :span="8"><chartTopright /></el-col>
+          <el-col :span="8"><chartTopright v-if="isPage"/></el-col>
+          <el-col :span="8"><chartTopright v-if="isPage"/></el-col>
+          <el-col :span="8"><chartTopright v-if="isPage"/></el-col>
         </el-row>
       </el-card>
       <el-row :gutter="20">
@@ -55,7 +55,7 @@
         <el-col :span="13">
           <el-card>
             <h4>状态评估结果</h4>
-            最佳状态34%<el-progress :percentage="34" status="success"></el-progress> 次优状态35%<el-progress :percentage="35" status="warning"></el-progress> 较差状态20%<el-progress :percentage="20" status="exception"></el-progress>
+            <p>最佳状态34%<el-progress :percentage="34" status="success"></el-progress> 次优状态35%<el-progress :percentage="35" status="warning"></el-progress> 较差状态20%<el-progress :percentage="20" status="exception"></el-progress></p>
             <el-form :inline="true" :model="formInline" class="demo-form-inline">
               <el-form-item label="整体竞技状态情况">
                 <el-button type="warning">良好</el-button>
@@ -67,14 +67,16 @@
                 </el-select>
               </el-form-item>
               <el-form-item label="关联比赛">
-                <el-tag type="success">成绩优秀</el-tag>
-                <el-tag type="warning">成绩良好</el-tag>
-                <el-tag type="danger">成绩不佳</el-tag>
+                <el-row :gutter="10">
+                  <el-col :span="8"><el-tag type="success">成绩优秀</el-tag></el-col>
+                  <el-col :span="8"><el-tag type="warning">成绩良好</el-tag></el-col>
+                  <el-col :span="8"><el-tag type="danger">成绩不佳</el-tag></el-col>
+                </el-row>
               </el-form-item>
             </el-form>
             <el-row :gutter="10" style="margin-bottom:20px">
               <el-col :span="12">
-                成绩明细
+                <p>成绩明细</p>
                 <el-card>
                   <p>全程成绩</p>
                   <p>最高速度</p>
@@ -83,7 +85,7 @@
                 </el-card>
               </el-col>
               <el-col :span="12">
-                当时状态
+                <p>当时状态</p>
                 <el-card>
                   <p>最高心率</p>
                   <p>血红蛋白</p>
@@ -162,12 +164,17 @@ export default {
           b: '20%',
           c: '10:11:20 - 10:12:30'
         }
-      ]
+      ],
+      isPage: true
     }
   },
   computed: {},
   created() {},
   mounted() {},
+  activated() {
+    this.isPage = false
+    this.isPage = true
+  },
   methods: {
     handleCheckedCitiesChange(value) {},
     format(percentage) {
