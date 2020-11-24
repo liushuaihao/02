@@ -25,8 +25,8 @@
           </template>
         </el-table-column>
       </el-table>
-      <ChartLine v-if="!showTrack" ref="chartBomleft"></ChartLine>
-      <ChartBomRight v-else ref="chartBomright"></ChartBomRight>
+      <ChartLine v-if="!showTrack" title="比赛成绩" ref="chartBomleft"></ChartLine>
+      <ChartBomRight v-else title="比赛成绩" ref="chartBomright"></ChartBomRight>
     </div>
   </div>
 </template>
