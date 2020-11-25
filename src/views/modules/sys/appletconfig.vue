@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerCard/>
+		<headerCard />
 		<el-card>
 			<div class="securityCenter">
 				<h3>分析阶段</h3>
@@ -25,7 +25,7 @@
 <script>
 	export default {
 		components: {
-            headerCard: () => import("./../components/headerCard"),
+			headerCard: () => import("./../components/headerCard"),
 			originalView: () => import('./../components/originalView'),
 			dataView: () => import('./../components/dataView/index2.vue'),
 			chartView: () => import('./../components/chartView/index2.vue'),
