@@ -53,24 +53,6 @@ export const moduleRoutes = {
 				title: '首页',
 				isTab: true
 			}
-		},
-		{
-			path: '/sys/1',
-			component: () => import('@/views/modules/sys/securityCenter'),
-			name: '1',
-			meta: {
-				title: '经济状态分析',
-				isTab: true
-			}
-		},
-		{
-			path: '/sys/2',
-			component: () => import('@/views/modules/sys/personalData'),
-			name: '2',
-			meta: {
-				title: '运动员表现分析',
-				isTab: true
-			}
 		}
 	]
 }
