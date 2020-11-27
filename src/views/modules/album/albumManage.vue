@@ -1,117 +1,119 @@
 <template>
-	<div>
-		<headerCard />
-		<el-card>
-			<div class="securityCenter">
-				<h3>分析阶段</h3>
-				<el-tabs type="border-card" v-model="tabPane">
-					<el-tab-pane name="origina" label="原始数据">
-						<originalView />
-					</el-tab-pane>
-					<el-tab-pane name="chart" label="图表显示">
-						<template v-if="tabPane == 'chart'">
-							<chartView></chartView>
-						</template>
-					</el-tab-pane>
-					<el-tab-pane name="score" label="成绩分析">
-						<targetView v-if="tabPane == 'score'" />
-					</el-tab-pane>
-				</el-tabs>
-			</div>
-		</el-card>
-	</div>
+  <div>
+    <headerCard />
+    <el-card>
+      <div class="securityCenter">
+        <h3>分析阶段</h3>
+        <el-tabs type="border-card" v-model="tabPane">
+          <el-tab-pane name="origina" label="原始数据">
+            <originalView />
+          </el-tab-pane>
+          <el-tab-pane name="chart" label="图表显示">
+            <template v-if="tabPane == 'chart'">
+              <chartView></chartView>
+            </template>
+          </el-tab-pane>
+          <el-tab-pane name="score" label="成绩分析">
+            <targetView v-if="tabPane == 'score'" />
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+    </el-card>
+  </div>
 </template>
 <script>
-	export default {
-		components: {
-			headerCard: () => import("./../components/headerCard"),
-			originalView: () => import('./../components/originalView/index3'),
-			chartView: () => import('./../components/chartView/index3'),
-			targetView: () => import('./../components/targetView/index3')
-		},
-		data() {
-			const generateData = _ => {
-				const data = []
-				const cities = ['小明', '小王', '小花']
-				cities.forEach((city, index) => {
-					data.push({
-						label: city,
-						key: index
-					})
-				})
-				return data
-			}
+export default {
+  components: {
+    headerCard: () => import('./../components/headerCard'),
+    originalView: () => import('./../components/originalView/index3'),
+    chartView: () => import('./../components/chartView/index3'),
+    targetView: () => import('./../components/targetView/index3'),
+  },
+  data() {
+    const generateData = (_) => {
+      const data = []
+      const cities = ['小明', '小王', '小花']
+      cities.forEach((city, index) => {
+        data.push({
+          label: city,
+          key: index,
+        })
+      })
+      return data
+    }
 
-			return {
-				data: generateData(),
-				value1: [0],
-				tabPane: 'origina',
-				// 查询条件
-				formQurey: {
-					region: '' // 运动员
-				},
-				value: '',
-				// 选择框
-				selectOption: [{
-						label: '小明',
-						value: 0
-					},
-					{
-						label: '小王',
-						value: 1
-					},
-					{
-						label: '小花',
-						value: 2
-					}
-				],
-				listData: [{
-						name: '小张',
-						id: 0
-					},
-					{
-						name: '小王',
-						id: 1
-					}
-				],
-				dataForm: {
-					type: '1'
-				}
-			}
-		},
-		computed: {},
-		created() {},
-		mounted() {},
-		methods: {
-			// 时间范围
-			datePicker(e) {
-				this.$set(this.dataForm, 'end_time', e.end_time)
-				this.$set(this.dataForm, 'start_time', e.start_time)
-			},
-			//
-			handleChange(value, direction, movedKeys) {
-				console.log(value, direction, movedKeys)
-			},
-			// 粒度
-			selectGranularity(e) {
-				console.log(e)
-			}
-		}
-	}
+    return {
+      data: generateData(),
+      value1: [0],
+      tabPane: 'origina',
+      // 查询条件
+      formQurey: {
+        region: '', // 运动员
+      },
+      value: '',
+      // 选择框
+      selectOption: [
+        {
+          label: '小明',
+          value: 0,
+        },
+        {
+          label: '小王',
+          value: 1,
+        },
+        {
+          label: '小花',
+          value: 2,
+        },
+      ],
+      listData: [
+        {
+          name: '小张',
+          id: 0,
+        },
+        {
+          name: '小王',
+          id: 1,
+        },
+      ],
+      dataForm: {
+        type: '1',
+      },
+    }
+  },
+  computed: {},
+  created() {},
+  mounted() {},
+  methods: {
+    // 时间范围
+    datePicker(e) {
+      this.$set(this.dataForm, 'end_time', e.end_time)
+      this.$set(this.dataForm, 'start_time', e.start_time)
+    },
+    //
+    handleChange(value, direction, movedKeys) {
+      console.log(value, direction, movedKeys)
+    },
+    // 粒度
+    selectGranularity(e) {
+      console.log(e)
+    },
+  },
+}
 </script>
 <style lang="scss" scoped>
-	.securityCenter {
-		width: 100%;
-		height: auto;
+.securityCenter {
+  width: 100%;
+  height: auto;
 
-		// background-color:#fff;
-		.col {
-			padding-bottom: 5px;
-			font-weight: 500;
-		}
+  // background-color:#fff;
+  .col {
+    padding-bottom: 5px;
+    font-weight: 500;
+  }
 
-		.form {
-			padding: 10px 0;
-		}
-	}
+  .form {
+    padding: 10px 0;
+  }
+}
 </style>
