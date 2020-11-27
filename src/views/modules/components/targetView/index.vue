@@ -50,8 +50,14 @@
 					</el-form-item>
 				</el-form>
 				<div>
-					<chartTopright ref="chartRight"></chartTopright>
+					<chartTopright ref="chartRight" :bDatap="bDatap"></chartTopright>
 				</div>
+			</el-col>
+			<el-col :span="24">
+				<el-row :gutter="20" class="flex">
+					<el-col :span="5"><el-button>生成指标</el-button></el-col>
+					<el-col :span="5"><el-checkbox v-model="checked1" label="指标可视化" border></el-checkbox></el-col>
+				</el-row>
 			</el-col>
 		</el-row>
 	</div>
@@ -104,7 +110,29 @@
 				checkedCities:[],
 				cities: citiess,
 				targetData: [],
-				scoreRange: 1
+				scoreRange: 1,
+				checked1: false,
+				bDatap:[0,0,100,0,0,0,0],
+				bar:[
+					{
+						name:'血红蛋白',
+						value:20
+					},{
+						name:'血睾酮',
+						value:30
+					},{
+						name:'血尿素',
+						value:20
+					},{
+						name:'体质',
+						value:10
+					}
+				]
+			}
+		},
+		watch:{
+			checked1(a){
+				this.bDatap= a ? [0,0,100,0,0,0,0] : []
 			}
 		},
 		mounted() {
@@ -187,5 +215,10 @@
 				height: 180px;
 			}
 		}
+	}
+	.flex{
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>
