@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerCard />
+    <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" />
     <el-card>
       <div class="securityCenter">
         <h3>分析阶段</h3>
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { getPlayerListByProject } from '@/api/project'
+import { getPlayerListByProject, getProjectList } from '@/api/project'
 export default {
   components: {
     headerCard: () => import('./../components/headerCard'),
@@ -57,31 +57,8 @@ export default {
         region: '' // 运动员
       },
       value: '',
-      // 选择框
-      selectOption: [
-        {
-          label: '小明',
-          value: 0
-        },
-        {
-          label: '小王',
-          value: 1
-        },
-        {
-          label: '小花',
-          value: 2
-        }
-      ],
-      listData: [
-        {
-          name: '小张',
-          id: 0
-        },
-        {
-          name: '小王',
-          id: 1
-        }
-      ],
+      typeList: [],
+      athleteList: [],
       dataForm: {
         type: '1'
       }
@@ -89,12 +66,19 @@ export default {
   },
   computed: {},
   created() {
-    getPlayerListByProject({ projectid: 0 }).then(res => {
-      console.log(res)
+    getProjectList({}).then(({ data: res }) => {
+      this.typeList = res.data
     })
+    //
   },
   mounted() {},
   methods: {
+    // 选择运动员
+    getPlayerListByProject(id) {
+      getPlayerListByProject({ projectid: id }).then(({ data: res }) => {
+        this.athleteList = res.data
+      })
+    },
     // 时间范围
     datePicker(e) {
       this.$set(this.dataForm, 'end_time', e.end_time)
@@ -106,6 +90,10 @@ export default {
     },
     // 粒度
     selectGranularity(e) {
+      console.log(e)
+    },
+    // 查询
+    submit(e) {
       console.log(e)
     }
   }

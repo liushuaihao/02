@@ -70,8 +70,8 @@ export default {
       this.$emit("getData", {
         end_time: end_time,
         start_time: start_time,
-        endTime: this.dataForm.endTime + " 00:00:00",
-        startTime: this.dataForm.startTime + " 23:59:59",
+        endTime: this.dataForm.endTime + "00:00:00",
+        startTime: this.dataForm.startTime + "23:59:59",
       });
     },
     timeParse(tiem) {
