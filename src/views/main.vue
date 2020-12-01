@@ -48,7 +48,7 @@ export default {
     this.routeHandle(this.$route)
     Promise.all([
       this.getUserInfo(),
-      this.getPermissions()
+      // this.getPermissions()
     ]).then(() => {
       this.loading = false
     })

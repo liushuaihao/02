@@ -99,36 +99,36 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-	console.log(router.options.routes)
+	// console.log(router.options.routes)
 	// 添加动态(菜单)路由
 	// 已添加或者当前路由为页面路由, 可直接访问
 	if (window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] || fnCurrentRouteIsPageRoute(to, pageRoutes)) {
 		return next()
 	}
 	// 获取字典列表, 添加并全局变量保存
-	http
-		.get('/sys/dict/type/all')
-		.then(({
-			data: res
-		}) => {
-			if (res.code !== 0) {
-				return
-			}
-			window.SITE_CONFIG['dictList'] = res.data
-		})
-		.catch(() => {})
-	// 获取菜单列表, 添加并全局变量保存
-	http
-		.get('/sys/menu/nav')
-		.then(({
-			data: res
-		}) => {
-			if (res.code !== 0) {
-				Vue.prototype.$message.error(res.msg)
-				return next({
-					name: 'login'
-				})
-			}
+	// http
+	// 	.get('/sys/dict/type/all')
+	// 	.then(({
+	// 		data: res
+	// 	}) => {
+	// 		if (res.code !== 0) {
+	// 			return
+	// 		}
+	// 		window.SITE_CONFIG['dictList'] = res.data
+	// 	})
+	// 	.catch(() => {})
+	// // 获取菜单列表, 添加并全局变量保存
+	// http
+	// 	.get('/sys/menu/nav')
+	// 	.then(({
+	// 		data: res
+	// 	}) => {
+	// 		if (res.code !== 0) {
+	// 			Vue.prototype.$message.error(res.msg)
+	// 			return next({
+	// 				name: 'login'
+	// 			})
+	// 		}
 			let nav = [
 				{
 					id: "1158267114314842122",
@@ -167,12 +167,12 @@ router.beforeEach((to, from, next) => {
 			next({ ...to,
 				replace: true
 			})
-		})
-		.catch(() => {
-			next({
-				name: 'login'
-			})
-		})
+		// })
+		// .catch(() => {
+		// 	next({
+		// 		name: 'login'
+		// 	})
+		// })
 })
 
 /**

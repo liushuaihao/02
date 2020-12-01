@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerCard/>
+    <headerCard />
     <el-card>
       <div class="securityCenter">
         <h3>分析阶段</h3>
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+import { getPlayerListByProject } from '@/api/project'
 export default {
   components: {
     headerCard: () => import('./../components/headerCard'),
@@ -87,7 +88,11 @@ export default {
     }
   },
   computed: {},
-  created() {},
+  created() {
+    getPlayerListByProject({ projectid: 0 }).then(res => {
+      console.log(res)
+    })
+  },
   mounted() {},
   methods: {
     // 时间范围
