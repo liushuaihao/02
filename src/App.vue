@@ -5,25 +5,25 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
-import { messages } from '@/i18n'
+import Cookies from 'js-cookie';
+import { messages } from '@/i18n';
 export default {
   watch: {
-    '$i18n.locale': 'i18nHandle'
+    '$i18n.locale': 'i18nHandle',
   },
-  created () {
-    this.i18nHandle(this.$i18n.locale)
+  created() {
+    this.i18nHandle(this.$i18n.locale);
   },
   methods: {
-    i18nHandle (val, oldVal) {
-      Cookies.set('language', val)
-      document.querySelector('html').setAttribute('lang', val)
-      document.title = messages[val].brand.lg
+    i18nHandle(val, oldVal) {
+      Cookies.set('language', val);
+      document.querySelector('html').setAttribute('lang', val);
+      document.title = messages[val].brand.lg;
       // 非登录页面，切换语言刷新页面
       if (this.$route.name !== 'login' && oldVal) {
-        window.location.reload()
+        window.location.reload();
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

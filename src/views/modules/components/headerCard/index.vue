@@ -34,9 +34,9 @@
     </div>
     <el-form class="el-form--inline">
       <el-form-item label="基本参数:">
-        <el-card>
-          <div>身高：</div>
-          <div>体重：</div>
+        <el-card v-if="athleteInfo !== {}">
+          <div>身高：{{ athleteInfo }}</div>
+          <div>体重：{{ athlateInfo }}</div>
           <div>近半年最佳成绩：</div>
           <div>近半年成绩排名：</div>
           <div>近半年训练强度：</div>
@@ -63,6 +63,10 @@ export default {
     athleteList: {
       type: [Array],
       defalut: () => []
+    },
+    athleteInfo: {
+      type: [Object],
+      default: () => {}
     }
   },
   data() {
@@ -91,7 +95,9 @@ export default {
   },
   computed: {},
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(1111,this)
+  },
   methods: {
     // 监听 运动员类型
     changeType(e) {

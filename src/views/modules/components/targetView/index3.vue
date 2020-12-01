@@ -54,7 +54,7 @@ export default {
     chartXColumn,
     chartTopleft
   },
-  data() {
+  data () {
     return {
       raceType: 1,
       targetData: [],
@@ -112,8 +112,7 @@ export default {
       ]
     }
   },
-  mounted() {
-    this.targetData = targetData
+  mounted () {
   }
 }
 </script>
