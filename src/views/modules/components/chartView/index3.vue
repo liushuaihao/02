@@ -1,11 +1,11 @@
 <template>
   <div class="chart_cont">
-    <p>
-      <el-radio class="radio" v-model="raceType" :label="1">单人多场速度对比</el-radio>
-      <el-radio class="radio" v-model="raceType" :label="2">多人单场速度对比</el-radio>
-    </p>
     <div class="chart_info">
       <el-form class="el-form--inline">
+        <el-form-item style="margin-right:50px">
+          <el-radio class="radio" v-model="raceType" :label="1">单人多场速度对比</el-radio>
+          <el-radio class="radio" v-model="raceType" :label="2">多人单场速度对比</el-radio>
+        </el-form-item>
         <el-form-item v-if="!showTrack" label="运动员选择">
           <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>

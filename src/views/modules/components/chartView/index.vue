@@ -20,17 +20,9 @@
 </template>
 <script>
 import chartLine from './chartLine.vue'
-import chartTopright from './chartTopright.vue'
-import chartTopleft from './chartTopleft.vue'
-import chartBomright from './chartBomright.vue'
-import chartXColumn from './chartXColumn.vue'
 export default {
   components: {
-    chartLine,
-    chartTopleft,
-    chartBomright,
-    chartTopright,
-    chartXColumn
+    chartLine
   },
   data() {
     return {
