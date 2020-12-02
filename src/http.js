@@ -60,7 +60,7 @@ http.interceptors.response.use(
       router.replace({ name: 'login' })
       return Promise.reject(response.data.msg)
     }
-    return response
+    return response.data
   },
   error => {
     console.error(error)
