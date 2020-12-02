@@ -42,8 +42,8 @@ export default {
           value: 3
         }
       ],
-      tableData: [
-        {
+      tableData: {
+        a: {
           id: 0,
           mean: '1',
           max: '2',
@@ -52,7 +52,7 @@ export default {
           median: '2',
           name: '王小虎'
         },
-        {
+        b: {
           id: 1,
           mean: '1',
           max: '2',
@@ -61,7 +61,7 @@ export default {
           median: '2',
           name: '王小虎'
         },
-        {
+        c: {
           id: 2,
           mean: '1',
           max: '2',
@@ -70,7 +70,7 @@ export default {
           median: '2',
           name: '王小虎'
         },
-        {
+        d: {
           id: 3,
           mean: '1',
           max: '2',
@@ -79,7 +79,7 @@ export default {
           median: '2',
           name: '王小虎'
         }
-      ]
+      }
     }
   }
 }

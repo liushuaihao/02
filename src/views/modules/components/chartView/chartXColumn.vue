@@ -8,6 +8,12 @@ export default {
   components: {
     chartTemp
   },
+  props: {
+    title: {
+      type: [String],
+      default: ''
+    }
+  },
   data() {
     return {
       option: {},
@@ -23,7 +29,8 @@ export default {
       this.option = {
         color: ['#409EFF'],
         title: {
-          
+          text: this.title,
+          x: 'center'
         },
         tooltip: {
           trigger: 'axis',

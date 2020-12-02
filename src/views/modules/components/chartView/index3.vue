@@ -1,73 +1,152 @@
 <template>
   <div class="chart_cont">
     <p>
-      <el-radio class="radio" v-model="raceType" :label="1">全场分析</el-radio>
-      <el-radio class="radio" v-model="raceType" :label="2">赛段分析</el-radio>
+      <el-radio class="radio" v-model="raceType" :label="1">单人多场速度对比</el-radio>
+      <el-radio class="radio" v-model="raceType" :label="2">多人单场速度对比</el-radio>
     </p>
     <div class="chart_info">
       <el-form class="el-form--inline">
-        <el-form-item label="圈数选择">
-          <el-select v-model="value2" multiple collapse-tags style="margin-left: 20px;" placeholder="请选择"> <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option> </el-select>
+        <el-form-item v-if="!showTrack" label="运动员选择">
+          <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item v-else label="比赛场次选择">
+          <el-select v-model="value3" clearable style="margin-left: 20px;" placeholder="请选择">
+            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
-
-      <el-table :data="tableData" style="width: 100%" align="center">
-        <el-table-column prop="drillTime" label="训练时间" min-width="140"> </el-table-column>
+      <!-- 1 -->
+      <el-table v-if="!showTrack" :data="tableData" style="width: 100%;margin-bottom:20px">
+        <el-table-column prop="drillTime" label="比赛场次" min-width="140"> </el-table-column>
         <el-table-column prop="mean" label="均值 " min-width="100"> </el-table-column>
         <el-table-column prop="max" label="最快 " min-width="100"> </el-table-column>
         <el-table-column prop="min" label="最慢 " min-width="100"> </el-table-column>
         <el-table-column prop="std" label="标准差 " min-width="100"> </el-table-column>
-        <el-table-column prop="median" label="中位数 " min-width="100"> </el-table-column>
-        <el-table-column prop="skewness" label="偏度 " min-width="100"> </el-table-column>
-        <el-table-column prop="isTrue" label="是否为真实比赛" min-width="100">
-          <template slot-scope="scope">
-            {{ scope.row.isTrue === 1 ? '是' : '否' }}
-          </template>
-        </el-table-column>
       </el-table>
-      <ChartLine v-if="!showTrack" title="比赛成绩" ref="chartBomleft"></ChartLine>
-      <ChartBomRight v-else title="比赛成绩" ref="chartBomright"></ChartBomRight>
+      <!-- 2 -->
+      <el-table v-else :data="tableData2" style="width: 100%;margin-bottom:20px">
+        <el-table-column prop="name" label="运动员姓名" min-width="140"> </el-table-column>
+        <el-table-column prop="mean" label="均值 " min-width="100"> </el-table-column>
+        <el-table-column prop="max" label="最快 " min-width="100"> </el-table-column>
+        <el-table-column prop="min" label="最慢 " min-width="100"> </el-table-column>
+        <el-table-column prop="std" label="标准差 " min-width="100"> </el-table-column>
+      </el-table>
+      <Chart1 v-if="!showTrack" :legendData="legendData1" :seriesData="seriesData1" title="速度变化曲线" ref="chartBomright"></Chart1>
+      <Chart2 v-else :legendData="legendData2" :seriesData="seriesData2" title="速度变化曲线" ref="chartBomright2"></Chart2>
     </div>
   </div>
 </template>
 <script>
 export default {
   components: {
-    ChartLine: () => import('./chartLine'),
-    ChartBomRight: () => import('./chartBomright')
+    Chart1: () => import('./chartBomright'),
+    Chart2: () => import('./chartBomright')
   },
   data() {
     return {
+      legendData1: ['场次1', '场次2', '场次3', '场次4'],
+      legendData2: ['王小虎', '李小芳', '张大壮', '赵大强'],
+      seriesData1: [
+        {
+          name: '场次1',
+          type: 'line',
+          data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name: '场次2',
+          type: 'line',
+          data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name: '场次3',
+          type: 'line',
+          data: [150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+          name: '场次4',
+          type: 'line',
+          data: [200, 10, 300, 20, 90, 50, 300]
+        }
+      ],
+      seriesData2: [
+        {
+          name: '王小虎',
+          type: 'line',
+          data: [10, 20, 30, 134, 90, 230, 210]
+        },
+        {
+          name: '李小芳',
+          type: 'line',
+          data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name: '张大壮',
+          type: 'line',
+          data: [150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+          name: '赵大强',
+          type: 'line',
+          data: [200, 10, 300, 20, 90, 50, 300]
+        }
+      ],
       raceType: 1,
       options: [
         {
           value: '选项1',
-          label: '第一圈'
+          label: '王小虎'
         },
         {
           value: '选项2',
-          label: '第二圈'
+          label: '李小芳'
         },
         {
           value: '选项3',
-          label: '第三圈'
+          label: '张大壮'
         },
         {
           value: '选项4',
-          label: '第四圈'
+          label: '赵大强'
+        }
+      ],
+      options2: [
+        {
+          value: '选项1',
+          label: '2020年11月11日1场'
+        },
+        {
+          value: '选项2',
+          label: '2020年11月11日2场'
+        },
+        {
+          value: '选项3',
+          label: '2020年11月11日3场'
+        },
+        {
+          value: '选项4',
+          label: '2020年11月11日4场'
         },
         {
           value: '选项5',
-          label: '第五圈'
+          label: '2020年11月11日5场'
         }
       ],
-      value2: [],
+      value2: '',
+      value3: '',
       tableData: [
-        { id: 1, drillTime: '第几圈', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 },
-        { id: 2, drillTime: '第几圈', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 },
-        { id: 3, drillTime: '第几圈', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 0 },
-        { id: 4, drillTime: '第几圈', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 0 },
-        { id: 5, drillTime: '第几圈', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 }
+        { id: 1, drillTime: '2020年11月11日1场', mean: '2', max: '3', min: '3', std: '1' },
+        { id: 2, drillTime: '2020年11月11日2场', mean: '2', max: '3', min: '3', std: '1' },
+        { id: 3, drillTime: '2020年11月11日3场', mean: '2', max: '3', min: '3', std: '1' },
+        { id: 4, drillTime: '2020年11月11日4场', mean: '2', max: '3', min: '3', std: '1' },
+        { id: 5, drillTime: '2020年11月11日5场', mean: '2', max: '3', min: '3', std: '1' }
+      ],
+      tableData2: [
+        { id: 1, name: '王小虎', mean: '22', max: '37', min: '3', std: '1' },
+        { id: 2, name: '李小芳', mean: '27', max: '35', min: '3', std: '1' },
+        { id: 3, name: '张大壮', mean: '2', max: '35', min: '3', std: '1' },
+        { id: 4, name: '赵大强', mean: '2', max: '35', min: '3', std: '1' }
       ],
       showTrack: false // 显示跑道
     }

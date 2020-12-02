@@ -2,10 +2,10 @@
   <el-card>
     <div class="securityCenter">
       <!-- 头部 -->
-      <h3>分析运动员</h3>
+      <h3>数据查询</h3>
       <!-- 表单部分 -->
       <p>
-        <el-form class="el-form--inline" :model="formQurey" size="small">
+        <el-form  class="el-form--inline" :model="formQurey" size="small">
           <el-form-item label="运动类型:">
             <el-select v-model="formQurey.projectid" @change="changeType" placeholder="请选择">
               <el-option :label="item.projectName" :value="item.id" :key="item.id" v-for="item in typeList"> </el-option>
@@ -16,6 +16,18 @@
               <el-option :label="item.name" :value="item.playerid" :key="item.playerid" v-for="item in athleteList"> </el-option>
             </el-select>
           </el-form-item>
+          <br />
+          <el-form-item label="成绩范围:">
+            <el-select v-model="formQurey.cj" @change="changeType" placeholder="请选择">
+              <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in cjList"> </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="体能范围:">
+            <el-select v-model="formQurey.tn" placeholder="请选择">
+              <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in tnList"> </el-option>
+            </el-select>
+          </el-form-item>
+          <br />
           <el-form-item label="时间范围:">
             <time-selection @getData="datePicker" />
           </el-form-item>
@@ -25,9 +37,6 @@
               <el-option label="周" value="2"></el-option>
               <el-option label="月" value="3"></el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button @click="submit">查询</el-button>
           </el-form-item>
         </el-form>
       </p>
@@ -44,9 +53,12 @@
         </el-card>
       </el-form-item>
       <el-form-item>
-        <el-transfer :titles="['运动员', '合格运动员']" v-model="value1" :data="data" filterable filter-placeholder="请输入运动员名称" @change="handleChange"> </el-transfer>
+        <el-transfer :titles="['备选运动员', '分析运动员']" v-model="value1" :data="data" filterable filter-placeholder="请输入运动员名称" @change="handleChange"> </el-transfer>
       </el-form-item>
     </el-form>
+    <p style="overflow:hidden">
+      <el-button style="float:right" size="medium" @click="submit">查询/加载</el-button>
+    </p>
   </el-card>
 </template>
 
@@ -67,10 +79,7 @@ export default {
     athlateInfo: {
       type: [Object],
       default: () => {
-        return {
-          height: '1',
-          weight: '1'
-        }
+        return {}
       }
     }
   },
@@ -89,8 +98,35 @@ export default {
 
     return {
       data: generateData(),
+      cjList: [
+        {
+          name: '前10%',
+          id: 0
+        },
+        {
+          name: '前20%',
+          id: 1
+        },
+        {
+          name: '前30%',
+          id: 2
+        }
+      ],
+      tnList: [
+        {
+          name: '前10%',
+          id: 0
+        },
+        {
+          name: '前20%',
+          id: 1
+        },
+        {
+          name: '前30%',
+          id: 2
+        }
+      ],
       value1: [0],
-      tabPane: 'data',
       // 查询条件
       formQurey: {
         projectid: '', // 运动员类型

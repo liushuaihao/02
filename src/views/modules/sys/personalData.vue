@@ -27,6 +27,7 @@
 </template>
 <script>
 import { getPlayerListByProject, getProjectList } from '@/api/project'
+import { basicInfo, biophysInfo } from '@/api/athlete.js'
 export default {
   components: {
     headerCard: () => import('./../components/headerCard'),
@@ -95,6 +96,15 @@ export default {
     // 查询
     submit(e) {
       console.log(e)
+      basicInfo({ athleteid: 1 }).then(res => {
+        console.log(res)
+        this.athlateInfo = res
+      })
+      biophysInfo({ athletes: [1, 2, 3], 'start-date': '2019-11-01 00:00:00', 'stop-date': '2020-01-01 00:00:00' }).then(res => {
+        console.log(res)
+        //census-data
+        //origin-data
+      })
     }
   }
 }

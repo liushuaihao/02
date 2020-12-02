@@ -8,10 +8,16 @@ export default {
   components: {
     chartTemp
   },
+  props: {
+    title: {
+      type: [String],
+      default: ''
+    }
+  },
   data() {
     return {
       option: {},
-      xData: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      xData: ['20201101', '20201102', '20201103', '20201104', '20201105', '20201106', '20201107'],
       yData: [50, 60, 10, 13, 12, 13, 10]
     }
   },
@@ -23,7 +29,7 @@ export default {
       this.option = {
         color: ['#409EFF'],
         title: {
-          text: '血红蛋白',
+          text: this.title,
           x: 'center'
         },
         tooltip: {
