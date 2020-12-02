@@ -1,5 +1,5 @@
 <template>
-  <el-card  v-if="true" shadow="never" class="aui-card--fill">
+  <el-card v-if="true" shadow="never" class="aui-card--fill">
     <div class="mod-home">
       <el-row :gutter="20">
         <el-col :span="12" :xs="24">
