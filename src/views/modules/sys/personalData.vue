@@ -9,7 +9,7 @@
           <el-tab-pane name="origina" label="原始数据">
             <originalView />
           </el-tab-pane>
-          <el-tab-pane name="data" label="统计数据">
+          <el-tab-pane name="data" label="统计对比">
             <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
