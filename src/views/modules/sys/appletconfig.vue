@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { basicInfo, biophysInfo } from '@/api/athlete'
+import { basicInfo, biophysInfo } from '@/api/athlete.js'
 export default {
   components: {
     headerCard: () => import('./../components/headerCard'),
