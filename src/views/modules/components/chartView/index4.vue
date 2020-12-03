@@ -34,8 +34,8 @@
         <el-table-column prop="min" label="最慢 " min-width="100"> </el-table-column>
         <el-table-column prop="std" label="标准差 " min-width="100"> </el-table-column>
       </el-table>
-      <Chart1 v-if="!showTrack" :xData="xData1" :legendData="legendData1" :seriesData="seriesData1" title="心率变化曲线" ref="chartBomright"></Chart1>
-      <Chart2 v-else :xData="xData1" :legendData="legendData2" :seriesData="seriesData2" title="心率变化曲线" ref="chartBomright2"></Chart2>
+      <Chart1 y="fpm" v-if="!showTrack" :xData="xData1" :legendData="legendData1" :seriesData="seriesData1" title="心率变化曲线" ref="chartBomright"></Chart1>
+      <Chart2 y="fpm" v-else :xData="xData1" :legendData="legendData2" :seriesData="seriesData2" title="心率变化曲线" ref="chartBomright2"></Chart2>
     </div>
   </div>
 </template>
