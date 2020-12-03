@@ -102,6 +102,16 @@ export default {
         ]
       }
     }
+  },
+  watch: {
+    bDatap: {
+      handler(a, b) {
+        console.log(a, 123)
+        this.yData = [110, 58, 20, 30, 40, 280, 50]
+        this.getEchartsData()
+      },
+      deep: true
+    }
   }
 }
 </script>

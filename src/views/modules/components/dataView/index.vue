@@ -33,18 +33,21 @@ export default {
     return {
       formQurey: {},
       value: 1,
-      comparison: 1, // 对比参照 1指标 2运动员
+      comparison: 1, // 对比参照 1指标 2运动员 
       targetOption: [
-        { label: '体重', value: 0 },
-        { label: '体脂', value: 1 },
-        { label: '血红蛋白', value: 2 },
-        { label: '血压', value: 3 }
+        { label: 'BMI', value: 0 },
+        { label: '体脂率', value: 1 },
+        { label: '体重', value: 2 },
+        { label: '血红蛋白', value: 3 },
+        { label: '血尿素', value: 4 },
+        { label: '血睾酮', value: 5 },
+        { label: '皮质醇', value: 6 }
       ],
       sporterOption: [
-        { label: '体重', value: 0 },
-        { label: '体脂', value: 1 },
-        { label: '血红蛋白', value: 2 },
-        { label: '血压', value: 3 }
+        { label: '黄晓明', value: 0 },
+        { label: '赵晓刚', value: 1 },
+        { label: '李白商', value: 2 },
+        { label: '王洪涛', value: 3 }
       ],
       targetData: [
         { id: 0, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '赵小芳' },
