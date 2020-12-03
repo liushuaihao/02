@@ -1,11 +1,11 @@
 <template>
-  <!-- -------------------------成绩分析 图表显示--------------------- -->
+  <!-- ------------------------心率变化-------------------- -->
   <div class="chart_cont">
     <div class="chart_info">
       <el-form class="el-form--inline">
         <el-form-item style="margin-right:50px">
-          <el-radio class="radio" v-model="raceType" :label="1">单人多场速度对比</el-radio>
-          <el-radio class="radio" v-model="raceType" :label="2">多人单场速度对比</el-radio>
+          <el-radio class="radio" v-model="raceType" :label="1">单人多场心率对比</el-radio>
+          <el-radio class="radio" v-model="raceType" :label="2">多人单场心率对比</el-radio>
         </el-form-item>
         <el-form-item v-if="!showTrack" label="运动员选择">
           <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
@@ -34,8 +34,8 @@
         <el-table-column prop="min" label="最慢 " min-width="100"> </el-table-column>
         <el-table-column prop="std" label="标准差 " min-width="100"> </el-table-column>
       </el-table>
-      <Chart1 v-if="!showTrack" :xData="xData1" :legendData="legendData1" :seriesData="seriesData1" title="速度变化曲线" ref="chartBomright"></Chart1>
-      <Chart2 v-else :xData="xData1" :legendData="legendData2" :seriesData="seriesData2" title="速度变化曲线" ref="chartBomright2"></Chart2>
+      <Chart1 v-if="!showTrack" :xData="xData1" :legendData="legendData1" :seriesData="seriesData1" title="心率变化曲线" ref="chartBomright"></Chart1>
+      <Chart2 v-else :xData="xData1" :legendData="legendData2" :seriesData="seriesData2" title="心率变化曲线" ref="chartBomright2"></Chart2>
     </div>
   </div>
 </template>

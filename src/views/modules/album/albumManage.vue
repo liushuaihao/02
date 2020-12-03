@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerCard />
+    <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" />
     <el-card>
       <div class="securityCenter">
         <h3>分析阶段</h3>
@@ -22,14 +22,16 @@
   </div>
 </template>
 <script>
+import { getPlayerListByProject, getProjectList } from '@/api/project'
+import { basicInfo, biophysInfo } from '@/api/athlete.js'
 export default {
   components: {
-    headerCard: () => import('./../components/headerCard'),
+    headerCard: () => import('./../components/headerCard/index2'),
     originalView: () => import('./../components/originalView/index3'),
     chartView: () => import('./../components/chartView/index3'),
     targetView: () => import('./../components/targetView/index3')
   },
-  data () {
+  data() {
     const generateData = _ => {
       const data = []
       const cities = ['小明', '小王', '小花']
@@ -76,27 +78,40 @@ export default {
           id: 1
         }
       ],
+      typeList: [],
+      athleteList: [],
       dataForm: {
         type: '1'
       }
     }
   },
   computed: {},
-  created () {},
-  mounted () {},
-  methods: {
-    // 时间范围
-    datePicker (e) {
-      this.$set(this.dataForm, 'end_time', e.end_time)
-      this.$set(this.dataForm, 'start_time', e.start_time)
-    },
+  created() {
+    getProjectList({}).then(({ data: res }) => {
+      this.typeList = res.data
+    })
     //
-    handleChange (value, direction, movedKeys) {
-      console.log(value, direction, movedKeys)
+  },
+  mounted() {},
+  methods: {
+    // 选择运动员
+    getPlayerListByProject(id) {
+      getPlayerListByProject({ projectid: id }).then(({ data: res }) => {
+        this.athleteList = res.data
+      })
     },
-    // 粒度
-    selectGranularity (e) {
+    // 查询
+    submit(e) {
       console.log(e)
+      basicInfo({ athleteid: 1 }).then(res => {
+        console.log(res)
+        this.athlateInfo = res
+      })
+      biophysInfo({ athletes: [1, 2, 3], 'start-date': '2019-11-01 00:00:00', 'stop-date': '2020-01-01 00:00:00' }).then(res => {
+        console.log(res)
+        //census-data
+        //origin-data
+      })
     }
   }
 }

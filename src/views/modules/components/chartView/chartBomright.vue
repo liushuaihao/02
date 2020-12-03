@@ -15,6 +15,11 @@ export default {
       type: [String],
       default: ''
     },
+    y: {
+      //y 轴单位
+      type: [String],
+      default: ''
+    },
     legendData: {
       // 线条名字
       type: Array,
@@ -59,20 +64,16 @@ export default {
           top: '20%',
           containLabel: true
         },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
         xAxis: {
           type: 'category',
           boundaryGap: false,
           data: this.xData
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          name: this.y // 单位
         },
-        series: this.seriesData
+        series: this.seriesData // 数据
       }
     }
   }

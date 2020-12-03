@@ -17,8 +17,11 @@
               <chartView></chartView>
             </template>
           </el-tab-pane>
-          <el-tab-pane name="target" label="指标生成">
+          <el-tab-pane name="target" label="专家评估">
             <targetView v-if="tabPane == 'target'" />
+          </el-tab-pane>
+          <el-tab-pane name="heart" label="心率分析">
+            <heartView v-if="tabPane == 'heart'" />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -34,7 +37,8 @@ export default {
     originalView: () => import('./../components/originalView'),
     dataView: () => import('./../components/dataView'),
     chartView: () => import('./../components/chartView'),
-    targetView: () => import('./../components/targetView')
+    targetView: () => import('./../components/targetView'),
+    heartView: () => import('./../components/chartView/index4')
   },
   data() {
     const generateData = _ => {
@@ -79,19 +83,6 @@ export default {
       getPlayerListByProject({ projectid: id }).then(({ data: res }) => {
         this.athleteList = res.data
       })
-    },
-    // 时间范围
-    datePicker(e) {
-      this.$set(this.dataForm, 'end_time', e.end_time)
-      this.$set(this.dataForm, 'start_time', e.start_time)
-    },
-    //
-    handleChange(value, direction, movedKeys) {
-      console.log(value, direction, movedKeys)
-    },
-    // 粒度
-    selectGranularity(e) {
-      console.log(e)
     },
     // 查询
     submit(e) {

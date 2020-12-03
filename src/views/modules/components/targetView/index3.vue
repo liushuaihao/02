@@ -4,7 +4,7 @@
       <el-col :span="12">
         <el-card>
           <h3>速度策略分析</h3>
-          <chartBomright title="全程速度" :series="series" ref="chartBomright"></chartBomright>
+          <chartBomright title="全程速度" :legendData="legendData" :seriesData="series" ref="chartBomright"></chartBomright>
           <el-card style="margin-top:20px">
             <el-row :gutter="10" class="row-item" v-for="item in 4" :key="item">
               <el-col :span="4">第{{ item }}圈</el-col>
@@ -54,11 +54,12 @@ export default {
     chartXColumn,
     chartTopleft
   },
-  data () {
+  data() {
     return {
       raceType: 1,
       targetData: [],
       scoreRange: 1,
+      legendData: ['邮件营销', '联盟广告'],
       series: [
         {
           name: '邮件营销',
@@ -112,8 +113,7 @@ export default {
       ]
     }
   },
-  mounted () {
-  }
+  mounted() {}
 }
 </script>
 <style lang="scss" scoped>
