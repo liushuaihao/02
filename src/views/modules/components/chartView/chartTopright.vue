@@ -34,7 +34,8 @@ export default {
       option: {},
       xData: this.xDatap,
       yData: this.yDatap,
-      bData: this.bDatap
+      bData: this.bDatap,
+      currentTitle: '血红蛋白'
     }
   },
   mounted() {
@@ -47,7 +48,7 @@ export default {
           trigger: 'axis'
         },
         title: {
-          text: this.title,
+          text: this.currentTitle,
           x: 'center'
         },
         calculable: true,
@@ -105,13 +106,10 @@ export default {
     }
   },
   watch: {
-    bDatap: {
-      handler(a, b) {
-        console.log(a, 123)
-        this.yData = [110, 58, 20, 30, 40, 280, 50]
-        this.getEchartsData()
-      },
-      deep: true
+    title(a, b) {
+      console.log(a, 11)
+      this.currentTitle = a
+      this.getEchartsData()
     }
   }
 }

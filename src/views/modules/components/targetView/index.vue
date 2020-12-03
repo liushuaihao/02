@@ -51,7 +51,19 @@
           </el-form-item>
         </el-form>
         <div>
-          <chartTopright ref="chartRight" :bDatap="bDatap"></chartTopright>
+          <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
+          <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft>
+          <div class="flex">
+            <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+              <span>{{ item.number }}%</span>
+            </div>
+          </div>
+          <div class="tag_cont">
+            <div v-for="(item, index) in line" :key="index">
+              <i class="tag" :style="{ background: item.bgColor }"></i>
+              <span>{{ item.type }}</span>
+            </div>
+          </div>
         </div>
       </el-col>
       <el-col :span="24">
@@ -61,14 +73,11 @@
         </el-row>
       </el-col>
     </el-row>
-
-    <div>
-      <div v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%' }"></div>
-    </div>
   </div>
 </template>
 <script>
 import chartTopright from './../chartView/chartTopright.vue'
+import chartTopleft from './../chartView/chartTopleft.vue'
 import cloneDeep from 'lodash/cloneDeep'
 const targetData = [
   { id: 1, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
@@ -159,17 +168,18 @@ const expertsIndicatorsList = [
   }
 ]
 const citiess = [
-  { name: '血红蛋白', type: 1 },
-  { name: '血睾酮', type: 2 },
-  { name: '血尿素', type: 3 },
-  { name: '体质', type: 4 },
-  { name: '体重', type: 5 },
-  { name: '皮质醇', type: 6 },
-  { name: 'BMI', type: 7 }
+  { name: '血红蛋白', type: 0 },
+  { name: '血睾酮', type: 1 },
+  { name: '血尿素', type: 2 },
+  { name: '体质', type: 3 },
+  { name: '体重', type: 4 },
+  { name: '皮质醇', type: 5 },
+  { name: 'BMI', type: 6 }
 ]
 export default {
   components: {
-    chartTopright
+    chartTopright,
+    chartTopleft
   },
   computed: {
     formatExpertsIndicatorsList() {
@@ -183,7 +193,7 @@ export default {
     return {
       checkedCities: [],
       cities: citiess,
-      targetData: [],
+      targetData: targetData,
       // 专家指标设置数据
       expertsIndicatorsList: expertsIndicatorsList,
       scoreRange: 1,
@@ -209,27 +219,29 @@ export default {
       ],
       line: [
         {
-          number: 30,
-          name: ''
-        },
-        {
-          number: 10,
-          name: ''
-        },
-        {
-          number: 10,
-          name: ''
+          number: 50,
+          type: '差',
+          bgColor: '#F5E027'
         },
         {
           number: 30,
-          name: ''
+          type: '中',
+          bgColor: '#B795DD'
         },
         {
           number: 20,
-          name: ''
+          type: '良',
+          bgColor: '#56B504'
+        },
+        {
+          number: 10,
+          type: '优',
+          bgColor: '#DD2D21'
         }
       ],
-      visualType: 1
+      visualType: 0,
+      currentTitle: '血红蛋白',
+      xData: ['BMI', '体脂率', '体重', '血红蛋白', '血尿素', '血睾酮', '皮质醇']
     }
   },
   watch: {
@@ -237,14 +249,11 @@ export default {
       this.bDatap = a ? [0, 0, 100, 0, 0, 0, 0] : []
     },
     visualType(a, b) {
-      console.log(a)
-      this.bDatap = [0, 0, 100, 0, 0, 10, 0]
-      this.$refs.chartRight.getEchartsData()
+      console.log(this.cities[a].name)
+      this.currentTitle = this.cities[a].name
     }
   },
-  mounted() {
-    this.targetData = targetData
-  }
+  mounted() {}
 }
 </script>
 <style lang="scss" scoped>
@@ -324,5 +333,31 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.line_item {
+  position: relative;
+  margin-top: 50px;
+  span {
+    width: 100%;
+    display: inline-block;
+    transform: translate(50%, -20px);
+  }
+}
+.tag_cont {
+  display: flex;
+  & > div {
+    display: flex;
+    align-items: center;
+  }
+  .tag {
+    display: inline-block;
+    width: 30px;
+    height: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+  span {
+    margin-right: 20px;
+  }
 }
 </style>
