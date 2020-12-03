@@ -1,4 +1,5 @@
 <template>
+  <!-- y 柱状图 -->
   <div class="chartTopleft"><chartTemp :option="option"></chartTemp></div>
 </template>
 

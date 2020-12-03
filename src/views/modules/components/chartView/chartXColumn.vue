@@ -1,4 +1,5 @@
 <template>
+  <!-- x 柱状图 -->
   <div class="chartBomleft"><chartTemp :option="option"></chartTemp></div>
 </template>
 
