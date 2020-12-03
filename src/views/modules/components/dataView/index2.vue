@@ -1,24 +1,24 @@
 <template>
   <div>
     <el-form class="el-form--inline" :model="formQurey" size="small">
-      <el-form-item label="赛程阶段:">
+      <el-form-item label="比赛场次">
         <el-select v-model="value" placeholder="请选择">
-          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="(item, index) in option"></el-option>
+          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="item in options2"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="弯道技术:">
-        <el-select v-model="value" placeholder="请选择">
-          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="(item, index) in option"></el-option>
+      <el-form-item label="运动员">
+        <el-select v-model="value2" placeholder="请选择">
+          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="item in options1"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="动作类型:">
-        <el-select v-model="value" placeholder="请选择">
-          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="(item, index) in option"></el-option>
+        <el-select v-model="value3" placeholder="请选择">
+          <el-option :label="item.label" :value="item.value" :key="item.value" v-for="item in options3"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
     <el-table :data="tableData" style="width: 100%" align="center">
-      <el-table-column prop="name" label="姓名" min-width="100"> </el-table-column>
+      <el-table-column prop="name" label="赛段类型" min-width="100"> </el-table-column>
       <el-table-column prop="mean" label="均值" min-width="100"> </el-table-column>
       <el-table-column prop="max" label="最大" min-width="100"> </el-table-column>
       <el-table-column prop="min" label="最小" min-width="100"> </el-table-column>
@@ -33,23 +33,92 @@ export default {
   data() {
     return {
       formQurey: {},
-      value: 1,
-      option: [
+      value: '选项1',
+      value2: '选项1',
+      value3: '选项1',
+      seriesData2: [
         {
-          label: '体重',
-          value: 0
+          name: '王小虎',
+          type: 'line',
+          smooth: true,
+          data: [10, 20, 1, 5, 6, 9, 5, 20]
         },
         {
-          label: '体脂',
-          value: 1
+          name: '李小芳',
+          type: 'line',
+          smooth: true,
+          data: [6, 20, 20, 15, 10, 5, 1, 20]
         },
         {
-          label: '血红蛋白',
-          value: 2
+          name: '张大壮',
+          type: 'line',
+          smooth: true,
+          data: [5, 20, 18, 2, 10, 9, 5, 20]
         },
         {
-          label: '血压',
-          value: 3
+          name: '赵大强',
+          type: 'line',
+          smooth: true,
+          data: [1, 20, 15, 15, 10, 20, 18, 12]
+        }
+      ],
+      raceType: 1,
+      options1: [
+        {
+          value: '选项1',
+          label: '王小虎'
+        },
+        {
+          value: '选项2',
+          label: '李小芳'
+        },
+        {
+          value: '选项3',
+          label: '张大壮'
+        },
+        {
+          value: '选项4',
+          label: '赵大强'
+        }
+      ],
+      options2: [
+        {
+          value: '选项1',
+          label: '2020年11月11日1场'
+        },
+        {
+          value: '选项2',
+          label: '2020年11月11日2场'
+        },
+        {
+          value: '选项3',
+          label: '2020年11月11日3场'
+        },
+        {
+          value: '选项4',
+          label: '2020年11月11日4场'
+        },
+        {
+          value: '选项5',
+          label: '2020年11月11日5场'
+        }
+      ],
+      options3: [
+        {
+          value: '选项1',
+          label: '髋关节'
+        },
+        {
+          value: '选项2',
+          label: '踝关节'
+        },
+        {
+          value: '选项3',
+          label: '膝关节'
+        },
+        {
+          value: '选项4',
+          label: '左脚蹬冰角度'
         }
       ],
       tableData: [
@@ -57,37 +126,37 @@ export default {
           id: 0,
           mean: '1',
           max: '2',
-          min: '',
+          min: '1',
           std: '1',
           median: '2',
-          name: '王小虎'
+          name: '启动阶段'
         },
         {
           id: 1,
           mean: '1',
           max: '2',
-          min: '',
+          min: '2',
           std: '1',
           median: '2',
-          name: '王小虎'
+          name: '直道赛段'
         },
         {
           id: 2,
           mean: '1',
           max: '2',
-          min: '',
+          min: '1',
           std: '1',
           median: '2',
-          name: '王小虎'
+          name: '弯道赛段'
         },
         {
           id: 3,
           mean: '1',
           max: '2',
-          min: '',
+          min: '2',
           std: '1',
           median: '2',
-          name: '王小虎'
+          name: '结束阶段'
         }
       ]
     }
