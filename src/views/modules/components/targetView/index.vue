@@ -80,13 +80,13 @@ import chartTopright from './../chartView/chartTopright.vue'
 import chartTopleft from './../chartView/chartTopleft.vue'
 import cloneDeep from 'lodash/cloneDeep'
 const targetData = [
-  { id: 1, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 2, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 3, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 4, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
+  { id: 1, name: '王小虎', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
+  { id: 2, name: '李小芳', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
+  { id: 3, name: '张大壮', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
+  { id: 4, name: '赵大强', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
   { id: 5, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 6, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 7, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' }
+  { id: 6, name: '小王', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
+  { id: 7, name: '小李', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' }
 ]
 const expertsIndicatorsList = [
   {
