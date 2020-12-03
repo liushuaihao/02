@@ -3,7 +3,7 @@
     <headerCard :athlateInfo="athlateInfo" />
     <el-card>
       <div class="securityCenter">
-        <h3>分析阶段</h3>
+        <h3>分析与可视化</h3>
         <!--  -->
         <el-tabs type="border-card" v-model="tabPane">
           <el-tab-pane name="data" label="统计数据">

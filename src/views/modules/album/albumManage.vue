@@ -3,7 +3,7 @@
     <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" />
     <el-card>
       <div class="securityCenter">
-        <h3>分析阶段</h3>
+        <h3>分析与可视化</h3>
         <el-tabs type="border-card" v-model="tabPane">
           <el-tab-pane name="origina" label="原始数据">
             <originalView />

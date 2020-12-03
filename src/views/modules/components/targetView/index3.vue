@@ -4,7 +4,7 @@
       <el-col :span="12">
         <el-card>
           <h3>速度策略分析</h3>
-          <chartBomright title="全程速度" :legendData="legendData" :seriesData="series" ref="chartBomright"></chartBomright>
+          <chartBomright title="多场次成绩变化" y="s" :legendData="legendData" :seriesData="seriesData" ref="chartBomright"></chartBomright>
           <el-card style="margin-top:20px">
             <el-row :gutter="10" class="row-item" v-for="item in 4" :key="item">
               <el-col :span="4">第{{ item }}圈</el-col>
@@ -59,19 +59,31 @@ export default {
       raceType: 1,
       targetData: [],
       scoreRange: 1,
-      legendData: ['邮件营销', '联盟广告'],
-      series: [
+      legendData: ['王小虎', '李小芳', '张大壮', '赵大强'],
+      seriesData: [
         {
-          name: '邮件营销',
+          name: '王小虎',
           type: 'line',
-          stack: '总量',
-          data: [120, 132, 101, 134, 90, 230, 210]
+          smooth: true,
+          data: [10, 20, 30, 134, 90, 230, 210]
         },
         {
-          name: '联盟广告',
+          name: '李小芳',
           type: 'line',
-          stack: '总量',
+          smooth: true,
           data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name: '张大壮',
+          type: 'line',
+          smooth: true,
+          data: [150, 232, 201, 154, 190, 330, 410]
+        },
+        {
+          name: '赵大强',
+          type: 'line',
+          smooth: true,
+          data: [200, 10, 300, 20, 90, 50, 300]
         }
       ],
       tableData: [
