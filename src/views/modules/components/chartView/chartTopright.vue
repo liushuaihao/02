@@ -1,4 +1,5 @@
 <template>
+  <!-- 折现柱状图 -->
   <div class="chartTopright">
     <chartTemp :option="option"></chartTemp>
   </div>

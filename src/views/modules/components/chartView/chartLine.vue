@@ -1,4 +1,5 @@
 <template>
+  <!-- 但折线图 -->
   <div class="chartBomleft"><chartTemp :option="option"></chartTemp></div>
 </template>
 

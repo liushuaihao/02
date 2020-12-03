@@ -94,24 +94,30 @@ export default {
     return {
       data: generateData(),
       cjList: [
-        {
-          name: '前10%',
+         {
+          name: '前5%',
           id: 0
         },
         {
-          name: '前20%',
+          name: '前10%',
           id: 1
         },
         {
-          name: '前30%',
+          name: '前20%',
           id: 2
+        },
+        {
+          name: '前30%',
+          id: 3
         }
       ],
       value1: [0],
       // 查询条件
       formQurey: {
         projectid: '', // 运动员类型
-        playerid: '' // 运动员
+        playerid: '', // 运动员
+        cj:0,
+        type:'1'
       }
     }
   },

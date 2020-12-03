@@ -34,8 +34,8 @@
         <el-table-column prop="min" label="最慢 " min-width="100"> </el-table-column>
         <el-table-column prop="std" label="标准差 " min-width="100"> </el-table-column>
       </el-table>
-      <Chart1 v-if="!showTrack" :xData="xData1" :legendData="legendData1" :seriesData="seriesData1" title="速度变化曲线" ref="chartBomright"></Chart1>
-      <Chart2 v-else :xData="xData1" :legendData="legendData2" :seriesData="seriesData2" title="速度变化曲线" ref="chartBomright2"></Chart2>
+      <Chart1 v-if="!showTrack" :xData="xData1" y="m/s" :legendData="legendData1" :seriesData="seriesData1" title="速度变化曲线" ref="chartBomright"></Chart1>
+      <Chart2 v-else :xData="xData1" y="m/s" :legendData="legendData2" :seriesData="seriesData2" title="速度变化曲线" ref="chartBomright2"></Chart2>
     </div>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      xData1: ['赛段1', '赛段2', '赛段3', '赛段4', '赛段5', '赛段6', '赛段7'],
+      xData1: ['赛段1', '赛段2', '赛段3', '赛段4', '赛段5', '赛段6', '赛段7', '赛段8'],
       legendData1: ['场次1', '场次2', '场次3', '场次4', '场次5'],
       legendData2: ['王小虎', '李小芳', '张大壮', '赵大强'],
       seriesData1: [
@@ -55,30 +55,30 @@ export default {
           name: '场次1',
           type: 'line',
           smooth: true,
-          data: [120, 132, 101, 134, 90, 230, 210]
+          data: [10, 6, 8, 20, 11, 5, 18,20]
         },
         {
           name: '场次2',
           type: 'line',
           smooth: true,
-          data: [220, 182, 191, 234, 290, 330, 310]
+          data: [10, 5, 20, 4, 10, 9, 20,20]
         },
         {
           name: '场次3',
           type: 'line',
-          data: [150, 232, 201, 154, 190, 330, 410]
+          data:[10, 20, 20, 20, 4, 5, 6,20]
         },
         {
           name: '场次4',
           type: 'line',
           smooth: true,
-          data: [200, 10, 300, 20, 90, 50, 300]
+          data:[1, 2, 4, 5, 20, 20, 20,20]
         },
         {
           name: '场次5',
           type: 'line',
           smooth: true,
-          data: [500, 220, 300, 50, 100, 60, 200]
+          data: [10, 4, 15, 5, 8, 9, 18,20]
         }
       ],
       seriesData2: [
@@ -86,25 +86,25 @@ export default {
           name: '王小虎',
           type: 'line',
           smooth: true,
-          data: [10, 20, 30, 134, 90, 230, 210]
+          data: [10, 20, 1, 5, 6, 9, 5,20]
         },
         {
           name: '李小芳',
           type: 'line',
           smooth: true,
-          data: [220, 182, 191, 234, 290, 330, 310]
+          data: [6, 20, 20, 15, 10, 5, 1,20]
         },
         {
           name: '张大壮',
           type: 'line',
           smooth: true,
-          data: [150, 232, 201, 154, 190, 330, 410]
+          data: [5, 20, 18, 2, 10, 9, 5,20]
         },
         {
           name: '赵大强',
           type: 'line',
           smooth: true,
-          data: [200, 10, 300, 20, 90, 50, 300]
+          data: [1, 20, 15, 15, 10, 20, 18,12]
         }
       ],
       raceType: 1,
@@ -148,8 +148,8 @@ export default {
           label: '2020年11月11日5场'
         }
       ],
-      value2: '',
-      value3: '',
+      value2: '选项1',
+      value3: '选项1',
       tableData: [
         { id: 1, drillTime: '2020年11月11日1场', mean: '2', max: '3', min: '3', std: '1' },
         { id: 2, drillTime: '2020年11月11日2场', mean: '2', max: '3', min: '3', std: '1' },
