@@ -360,4 +360,5 @@ export default {
     margin-right: 20px;
   }
 }
+
 </style>
