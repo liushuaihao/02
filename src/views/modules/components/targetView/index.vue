@@ -177,10 +177,7 @@ const citiess = [
   { name: 'BMI', type: 6 }
 ]
 export default {
-  components: {
-    chartTopright,
-    chartTopleft
-  },
+  components: { chartTopright, chartTopleft },
   computed: {
     formatExpertsIndicatorsList() {
       let list = cloneDeep(this.expertsIndicatorsList)
