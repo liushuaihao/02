@@ -26,53 +26,55 @@
     <el-row class="target_score_visaul_cont">
       <el-col :span="12" class="target_score">
         <el-card>
-        <div class="info_title">专家指标设置</div>
-        <el-row class="speciallist_cont" v-for="item in expertsIndicatorsList" :key="item.id">
-          <el-col :span="8" class="target_score_visaul_cont_l">
-            <span>{{ item.title }}</span>
-            <el-input v-model="item.startVal"></el-input>
-          </el-col>
-          <el-col :span="8" class="target_score_visaul_cont_r">
-            <span>{{ '至' }}</span>
-            <el-input v-model="item.endVal"></el-input>
-            <el-card>+</el-card>
-          </el-col>
-          <el-col :span="8" class="target_score_visaul_cont_r">
-            <el-select v-model="item.value" placeholder="请选择">
-              <el-option v-for="(items, index) in item.valList" :key="index" :label="items" :value="items"> </el-option>
-            </el-select>
-          </el-col>
-        </el-row>
+          <div class="info_title">专家指标设置</div>
+          <el-row class="speciallist_cont" v-for="item in expertsIndicatorsList" :key="item.id">
+            <el-col :span="8" class="target_score_visaul_cont_l">
+              <span>{{ item.title }}</span>
+              <el-input v-model="item.startVal"></el-input>
+            </el-col>
+            <el-col :span="8" class="target_score_visaul_cont_r">
+              <span>{{ '至' }}</span>
+              <el-input v-model="item.endVal"></el-input>
+              <el-card>+</el-card>
+            </el-col>
+            <el-col :span="8" class="target_score_visaul_cont_r">
+              <el-select v-model="item.value" placeholder="请选择">
+                <el-option v-for="(items, index) in item.valList" :key="index" :label="items" :value="items"> </el-option>
+              </el-select>
+            </el-col>
+          </el-row>
 
-        <div style="text-align:right">
-          <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
-        </div></el-card>
+          <div style="text-align:right">
+            <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
+          </div></el-card
+        >
       </el-col>
       <el-col :offset="1" :span="11" class="target_visual">
         <el-card>
-        <div class="info_title">指标参数可视化</div>
-        <el-form>
-          <el-form-item label="参数选择">
-            <el-radio v-for="city in cities" :label="city.type" :key="city.type" v-model="visualType">{{ city.name }}</el-radio>
-          </el-form-item>
-        </el-form>
-        <div>
-          <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
-          <div v-if="isShow">
-            <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft>
-            <div class="flex">
-              <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
-                <span>{{ item.number }}%</span>
+          <div class="info_title">指标参数可视化</div>
+          <el-form>
+            <el-form-item label="参数选择">
+              <el-radio v-for="city in cities" :label="city.type" :key="city.type" v-model="visualType">{{ city.name }}</el-radio>
+            </el-form-item>
+          </el-form>
+          <div>
+            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
+            <div v-if="isShow">
+              <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft>
+              <div class="flex">
+                <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+                  <span>{{ item.number }}%</span>
+                </div>
+              </div>
+              <div class="tag_cont">
+                <div v-for="(item, index) in line" :key="index">
+                  <i class="tag" :style="{ background: item.bgColor }"></i>
+                  <span>{{ item.type }}</span>
+                </div>
               </div>
             </div>
-            <div class="tag_cont">
-              <div v-for="(item, index) in line" :key="index">
-                <i class="tag" :style="{ background: item.bgColor }"></i>
-                <span>{{ item.type }}</span>
-              </div>
-            </div>
-          </div>
-        </div></el-card>
+          </div></el-card
+        >
       </el-col>
     </el-row>
   </div>
