@@ -85,6 +85,9 @@ export default {
       }
     }
   },
+  activated() {
+   console.log(12312321312231)
+  },
   computed: {},
   created() {
     getProjectList({}).then(({ data: res }) => {

@@ -26,53 +26,55 @@
     <el-row class="target_score_visaul_cont">
       <el-col :span="12" class="target_score">
         <el-card>
-        <div class="info_title">专家指标设置</div>
-        <el-row class="speciallist_cont" v-for="item in expertsIndicatorsList" :key="item.id">
-          <el-col :span="8" class="target_score_visaul_cont_l">
-            <span>{{ item.title }}</span>
-            <el-input v-model="item.startVal"></el-input>
-          </el-col>
-          <el-col :span="8" class="target_score_visaul_cont_r">
-            <span>{{ '至' }}</span>
-            <el-input v-model="item.endVal"></el-input>
-            <el-card>+</el-card>
-          </el-col>
-          <el-col :span="8" class="target_score_visaul_cont_r">
-            <el-select v-model="item.value" placeholder="请选择">
-              <el-option v-for="(items, index) in item.valList" :key="index" :label="items" :value="items"> </el-option>
-            </el-select>
-          </el-col>
-        </el-row>
+          <div class="info_title">专家指标设置</div>
+          <el-row class="speciallist_cont" v-for="item in expertsIndicatorsList" :key="item.id">
+            <el-col :span="8" class="target_score_visaul_cont_l">
+              <span>{{ item.title }}</span>
+              <el-input v-model="item.startVal"></el-input>
+            </el-col>
+            <el-col :span="8" class="target_score_visaul_cont_r">
+              <span>{{ '至' }}</span>
+              <el-input v-model="item.endVal"></el-input>
+              <el-card>+</el-card>
+            </el-col>
+            <el-col :span="8" class="target_score_visaul_cont_r">
+              <el-select v-model="item.value" placeholder="请选择">
+                <el-option v-for="(items, index) in item.valList" :key="index" :label="items" :value="items"> </el-option>
+              </el-select>
+            </el-col>
+          </el-row>
 
-        <div style="text-align:right">
-          <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
-        </div></el-card>
+          <div style="text-align:right">
+            <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
+          </div></el-card
+        >
       </el-col>
       <el-col :offset="1" :span="11" class="target_visual">
         <el-card>
-        <div class="info_title">指标参数可视化</div>
-        <el-form>
-          <el-form-item label="参数选择">
-            <el-radio v-for="city in cities" :label="city.type" :key="city.type" v-model="visualType">{{ city.name }}</el-radio>
-          </el-form-item>
-        </el-form>
-        <div>
-          <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
-          <div v-if="isShow">
-            <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft>
-            <div class="flex">
-              <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
-                <span>{{ item.number }}%</span>
+          <div class="info_title">指标参数可视化</div>
+          <el-form>
+            <el-form-item label="参数选择">
+              <el-radio v-for="city in cities" :label="city.type" :key="city.type" v-model="visualType">{{ city.name }}</el-radio>
+            </el-form-item>
+          </el-form>
+          <div>
+            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
+            <div v-if="isShow">
+              <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft>
+              <div class="flex">
+                <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+                  <span>{{ item.number }}%</span>
+                </div>
+              </div>
+              <div class="tag_cont">
+                <div v-for="(item, index) in line" :key="index">
+                  <i class="tag" :style="{ background: item.bgColor }"></i>
+                  <span>{{ item.type }}</span>
+                </div>
               </div>
             </div>
-            <div class="tag_cont">
-              <div v-for="(item, index) in line" :key="index">
-                <i class="tag" :style="{ background: item.bgColor }"></i>
-                <span>{{ item.type }}</span>
-              </div>
-            </div>
-          </div>
-        </div></el-card>
+          </div></el-card
+        >
       </el-col>
     </el-row>
   </div>
@@ -85,15 +87,12 @@ const targetData = [
   { id: 1, name: '王小虎', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
   { id: 2, name: '李小芳', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
   { id: 3, name: '张大壮', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 4, name: '赵大强', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 5, name: '小张', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 6, name: '小王', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' },
-  { id: 7, name: '小李', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' }
+  { id: 4, name: '赵大强', updateTime: '2020-02-02 14:11:11', speciallist: '李宏宇' }
 ]
 const expertsIndicatorsList = [
   {
     id: 1,
-    title: 'BMI',
+    title: '髋关节',
     startVal: '',
     endVal: '',
     value: '',
@@ -101,7 +100,7 @@ const expertsIndicatorsList = [
   },
   {
     id: 2,
-    title: '体脂率',
+    title: '踝关节',
     startVal: '',
     endVal: '',
     value: '',
@@ -109,7 +108,7 @@ const expertsIndicatorsList = [
   },
   {
     id: 3,
-    title: '体重',
+    title: '膝关节',
     startVal: '',
     endVal: '',
     value: '',
@@ -117,31 +116,7 @@ const expertsIndicatorsList = [
   },
   {
     id: 4,
-    title: '血红蛋白',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-1', '12-5']
-  },
-  {
-    id: 5,
-    title: '血尿素',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-1', '12-5']
-  },
-  {
-    id: 6,
-    title: '血睾酮',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-1', '12-5']
-  },
-  {
-    id: 7,
-    title: '皮质醇',
+    title: '左脚蹬冰角度',
     startVal: '',
     endVal: '',
     value: '',
@@ -149,13 +124,10 @@ const expertsIndicatorsList = [
   }
 ]
 const citiess = [
-  { name: '血红蛋白', type: 0 },
-  { name: '血睾酮', type: 1 },
-  { name: '血尿素', type: 2 },
-  { name: '体质', type: 3 },
-  { name: '体重', type: 4 },
-  { name: '皮质醇', type: 5 },
-  { name: 'BMI', type: 6 }
+  { name: '髋关节', type: 0 },
+  { name: '踝关节', type: 1 },
+  { name: '膝关节', type: 2 },
+  { name: '左脚蹬冰角度', type: 3 }
 ]
 export default {
   components: { chartTopright, chartTopleft },
@@ -170,49 +142,9 @@ export default {
       scoreRange: 1,
       checked1: false,
       bDatap: [0, 0, 100, 0, 0, 0, 0],
-      bar: [
-        {
-          name: '血红蛋白',
-          value: 20
-        },
-        {
-          name: '血睾酮',
-          value: 30
-        },
-        {
-          name: '血尿素',
-          value: 20
-        },
-        {
-          name: '体质',
-          value: 10
-        }
-      ],
-      line: [
-        {
-          number: 50,
-          type: '差',
-          bgColor: '#F5E027'
-        },
-        {
-          number: 30,
-          type: '中',
-          bgColor: '#B795DD'
-        },
-        {
-          number: 20,
-          type: '良',
-          bgColor: '#56B504'
-        },
-        {
-          number: 10,
-          type: '优',
-          bgColor: '#DD2D21'
-        }
-      ],
       visualType: 0,
-      currentTitle: '血红蛋白',
-      xData: ['BMI', '体脂率', '体重', '血红蛋白', '血尿素', '血睾酮', '皮质醇']
+      currentTitle: '髋关节',
+      xData: ['髋关节', '踝关节', '膝关节', '左脚蹬冰角度']
     }
   },
   watch: {

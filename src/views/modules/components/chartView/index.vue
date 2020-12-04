@@ -3,26 +3,26 @@
     <div class="chartbox">
       <el-row>
         <el-col :span="12" class="col">
-          <chartLine title="体重" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="体重" y="kg" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="体脂" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="体脂" y="%" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="血红蛋白" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="血红蛋白" y="g/L" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="血尿素" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="血尿素" y="mmol/L" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
 
         <el-col :span="12" class="col">
-          <chartLine title="血睾酮" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="血睾酮" y="mmol/L" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="皮质醇" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="皮质醇" y="ng/L" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="BMI" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="BMI"  :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
       </el-row>
     </div>

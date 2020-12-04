@@ -35,7 +35,7 @@ export default {
       xData: this.xDatap,
       yData: this.yDatap,
       bData: this.bDatap,
-      currentTitle: '血红蛋白'
+      currentTitle: this.title
     }
   },
   mounted() {

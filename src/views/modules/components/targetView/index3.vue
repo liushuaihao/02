@@ -3,42 +3,56 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card>
-          <h3>速度策略分析</h3>
-          <chartBomright title="多场次成绩变化" y="s" :legendData="legendData" :seriesData="seriesData" ref="chartBomright"></chartBomright>
-          <el-card style="margin-top:20px">
-            <el-row :gutter="10" class="row-item" v-for="item in 4" :key="item">
-              <el-col :span="4">第{{ item }}圈</el-col>
-              <el-col :span="20">
-                <div>
-                  <div class="flex-item">
-                    <div></div>
-                    <div v-for="i in 8" :key="i">位{{ i }}</div>
-                  </div>
-                  <div class="flex-item">
-                    <div>同比</div>
-                    <div v-for="i in 8" :class="i % 2 ? 'color1' : 'color2'" :key="i">1</div>
-                  </div>
-                  <div class="flex-item">
-                    <div>环比</div>
-                    <div v-for="i in 8" :class="i % 3 ? 'color1' : 'color2'" :key="i">1</div>
-                  </div>
-                </div>
+          <el-form class="el-form--inline">
+            <el-form-item label="赛段选择">
+              <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div class="target_score_visaul_cont">
+            <el-row class="speciallist_cont" v-for="item in expertsIndicatorsList" :key="item.id">
+              <el-col :span="8" class="target_score_visaul_cont_l">
+                <span>{{ item.title }}</span>
+                <el-input v-model="item.startVal"></el-input>
+              </el-col>
+              <el-col :span="8" class="target_score_visaul_cont_r">
+                <span>{{ '至' }}</span>
+                <el-input v-model="item.endVal"></el-input>
+                <el-card>+</el-card>
+              </el-col>
+              <el-col :span="8" class="target_score_visaul_cont_r">
+                <el-select v-model="item.value" placeholder="请选择">
+                  <el-option v-for="(items, index) in item.valList" :key="index" :label="items" :value="items"> </el-option>
+                </el-select>
               </el-col>
             </el-row>
-          </el-card>
+
+            <div style="text-align:right">
+              <el-button size="medium">保存</el-button>
+              <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
+            </div>
+          </div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card>
-          <h3>赛段成绩分析</h3>
-          <p>
-            <el-radio class="radio" v-model="raceType" :label="1">全场分析</el-radio>
-            <el-radio class="radio" v-model="raceType" :label="2">赛段分析</el-radio>
-          </p>
-          <p>成绩变化</p>
-          <chartXColumn ref="chartXColumn"></chartXColumn>
-          <p>综合排名</p>
-          <chartTopleft ref="chartTopleft"></chartTopleft>
+          <chartBomright title="多场次成绩变化" y="s" :legendData="legendData" :seriesData="seriesData" ref="chartBomright"></chartBomright>
+          <chartTopleft ref="chartTopleft" title="运动员优秀成绩比例" :xDatap="legendData"></chartTopleft>
+          <el-form class="el-form--inline"
+            ><el-form-item label="运动员">
+              <el-select v-model="value" clearable style="margin-left: 20px;" placeholder="请选择">
+                <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="赛段选择">
+              <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
+                <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+
+          <chartTopleft ref="chartTopleft" :xDatap="xData"></chartTopleft>
         </el-card>
       </el-col>
     </el-row>
@@ -55,8 +69,44 @@ export default {
     chartTopleft
   },
   data() {
+    const expertsIndicatorsList = [
+      {
+        id: 1,
+        title: '优秀范围',
+        startVal: '',
+        endVal: '',
+        value: '',
+        valList: ['12-12', '12-5']
+      },
+      {
+        id: 2,
+        title: '良好范围',
+        startVal: '',
+        endVal: '',
+        value: '',
+        valList: ['12-2', '12-2']
+      },
+      {
+        id: 3,
+        title: '中等范围',
+        startVal: '',
+        endVal: '',
+        value: '',
+        valList: ['12-1', '12-5']
+      },
+      {
+        id: 4,
+        title: '偏差范围',
+        startVal: '',
+        endVal: '',
+        value: '',
+        valList: ['12-1', '12-5']
+      }
+    ]
     return {
       raceType: 1,
+      xData: ['偏差', '中等', '良好', '优秀'],
+      expertsIndicatorsList: expertsIndicatorsList,
       targetData: [],
       scoreRange: 1,
       legendData: ['王小虎', '李小芳', '张大壮', '赵大强'],
@@ -86,41 +136,68 @@ export default {
           data: [200, 10, 300, 20, 90, 50, 300]
         }
       ],
-      tableData: [
+      value: '',
+      value2: '',
+      options1: [
         {
-          number: '第一圈',
-          number1: {
-            a: 1,
-            b: -1
-          },
-          number2: {
-            a: 1,
-            b: -1
-          },
-          number3: {
-            a: 1,
-            b: -1
-          },
-          number4: {
-            a: 1,
-            b: -1
-          },
-          number5: {
-            a: 1,
-            b: -1
-          },
-          number6: {
-            a: 1,
-            b: -1
-          },
-          number7: {
-            a: 1,
-            b: -1
-          },
-          number8: {
-            a: 1,
-            b: -1
-          }
+          value: '选项1',
+          label: '王小虎'
+        },
+        {
+          value: '选项2',
+          label: '李小芳'
+        },
+        {
+          value: '选项3',
+          label: '张大壮'
+        },
+        {
+          value: '选项4',
+          label: '赵大强'
+        }
+      ],
+      options3: [
+        {
+          value: '选项1',
+          label: '启动阶段'
+        },
+        {
+          value: '选项2',
+          label: '冲刺阶段'
+        },
+        {
+          value: '选项3',
+          label: '直道赛段'
+        },
+        {
+          value: '选项4',
+          label: '弯道赛段'
+        },
+        {
+          value: '选项5',
+          label: '赛段全程'
+        }
+      ],
+      options: [
+        {
+          value: '选项1',
+          label: '启动阶段'
+        },
+        {
+          value: '选项2',
+          label: '冲刺阶段'
+        },
+        {
+          value: '选项3',
+          label: '直道赛段'
+        },
+        {
+          value: '选项4',
+          label: '弯道赛段'
+        },
+        {
+          value: '选项5',
+          label: '赛段全程'
         }
       ]
     }
@@ -157,58 +234,44 @@ export default {
     border-bottom: 1px solid #ddd;
     font-weight: bold;
   }
+  .speciallist_cont {
+    margin: 5px 0;
+  }
   .target_score_visaul_cont_l {
-    padding-top: 80px;
-    .left_rectangle_cont {
-      border: 1px solid #ddd;
-      width: 160px;
+    display: flex;
+    align-items: center;
+    span {
+      display: inline-block;
+      width: 80px;
       text-align: center;
-      padding: 20px;
-      position: relative;
-      .title {
-        position: absolute;
-        top: -8px;
-        background: #fff;
-        font-weight: bold;
-        padding: 0 20px 0 10px;
-      }
-      .el-radio {
-        margin: 6px 0;
-      }
+    }
+    .el-input {
+      width: 60%;
+      box-sizing: border-box;
+      margin-right: 10px;
     }
   }
+
   .target_score_visaul_cont_r {
-    padding: 20px;
-    box-sizing: border-box;
     display: flex;
+    align-items: center;
+    .el-input {
+      width: 60%;
+      margin-left: 10px;
+      margin-right: 15px;
+    }
+    /deep/.el-card__body {
+      padding: 6px 8px;
+    }
     .title {
       margin-right: 30px;
     }
+
     .track {
       background-color: pink;
       width: 100px;
       height: 180px;
     }
   }
-}
-.flex-item {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #eee;
-  div {
-    flex: 1;
-    line-height: 25px;
-  }
-}
-.row-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-.color1 {
-  color: green;
-}
-.color2 {
-  color: red;
 }
 </style>

@@ -14,8 +14,11 @@
               <chartView></chartView>
             </template>
           </el-tab-pane>
-          <el-tab-pane name="target" label="指标生成">
+          <el-tab-pane name="target" label="专家评估">
             <targetView v-if="tabPane == 'target'" />
+          </el-tab-pane>
+          <el-tab-pane name="intelligent" label="智能分享">
+            <intelligentView v-if="tabPane == 'intelligent'" />
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -30,7 +33,8 @@ export default {
     originalView: () => import('./../components/originalView'),
     dataView: () => import('./../components/dataView/index2.vue'),
     chartView: () => import('./../components/chartView/index2.vue'),
-    targetView: () => import('./../components/targetView')
+    targetView: () => import('./../components/targetView/index2'),
+    intelligentView: () => import('./../components/intelligentView/index2')
   },
   data() {
     const generateData = _ => {

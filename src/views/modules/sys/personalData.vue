@@ -23,6 +23,9 @@
           <el-tab-pane name="heart" label="心率分析">
             <heartView v-if="tabPane == 'heart'" />
           </el-tab-pane>
+          <el-tab-pane name="intelligent" label="智能分享">
+            <intelligentView v-if="tabPane == 'intelligent'" />
+          </el-tab-pane>
         </el-tabs>
       </div>
     </el-card>
@@ -38,7 +41,9 @@ export default {
     dataView: () => import('./../components/dataView'),
     chartView: () => import('./../components/chartView'),
     targetView: () => import('./../components/targetView'),
-    heartView: () => import('./../components/chartView/index4')
+    heartView: () => import('./../components/chartView/index4'),
+    intelligentView: () => import('./../components/intelligentView/index1')
+
   },
   data() {
     const generateData = _ => {
