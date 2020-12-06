@@ -5,18 +5,12 @@
       <h3>数据查询</h3>
       <!-- 表单部分 -->
       <p>
-        <el-form  class="el-form--inline" :model="formQurey" size="small">
+        <el-form class="el-form--inline" :model="formQurey" size="small">
           <el-form-item label="运动类型:">
             <el-select v-model="formQurey.projectid" @change="changeType" placeholder="请选择">
               <el-option :label="item.projectName" :value="item.id" :key="item.id" v-for="item in typeList"> </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="运动员:">
-            <el-select v-model="formQurey.playerid" placeholder="请选择">
-              <el-option :label="item.name" :value="item.playerid" :key="item.playerid" v-for="item in athleteList"> </el-option>
-            </el-select>
-          </el-form-item>
-          <br />
           <el-form-item label="成绩范围:">
             <el-select v-model="formQurey.cj" @change="changeType" placeholder="请选择">
               <el-option :label="item.name" :value="item.id" :key="item.id" v-for="item in cjList"> </el-option>
@@ -37,8 +31,11 @@
       </p>
     </div>
     <el-form class="el-form--inline">
+      <el-form-item label="运动员:">
+        <el-transfer :titles="['备选运动员', '分析运动员']" v-model="value1" :data="data" filterable filter-placeholder="请输入运动员名称" @change="handleChange"> </el-transfer>
+      </el-form-item>
       <el-form-item label="基本参数:">
-        <el-card>
+        <el-card style="height:303px">
           <div>身高：{{ athlateInfo.height }}cm</div>
           <div>体重：{{ athlateInfo.weight }}kg</div>
           <div>近半年最佳成绩：</div>
@@ -46,9 +43,6 @@
           <div>近半年训练强度：</div>
           <div>近半年训练时间：</div>
         </el-card>
-      </el-form-item>
-      <el-form-item>
-        <el-transfer :titles="['备选运动员', '分析运动员']" v-model="value1" :data="data" filterable filter-placeholder="请输入运动员名称" @change="handleChange"> </el-transfer>
       </el-form-item>
     </el-form>
     <p style="overflow:hidden">
@@ -94,7 +88,7 @@ export default {
     return {
       data: generateData(),
       cjList: [
-         {
+        {
           name: '前5%',
           id: 0
         },
@@ -116,8 +110,8 @@ export default {
       formQurey: {
         projectid: '', // 运动员类型
         playerid: '', // 运动员
-        cj:0,
-        type:'1'
+        cj: 0,
+        type: '1'
       }
     }
   },

@@ -2,8 +2,8 @@
   <div class="chartView">
     <el-form class="el-form--inline" :model="formQurey" size="small">
       <el-form-item style="margin-right:50px">
-        <el-radio class="radio" v-model="raceType" :label="1">单人多场心率对比</el-radio>
-        <el-radio class="radio" v-model="raceType" :label="2">多人单场心率对比</el-radio>
+        <el-radio class="radio" v-model="raceType" :label="1">单人多场动作对比</el-radio>
+        <el-radio class="radio" v-model="raceType" :label="2">多人单场动作对比</el-radio>
       </el-form-item>
       <el-form-item label="运动员" v-if="raceType == 1">
         <el-select v-model="value" placeholder="请选择">
