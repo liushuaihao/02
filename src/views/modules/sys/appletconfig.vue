@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerCard :athlateInfo="athlateInfo" />
+    <headerCard  :typeList="typeList" :athlateInfo="athlateInfo" />
     <el-card>
       <div class="securityCenter">
         <h3>分析与可视化</h3>
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+import { getPlayerListByProject, getProjectList } from '@/api/project'
 import { basicInfo, biophysInfo } from '@/api/athlete.js'
 export default {
   components: {
@@ -86,13 +87,18 @@ export default {
       dataForm: {
         type: '1'
       },
-
+      typeList: [],
       // 运动员个人信息
       athlateInfo: {}
     }
   },
   computed: {},
-  created() {},
+  created() {
+    getProjectList({}).then(({ data: res }) => {
+      this.typeList = res.data
+    })
+    //
+  },
   mounted() {
     basicInfo({ athleteid: 1 }).then(res => {
       console.log(res)

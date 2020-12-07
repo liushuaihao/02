@@ -3,7 +3,7 @@
     <div class="chartbox">
       <el-row>
         <el-col :span="12" class="col">
-          <chartLine title="体重" y="kg" :legendData="legendData" :seriesData="tz" ref="chartBomleft"></chartLine>
+          <chartLine title="体重" max="90" min="60" y="kg" :legendData="legendData" :seriesData="tz" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
           <chartLine title="体脂" y="%" :legendData="legendData" :seriesData="tzi" ref="chartBomleft"></chartLine>
@@ -16,13 +16,13 @@
         </el-col>
 
         <el-col :span="12" class="col">
-          <chartLine title="血睾酮" y="mmol/L" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="血睾酮" y="mmol/L" :legendData="legendData" :seriesData="xg" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="皮质醇" y="ng/L" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="皮质醇" y="ng/L" max="280" min="50" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
         </el-col>
         <el-col :span="12" class="col">
-          <chartLine title="BMI" :legendData="legendData" :seriesData="data1" ref="chartBomleft"></chartLine>
+          <chartLine title="BMI" max="30" min="10" :legendData="legendData" :seriesData="mbi" ref="chartBomleft"></chartLine>
         </el-col>
       </el-row>
     </div>
@@ -42,12 +42,12 @@ export default {
         {
           name: '王小虎',
           type: 'line',
-          data: [60, 60, 59.5, 59, 59, 59, 60, 60.5]
+          data: [89, 89, 89.5, 90, 89, 89, 89, 89.5]
         },
         {
           name: '李小芳',
           type: 'line',
-          data: [50.5, 51, 50.5, 50, 50.5, 51, 51.5, 52]
+          data: [60.5,61, 60.5,60, 60.5, 61, 61.5, 62]
         },
         {
           name: '张大壮',
@@ -57,10 +57,10 @@ export default {
         {
           name: '赵大强',
           type: 'line',
-          data: [55.5, 55.6, 55, 55.8, 55.2, 54.9, 55, 55]
+          data: [65.5, 65.6, 65, 65.8,65.2, 64.9, 65, 65]
         }
       ],
-      tzi:[
+      tzi: [
         {
           name: '王小虎',
           type: 'line',
@@ -82,7 +82,7 @@ export default {
           data: [25.5, 25.6, 25, 25.8, 25.2, 24.9, 25, 25]
         }
       ],
-      xhdb:[
+      xhdb: [
         {
           name: '王小虎',
           type: 'line',
@@ -104,7 +104,7 @@ export default {
           data: [125.5, 125.6, 125, 125.8, 125.2, 124.9, 125, 125]
         }
       ],
-      nsz:[
+      nsz: [
         {
           name: '王小虎',
           type: 'line',
@@ -113,7 +113,7 @@ export default {
         {
           name: '李小芳',
           type: 'line',
-          data: [3.4, .54, 2.5, 1, 3.5, 2, 5, 7]
+          data: [3.4, 0.54, 2.5, 1, 3.5, 2, 5, 7]
         },
         {
           name: '张大壮',
@@ -126,26 +126,70 @@ export default {
           data: [5.5, 4.6, 5, 6.8, 4.2, 5.9, 6, 4]
         }
       ],
-      data1: [
+      xg: [
         {
           name: '王小虎',
           type: 'line',
-          data: [500, 200, 300, 400, 100, 50, 800, 400]
+          data: [5.2, 50, 44.5, 30, 44, 44.4, 15.4, 14.4]
         },
         {
           name: '李小芳',
           type: 'line',
-          data: [120, 200, 300, 400, 500, 400, 300, 200]
+          data: [13.4, 2.54, 2.5, 41, 31.5, 42, 50, 17]
         },
         {
           name: '张大壮',
           type: 'line',
-          data: [900, 800, 300, 500, 600, 400, 500, 100]
+          data: [28, 35.5, 44, 24.2, 17.1, 41, 25.8, 26.2]
         },
         {
           name: '赵大强',
           type: 'line',
-          data: [111, 333, 222, 111, 555, 222, 666, 222]
+          data: [15.5, 44.6, 45, 36.8, 44.2, 15.9, 16, 14]
+        }
+      ],
+      data1: [
+        {
+          name: '王小虎',
+          type: 'line',
+          data: [200, 280, 100, 100, 100, 150, 100, 100]
+        },
+        {
+          name: '李小芳',
+          type: 'line',
+          data: [120, 200, 100, 100, 100, 140, 130, 120]
+        },
+        {
+          name: '张大壮',
+          type: 'line',
+          data: [190, 180, 100, 150, 160, 140, 150, 100]
+        },
+        {
+          name: '赵大强',
+          type: 'line',
+          data: [111, 133, 122, 111, 155, 122, 166, 122]
+        }
+      ],
+      mbi: [
+        {
+          name: '王小虎',
+          type: 'line',
+          data: [30, 20, 20, 10, 10, 15, 10, 10]
+        },
+        {
+          name: '李小芳',
+          type: 'line',
+          data: [12, 20, 10, 10, 10, 14, 13, 12]
+        },
+        {
+          name: '张大壮',
+          type: 'line',
+          data: [19, 18, 13, 15, 16, 14, 15, 10]
+        },
+        {
+          name: '赵大强',
+          type: 'line',
+          data: [31, 13, 12, 11, 15, 12, 16, 12]
         }
       ]
     }

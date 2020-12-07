@@ -41,9 +41,9 @@ export default {
       ],
       tableData: [
         { id: 0, sex: 1, age: 20, height: '176', weight: 56, time: '2020-02-02', bmi: '20', fat: '1', median: '2', name: '王小虎' },
-        { id: 1, sex: 1, age: 20, height: '166', weight: 58, time: '2020-02-02', bmi: '34', fat: '1', median: '2', name: '赵小芳' },
-        { id: 2, sex: 1, age: 20, height: '178', weight: 65, time: '2020-02-02', bmi: '25', fat: '1', median: '2', name: '孙宏宇' },
-        { id: 3, sex: 1, age: 20, height: '169', weight: 53, time: '2020-02-02', bmi: '22', fat: '1', median: '2', name: '李思儒' }
+        { id: 1, sex: 1, age: 20, height: '166', weight: 58, time: '2020-02-02', bmi: '34', fat: '1', median: '2', name: '李小芳' },
+        { id: 2, sex: 1, age: 20, height: '178', weight: 65, time: '2020-02-02', bmi: '25', fat: '1', median: '2', name: '张大壮' },
+        { id: 3, sex: 1, age: 20, height: '169', weight: 53, time: '2020-02-02', bmi: '22', fat: '1', median: '2', name: '赵大强' }
       ]
     }
   }

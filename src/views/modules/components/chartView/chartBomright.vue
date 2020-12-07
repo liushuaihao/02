@@ -5,6 +5,7 @@
 
 <script>
 import chartTemp from '@/components/chartTemp'
+import { deflate } from 'zlib'
 export default {
   components: {
     chartTemp
@@ -29,6 +30,16 @@ export default {
       // 线条数据
       type: Array,
       default: () => []
+    },
+    max: {
+      //y 轴单位
+      type: [String],
+      default: ''
+    },
+    min: {
+      //y 轴单位
+      type: [String],
+      default: ''
     },
     xData: {
       // x 轴
@@ -70,6 +81,7 @@ export default {
           data: this.xData
         },
         yAxis: {
+          min: this.min || 0,
           type: 'value',
           name: this.y // 单位
         },

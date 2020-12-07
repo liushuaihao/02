@@ -44,16 +44,16 @@ export default {
         { label: '皮质醇', value: 6 }
       ],
       sporterOption: [
-        { label: '黄晓明', value: 0 },
-        { label: '赵晓刚', value: 1 },
-        { label: '李白商', value: 2 },
-        { label: '王洪涛', value: 3 }
+        { label: '王小虎', value: 0 },
+        { label: '李小芳', value: 1 },
+        { label: '张大壮', value: 2 },
+        { label: '赵大强', value: 3 }
       ],
       targetData: [
-        { id: 0, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '赵小芳' },
-        { id: 1, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '孙宏宇' },
-        { id: 2, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '张东凡' },
-        { id: 3, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '李思儒' }
+        { id: 0, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '王小虎' },
+        { id: 1, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '李小芳' },
+        { id: 2, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '张大壮' },
+        { id: 3, mean: '1', max: '2', min: '1', std: '1', median: '2', name: '赵大强' }
       ],
       sporterData: [
         { id: 0, mean: '1', max: '2', min: '1', std: '1', median: '2', name: 'BMI' },

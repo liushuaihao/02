@@ -75,7 +75,7 @@ export default {
   data() {
     const generateData = _ => {
       const data = []
-      const cities = ['小明', '小王', '小花']
+      const cities = ['王小虎', '李小芳', '张大壮','赵大强']
       cities.forEach((city, index) => {
         data.push({
           label: city,

@@ -55,30 +55,30 @@ export default {
           name: '场次1',
           type: 'line',
           smooth: true,
-          data: [120, 132, 101, 134, 90, 230, 210]
+          data: [120, 132, 101, 134, 90, 180, 210]
         },
         {
           name: '场次2',
           type: 'line',
           smooth: true,
-          data: [220, 182, 191, 234, 290, 330, 310]
+          data: [180, 180, 60, 95, 60, 150, 110]
         },
         {
           name: '场次3',
           type: 'line',
-          data: [150, 232, 201, 154, 190, 330, 410]
+          data: [150, 132, 101, 154, 160, 130, 110]
         },
         {
           name: '场次4',
           type: 'line',
           smooth: true,
-          data: [200, 10, 300, 20, 90, 50, 300]
+          data: [100, 110, 100, 80, 90, 50, 100]
         },
         {
           name: '场次5',
           type: 'line',
           smooth: true,
-          data: [500, 220, 300, 50, 100, 60, 200]
+          data: [100, 120, 100, 80, 100, 60, 100]
         }
       ],
       seriesData2: [
@@ -86,25 +86,25 @@ export default {
           name: '王小虎',
           type: 'line',
           smooth: true,
-          data: [10, 20, 30, 134, 90, 230, 210]
+          data: [100, 120, 130, 134, 90, 130, 110]
         },
         {
           name: '李小芳',
           type: 'line',
           smooth: true,
-          data: [220, 182, 191, 234, 290, 330, 310]
+          data: [120, 152, 141, 134, 150, 130, 110]
         },
         {
           name: '张大壮',
           type: 'line',
           smooth: true,
-          data: [150, 232, 201, 154, 190, 330, 410]
+          data: [150, 90, 60, 77, 88, 99, 111]
         },
         {
           name: '赵大强',
           type: 'line',
           smooth: true,
-          data: [200, 10, 300, 20, 90, 50, 300]
+          data: [86, 80, 106, 120, 190, 80, 100]
         }
       ],
       raceType: 1,
