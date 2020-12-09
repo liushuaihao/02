@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<el-card class="content_left">
+		<!-- <el-card class="content_left">
 			<h3>竞技状态指标</h3>
 
 			<div  v-for="(itm, ind) in dataList" :key="ind" @click="goTag(ind,itm.type)">
@@ -10,7 +10,7 @@
 					<p class="text_data">依照数据：点击查看</p>
 				</el-card>
 			</div>
-		</el-card>
+		</el-card> -->
 		<el-card class="content_right">
 			<h3>分析数据加载</h3>
 			<el-form ref="form" class="el-form--inline" :model="form">
@@ -51,11 +51,17 @@
 					 @change="handleChange"> </el-transfer>
 				</el-form-item>
 			</el-form>
+			
+		</el-card>
+		<el-card class="el_result">
 			<h3>分析结果展示</h3>
 			<!-- 综合 -->
 			<synthesize v-if="type" />
 			<!-- 个人 -->
 			<personage v-else />
+		</el-card>
+		<el-card>
+			<analysisPhase/>
 		</el-card>
 	</div>
 </template>
@@ -63,12 +69,14 @@
 	import chartTopright from './../components/chartView/chartTopright.vue'
 	import synthesize from './../components/synthesize/synthesize.vue'
 	import personage from './../components/synthesize/personage.vue'
+	import analysisPhase from '../album/carouselMap_M.vue'
 	const cityOptions = ['血红蛋白', '血睾酮', '血尿素', '体质']
 	export default {
 		components: {
 			chartTopright,
 			synthesize,
-			personage
+			personage,
+			analysisPhase,
 		},
 		data() {
 			return {
@@ -180,7 +188,7 @@
 	}
 
 	.content {
-		display: flex;
+		// display: flex;
 
 		.content_left {
 			width: 25%;
@@ -211,11 +219,14 @@
 		}
 
 		.content_right {
-			width: 75%;
-			height: calc(100vh - 120px);
+			width: 100%;
+			// height: calc(100vh - 120px);
 			margin-top: 0;
-			margin-left: 15px;
-			overflow-y: auto;
+			// margin-left: 15px;
+			// overflow-y: auto;
+		}
+		.el_result{
+			margin-top: 20px !important;
 		}
 	}
 
