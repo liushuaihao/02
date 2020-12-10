@@ -7,132 +7,118 @@
       </el-form-item>
       <el-form-item label="要素检索">
         <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
-    
 
-    <div class="tableMode" v-if="raceType == 1">
-      <div>
-        <el-table :data="tableData3" align="center">
-          <el-table-column prop="a" label="序号"></el-table-column>
-          <el-table-column prop="b" label="关联要素"></el-table-column>
-          <el-table-column prop="c" label="成绩"></el-table-column>
-          <el-table-column prop="d" label="关联类型"></el-table-column>
-          <el-table-column prop="e" label="百分比"></el-table-column>
-        </el-table>
-      </div>
-      <div>
-          <el-table :data="tableData3" align="center">
-          <el-table-column prop="a" label="序号"></el-table-column>
-          <el-table-column prop="b" label="关联要素"></el-table-column>
-          <el-table-column prop="c" label="成绩"></el-table-column>
-          <el-table-column prop="d" label="关联类型"></el-table-column>
-          <el-table-column prop="e" label="百分比"></el-table-column>
-        </el-table>
-      </div>
-      <div>
-          <el-table :data="tableData3" align="center">
-          <el-table-column prop="a" label="序号"></el-table-column>
-          <el-table-column prop="b" label="关联要素"></el-table-column>
-          <el-table-column prop="c" label="成绩"></el-table-column>
-          <el-table-column prop="d" label="关联类型"></el-table-column>
-          <el-table-column prop="e" label="百分比"></el-table-column>
-        </el-table>
-      </div>
-    </div>
-
-    <chartView v-if="raceType == 0" />
-    <div>
-      <el-card>
-        <h4>关联详情</h4>
-        <div class="particulars">
-          <div class="particulars_left">
-            <div class="demo-input-suffix">
-              关联关系：
-              <span>血尿素→血红蛋白</span>
-            </div>
-            <div class="demo-input-suffix">
-              关联系数：
-              <span>0.9</span>
-            </div>
-            <div class="demo-input-suffix">
-              关联类型：
-              <span>300条</span>
-            </div>
-            <div class="demo-input-suffix">
-              关联时域：
-              <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
-            </div>
-            <div class="demo-input-suffix">
-              关联时间：
-              <el-date-picker v-model="date" type="date" placeholder="选择日期"></el-date-picker>
-            </div>
-          </div>
-          <div class="particulars_right">
-            <div>
-              <chartTopright />
-            </div>
-            <div>
-              <chartTopright />
-            </div>
-            <div class="chart_title">
-              <div>血尿素</div>
-              <div>血红蛋白</div>
-            </div>
-          </div>
-        </div>
-      </el-card>
-      <el-card>
-        <div class="performance">
-          <div class="performance_f">
-            <h4>关联比赛</h4>
-            <el-table :data="tableData1" style="width: 100%" align="center">
-              <el-table-column prop="serial" label="序号" min-width="100"></el-table-column>
-              <el-table-column prop="type" label="比赛类型" min-width="100"></el-table-column>
-              <el-table-column prop="time" label="比赛时间" min-width="100"></el-table-column>
-              <el-table-column prop="performance" label="比赛成绩" min-width="100"></el-table-column>
-            </el-table>
-          </div>
-          <div class="performance_f">
-            <h4>单场信息</h4>
-            <div class="oneMessage">
-              <div class="oneMessage_left">
-                <p>全程成绩</p>
-                <p>比赛名次</p>
-                <p>最高速度</p>
-                <p>起跑速度</p>
-                <p>弯道速度</p>
-              </div>
-              <div class="oneMessage_right"></div>
-            </div>
-          </div>
-        </div>
+    <el-card v-if="raceType == 1">
+      <div class="tableMode">
         <div>
-          <h4>赛段成绩</h4>
-          <el-table :data="tableData2" style="width: 100%" align="center">
-            <el-table-column prop="serial" label="序号" min-width="100"></el-table-column>
-            <el-table-column prop="a" label="关联赛段" min-width="100"></el-table-column>
-            <el-table-column prop="b" label="当前成绩" min-width="100"></el-table-column>
-            <el-table-column prop="c" label="历史最佳" min-width="100"></el-table-column>
-            <el-table-column prop="d" label="历史最佳" min-width="100"></el-table-column>
+          <el-table :data="tableData3" align="center">
+            <el-table-column prop="a" label="序号"></el-table-column>
+            <el-table-column prop="b" min-width="150px" label="关联要素"></el-table-column>
+            <el-table-column prop="c" label="成绩"></el-table-column>
+            <el-table-column prop="d" label="关联类型"></el-table-column>
+            <el-table-column prop="e" label="百分比"></el-table-column>
           </el-table>
         </div>
-      </el-card>
-    </div>
+        <div>
+          <el-table :data="tableData4" align="center">
+            <el-table-column prop="a" label="序号"></el-table-column>
+            <el-table-column prop="b" min-width="150px" label="关联要素"></el-table-column>
+            <el-table-column prop="c" label="成绩"></el-table-column>
+            <el-table-column prop="d" label="关联类型"></el-table-column>
+            <el-table-column prop="e" label="百分比"></el-table-column>
+          </el-table>
+        </div>
+        <div>
+          <el-table :data="tableData5" align="center">
+            <el-table-column prop="a" label="序号"></el-table-column>
+            <el-table-column prop="b" min-width="150px" label="关联要素"></el-table-column>
+            <el-table-column prop="c" label="成绩"></el-table-column>
+            <el-table-column prop="d" label="关联类型"></el-table-column>
+            <el-table-column prop="e" label="百分比"></el-table-column>
+          </el-table>
+        </div>
+      </div>
+    </el-card>
+    <el-card v-if="raceType == 0">
+      <chartView v-if="raceType == 0" />
+    </el-card>
+    <el-card>
+      <h4>关联详情</h4>
+      <div class="particulars">
+        <div class="particulars_left">
+          <div class="demo-input-suffix">
+            关联关系：
+            <span>血尿素→血红蛋白</span>
+          </div>
+          <div class="demo-input-suffix">
+            关联系数：
+            <span>0.9</span>
+          </div>
+          <div class="demo-input-suffix">
+            关联类型：
+            <span>300条</span>
+          </div>
+          <div class="demo-input-suffix">
+            关联时域：
+            <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            </el-select>
+          </div>
+          <div class="demo-input-suffix">
+            关联时间：
+            <el-date-picker v-model="date" type="date" placeholder="选择日期"></el-date-picker>
+          </div>
+        </div>
+        <div class="particulars_right">
+          <div>
+            <chartTopright title="血尿素" />
+          </div>
+          <div>
+            <chartTopright title="血红蛋白" />
+          </div>
+        </div>
+      </div>
+    </el-card>
+    <el-card>
+      <div class="performance">
+        <div class="performance_f">
+          <h4>关联比赛</h4>
+          <el-table :data="tableData1" style="width: 100%" align="center">
+            <el-table-column prop="serial" label="序号" min-width="100"></el-table-column>
+            <el-table-column prop="type" label="比赛类型" min-width="100"></el-table-column>
+            <el-table-column prop="time" label="比赛时间" min-width="100"></el-table-column>
+            <el-table-column prop="performance" label="比赛成绩" min-width="100"></el-table-column>
+          </el-table>
+        </div>
+        <div class="performance_f">
+          <h4>单场信息</h4>
+          <div class="oneMessage">
+            <div class="oneMessage_left">
+              <p>全程成绩</p>
+              <p>比赛名次</p>
+              <p>最高速度</p>
+              <p>起跑速度</p>
+              <p>弯道速度</p>
+            </div>
+            <div class="oneMessage_right"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>赛段成绩</h4>
+        <el-table :data="tableData2" style="width: 100%" align="center">
+          <el-table-column prop="serial" label="序号" min-width="100"></el-table-column>
+          <el-table-column prop="a" label="关联赛段" min-width="100"></el-table-column>
+          <el-table-column prop="b" label="当前成绩" min-width="100"></el-table-column>
+          <el-table-column prop="c" label="历史最佳" min-width="100"></el-table-column>
+          <el-table-column prop="d" label="历史最佳" min-width="100"></el-table-column>
+        </el-table>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -250,54 +236,92 @@ export default {
         {
           a: 0,
           b: '体脂→体重',
-          c:'良好',
-          d:'正相关',
-          e:80,
+          c: '良好',
+          d: '正相关',
+          e: 80
         },
         {
           a: 1,
-          b: '体脂→体重',
-          c:'良好',
-          d:'正相关',
-          e:80,
+          b: '体脂→血尿素',
+          c: '良好',
+          d: '负相关',
+          e: 80
         },
         {
           a: 2,
-          b: '体脂→体重',
-          c:'良好',
-          d:'正相关',
-          e:80,
+          b: '血尿素→血红蛋白',
+          c: '良好',
+          d: '域值相关',
+          e: 80
         },
         {
           a: 3,
-          b: '体脂→体重',
-          c:'良好',
-          d:'正相关',
-          e:80,
+          b: '血红蛋白→血睾酮',
+          c: '良好',
+          d: '域值相关',
+          e: 80
+        }
+      ],
+      tableData4: [
+        {
+          a: 0,
+          b: '体重→左脚蹬冰角度',
+          c: '良好',
+          d: '正相关',
+          e: 80
         },
         {
-          a: 4,
-          b: '体脂→体重',
-          c:'良好',
-          d:'正相关',
-          e:80,
+          a: 1,
+          b: '体重→右脚蹬冰角度',
+          c: '良好',
+          d: '负相关',
+          e: 80
         },
+        {
+          a: 2,
+          b: '血尿素→髋关节角度',
+          c: '良好',
+          d: '域值相关',
+          e: 80
+        },
+        {
+          a: 3,
+          b: '血尿素→踝关节角度',
+          c: '良好',
+          d: '域值相关',
+          e: 80
+        }
+      ],
+      tableData5: [
+        {
+          a: 0,
+          b: '体重→左脚蹬冰角度',
+          c: '良好',
+          d: '正相关',
+          e: 80
+        },
+        {
+          a: 1,
+          b: '体重→右脚蹬冰角度',
+          c: '良好',
+          d: '负相关',
+          e: 80
+        },
+        {
+          a: 2,
+          b: '血尿素→髋关节角度',
+          c: '良好',
+          d: '域值相关',
+          e: 80
+        },
+        {
+          a: 3,
+          b: '血尿素→踝关节角度',
+          c: '良好',
+          d: '域值相关',
+          e: 80
+        }
       ]
-
-      //   tableData1: [
-      //     { id: 1, drillTime: '启动阶段', mean: '2', max: '5', min: '5', std: '1', median: '2', skewness: '5', isTrue: 1 },
-      //     { id: 2, drillTime: '冲刺阶段', mean: '2', max: '6', min: '4', std: '1', median: '2', skewness: '5', isTrue: 0 },
-      //     { id: 3, drillTime: '直道赛段', mean: '2', max: '7', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 },
-      //     { id: 4, drillTime: '弯道赛段', mean: '2', max: '8', min: '2', std: '1', median: '2', skewness: '5', isTrue: 0 },
-      //     { id: 5, drillTime: '赛段全程', mean: '2', max: '9', min: '1', std: '1', median: '2', skewness: '5', isTrue: 1 }
-      //   ],
-      //   tableData2: [
-      //     { id: 1, drillTime: '2020年12月02日01次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 0 },
-      //     { id: 2, drillTime: '2020年12月02日02次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 },
-      //     { id: 3, drillTime: '2020年12月02日03次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 0 },
-      //     { id: 4, drillTime: '2020年12月02日04次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 0 },
-      //     { id: 5, drillTime: '2020年12月02日05次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 }
-      //   ]
     }
   }
 }
@@ -364,7 +388,9 @@ export default {
     }
   }
 }
-
+.tableMode {
+  overflow: hidden;
+}
 .tableMode > div {
   width: 33.33%;
   float: left;
