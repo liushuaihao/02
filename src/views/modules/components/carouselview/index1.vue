@@ -50,8 +50,6 @@
 
     <chartView v-if="raceType == 0" />
     <div>
-      <h3>关联显示</h3>
-      <div></div>
       <el-card>
         <h4>关联详情</h4>
         <div class="particulars">
@@ -85,7 +83,6 @@
             </div>
           </div>
           <div class="particulars_right">
-            <h4>关联范围</h4>
             <div>
               <chartTopright />
             </div>
@@ -100,7 +97,6 @@
         </div>
       </el-card>
       <el-card>
-        <h4>关联成绩</h4>
         <div class="performance">
           <div class="performance_f">
             <h4>关联比赛</h4>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" />
+    <!-- <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" /> -->
     <el-card>
       <div class="securityCenter">
         <h3>分析阶段</h3>

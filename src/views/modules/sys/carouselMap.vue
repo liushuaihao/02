@@ -1,17 +1,6 @@
 <template>
 	<div class="content">
-		<!-- <el-card class="content_left">
-			<h3>竞技状态指标</h3>
-
-			<div  v-for="(itm, ind) in dataList" :key="ind" @click="goTag(ind,itm.type)">
-				<el-card class="target_it" :class="ind == dataIndex ? 'active': ''">
-					<p class="text_tit">{{itm.title}}</p>
-					<p class="text_time">更新时间：{{itm.time}}</p>
-					<p class="text_data">依照数据：点击查看</p>
-				</el-card>
-			</div>
-		</el-card> -->
-		<el-card class="content_right">
+		<el-card class="content_right" style="margin-bottom:20px">
 			<h3>分析数据加载</h3>
 			<el-form ref="form" class="el-form--inline" :model="form">
 				<el-form-item label="运动类型:">
@@ -36,7 +25,7 @@
 				</el-form-item>
 			</el-form>
 			<el-form :model="formQurey" class="el-form--inline">
-				<el-form-item label="基本参数:">
+				<!-- <el-form-item label="基本参数:">
 					<el-card>
 						<div>身高：</div>
 						<div>体重：</div>
@@ -45,24 +34,24 @@
 						<div>近半年训练强度：</div>
 						<div>近半年训练时间：</div>
 					</el-card>
-				</el-form-item>
+				</el-form-item> -->
 				<el-form-item>
-					<el-transfer :titles="['运动员', '合格运动员']" v-model="value1" :data="data" filterable filter-placeholder="请输入运动员名称"
+					<el-transfer :titles="['当日比赛场次', '分析比赛场次']" v-model="value1" :data="data" filterable filter-placeholder="请输入比赛场次"
 					 @change="handleChange"> </el-transfer>
 				</el-form-item>
 			</el-form>
 			
 		</el-card>
-		<el-card class="el_result">
-			<h3>分析结果展示</h3>
+		<!-- <el-card class="el_result"> -->
+			<!-- <h3>分析结果展示</h3> -->
 			<!-- 综合 -->
-			<synthesize v-if="type" />
+			<!-- <synthesize v-if="type" /> -->
 			<!-- 个人 -->
-			<personage v-else />
-		</el-card>
-		<el-card>
+			<!-- <personage v-else /> -->
+		<!-- </el-card> -->
+		<!-- <el-card> -->
 			<analysisPhase/>
-		</el-card>
+		<!-- </el-card> -->
 	</div>
 </template>
 <script>
