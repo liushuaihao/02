@@ -17,7 +17,7 @@
           <el-tab-pane name="target" label="专家评估">
             <targetView v-if="tabPane == 'target'" />
           </el-tab-pane>
-          <el-tab-pane name="intelligent" label="智能分享">
+          <el-tab-pane name="intelligent" label="智能分析">
             <intelligentView v-if="tabPane == 'intelligent'" />
           </el-tab-pane>
         </el-tabs>

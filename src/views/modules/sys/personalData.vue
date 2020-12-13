@@ -23,7 +23,7 @@
           <el-tab-pane name="heart" label="心率分析">
             <heartView v-if="tabPane == 'heart'" />
           </el-tab-pane>
-          <el-tab-pane name="intelligent" label="智能分享">
+          <el-tab-pane name="intelligent" label="智能分析">
             <intelligentView v-if="tabPane == 'intelligent'" />
           </el-tab-pane>
         </el-tabs>
