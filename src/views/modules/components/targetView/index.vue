@@ -16,7 +16,7 @@
             <span>责任专家：</span>
             <el-link type="primary">{{ item.speciallist }}</el-link>
           </div>
-          <el-button>加载/查看</el-button>
+          <el-button @click="checkTarget(item)">加载/查看</el-button>
           <el-button>更新/生成指标</el-button>
         </el-card>
       </div>
@@ -226,7 +226,9 @@ export default {
       this.currentTitle = this.cities[a].name
     }
   },
-  mounted() {}
+  mounted() {
+    
+  }
 }
 </script>
 <style lang="scss" scoped>
