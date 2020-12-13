@@ -1,6 +1,6 @@
 <template>
   <div class="chart3">
-    <chartTemp :option="option"></chartTemp>
+    <chartTemp :option="option" @item-click="itemClick"></chartTemp>
   </div>
 </template>
 
@@ -25,6 +25,12 @@ export default {
     this.getEchartsData()
   },
   methods: {
+    itemClick(data) {
+      console.log(data.dataType)
+      if (data.dataType === 'node') {
+        this.$emit('itemClick', data)
+      }
+    },
     getEchartsData() {
       this.option = {
         title: {

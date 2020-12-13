@@ -12,6 +12,11 @@ export default {
     chartTemp
   },
   props: {
+    y: {
+      //y 轴单位
+      type: [String],
+      default: ''
+    },
     title: {
       type: [String],
       default: ''
@@ -26,16 +31,12 @@ export default {
     },
     bDatap: {
       type: [Array],
-      default: () => [0, 58, 0, 0, 0, 0, 0]
+      default: () => [23, 58, 35, 54, 26, 46, 35]
     }
   },
   data() {
     return {
-      option: {},
-      xData: this.xDatap,
-      yData: this.yDatap,
-      bData: this.bDatap,
-      currentTitle: this.title
+      option: {}
     }
   },
   mounted() {
@@ -48,7 +49,7 @@ export default {
           trigger: 'axis'
         },
         title: {
-          text: this.currentTitle,
+          text: this.title,
           x: 'center'
         },
         calculable: true,
@@ -56,7 +57,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: this.xData
+            data: this.xDatap
           }
         ],
         yAxis: [
@@ -71,18 +72,19 @@ export default {
                 width: 1,
                 type: 'solid'
               }
-            }
+            },
+            name: this.y // 单位
           }
         ],
         series: [
           {
-            name: '最高气温',
+            name: '',
             type: 'line',
-            data: this.yData,
+            data: this.yDatap,
             areaStyle: {}
           },
           {
-            name: '最佳',
+            name: '',
             type: 'bar',
             barWidth: 20, //柱图宽度
             itemStyle: {
@@ -99,7 +101,7 @@ export default {
                 }
               }
             },
-            data: this.bData
+            data: this.bDatap
           }
         ]
       }
@@ -107,8 +109,12 @@ export default {
   },
   watch: {
     title(a, b) {
-      console.log(a, 11)
+      // console.log(a, 11)
       this.currentTitle = a
+      this.getEchartsData()
+    },
+    yDatap(a, b) {
+      console.log('Y轴数据-------->', a)
       this.getEchartsData()
     }
   }

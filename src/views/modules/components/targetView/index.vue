@@ -16,14 +16,14 @@
             <span>责任专家：</span>
             <el-link type="primary">{{ item.speciallist }}</el-link>
           </div>
-          <el-button>加载/查看</el-button>
+          <el-button @click="checkTarget(item)">加载/查看</el-button>
           <el-button>更新/生成指标</el-button>
         </el-card>
       </div>
     </div>
 
     <!-- 专家指标设置./可视化 -->
-    <el-row class="target_score_visaul_cont">
+    <el-row v-loading="loading" class="target_score_visaul_cont">
       <el-col :span="12" class="target_score">
         <el-card>
           <div class="info_title">专家指标设置</div>
@@ -45,36 +45,38 @@
           </el-row>
 
           <div style="text-align:right">
-            <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
-          </div></el-card
-        >
+            <el-button :disabled="!currentTitle" size="medium" @click="showTargetScore">指标评估</el-button>
+          </div>
+        </el-card>
       </el-col>
       <el-col :offset="1" :span="11" class="target_visual">
         <el-card>
           <div class="info_title">指标参数可视化</div>
           <el-form>
             <el-form-item label="参数选择">
-              <el-radio v-for="city in cities" :label="city.type" :key="city.type" v-model="visualType">{{ city.name }}</el-radio>
+              <el-radio :disabled="!currentTitle" v-for="city in cities" :label="city.type" :key="city.type" v-model="visualType">{{ city.name }}</el-radio>
             </el-form-item>
           </el-form>
           <div>
-            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
-            <div v-if="isShow">
-              <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft>
-              <div class="flex">
-                <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
-                  <span>{{ item.number }}%</span>
-                </div>
-              </div>
+            <chartTopright ref="chartRight" y="g/L" :title="currentTitle" :bDatap="yDataBar" :yDatap="yDataLine"></chartTopright>
+            <div v-loading="showTargetScoreCont" v-if="isShow">
+              <!-- 比例占比条 -->
               <div class="tag_cont">
                 <div v-for="(item, index) in line" :key="index">
                   <i class="tag" :style="{ background: item.bgColor }"></i>
                   <span>{{ item.type }}</span>
                 </div>
               </div>
+              <div class="flex">
+                <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+                  <span>{{ item.number }}%</span>
+                </div>
+              </div>
+              <!-- 横向数据展示 -->
+              <chartTopleft ref="chartTopleft" :xDatap="xData" :yDatap="yData"></chartTopleft>
             </div>
-          </div></el-card
-        >
+          </div>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -95,66 +97,66 @@ const targetData = [
 const expertsIndicatorsList = [
   {
     id: 1,
-    title: 'BMI',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-12', '12-5']
-  },
-  {
-    id: 2,
-    title: '体脂率',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-2', '12-2']
-  },
-  {
-    id: 3,
-    title: '体重',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-1', '12-5']
-  },
-  {
-    id: 4,
     title: '血红蛋白',
     startVal: '',
     endVal: '',
     value: '',
-    valList: ['12-1', '12-5']
+    valList: ['12-15', '14-23']
   },
   {
-    id: 5,
-    title: '血尿素',
-    startVal: '',
-    endVal: '',
-    value: '',
-    valList: ['12-1', '12-5']
-  },
-  {
-    id: 6,
+    id: 2,
     title: '血睾酮',
     startVal: '',
     endVal: '',
     value: '',
-    valList: ['12-1', '12-5']
+    valList: ['23-28', '12-25']
   },
   {
-    id: 7,
+    id: 3,
+    title: '血尿素',
+    startVal: '',
+    endVal: '',
+    value: '',
+    valList: ['34-45', '22-45']
+  },
+  {
+    id: 4,
+    title: '体脂率',
+    startVal: '',
+    endVal: '',
+    value: '',
+    valList: ['34-55', '42-55']
+  },
+  {
+    id: 5,
+    title: '体重',
+    startVal: '',
+    endVal: '',
+    value: '',
+    valList: ['41-61', '52-75']
+  },
+  {
+    id: 6,
     title: '皮质醇',
     startVal: '',
     endVal: '',
     value: '',
-    valList: ['12-1', '12-5']
+    valList: ['35-51', '32-58']
+  },
+  {
+    id: 7,
+    title: 'BMI',
+    startVal: '',
+    endVal: '',
+    value: '',
+    valList: ['54-61', '45-65']
   }
 ]
 const citiess = [
   { name: '血红蛋白', type: 0 },
   { name: '血睾酮', type: 1 },
   { name: '血尿素', type: 2 },
-  { name: '体质', type: 3 },
+  { name: '体脂率', type: 3 },
   { name: '体重', type: 4 },
   { name: '皮质醇', type: 5 },
   { name: 'BMI', type: 6 }
@@ -170,26 +172,8 @@ export default {
       // 专家指标设置数据
       expertsIndicatorsList: expertsIndicatorsList,
       scoreRange: 1,
-      checked1: false,
-      bDatap: [0, 0, 100, 0, 0, 0, 0],
-      bar: [
-        {
-          name: '血红蛋白',
-          value: 20
-        },
-        {
-          name: '血睾酮',
-          value: 30
-        },
-        {
-          name: '血尿素',
-          value: 20
-        },
-        {
-          name: '体质',
-          value: 10
-        }
-      ],
+      yDataBar: [],
+      yDataLine: [],
       line: [
         {
           number: 50,
@@ -212,21 +196,70 @@ export default {
           bgColor: '#DD2D21'
         }
       ],
-      visualType: 0,
-      currentTitle: '血红蛋白',
-      xData: ['BMI', '体脂率', '体重', '血红蛋白', '血尿素', '血睾酮', '皮质醇']
+      visualType: '',
+      currentTitle: '',
+      xData: [],
+      yData: ['BMI', '皮质醇', '体重', '体脂率', '血尿素', '血睾酮', '血红蛋白'],
+      loading: false,
+      showTargetScoreCont: false
     }
   },
   watch: {
-    checked1(a) {
-      this.bDatap = a ? [0, 0, 100, 0, 0, 0, 0] : []
-    },
     visualType(a, b) {
-      console.log(this.cities[a].name)
+      // console.log(this.cities[a].name)
       this.currentTitle = this.cities[a].name
+      // 传递X轴数据
+      this.yDataLine = []
+      this.yDataBar = []
+      for (let i = 0; i < 7; i++) {
+        this.yDataLine.push(this.$randomVal(10, 90))
+        this.yDataBar.push(this.$randomVal(10, 90))
+      }
     }
   },
-  mounted() {}
+  mounted() {},
+  methods: {
+    // 显示评估、
+    showTargetScore() {
+      this.showTargetScoreCont = true
+      setTimeout(() => {
+        this.isShow = true
+        this.showTargetScoreCont = false
+        this.$nextTick(() => {
+          if (this.xData.length) this.xData = []
+          for (let i = 0; i < 7; i++) {
+            this.xData.push(this.$randomVal(0, 80))
+          }
+          this.$refs.chartTopleft.getEchartsData()
+        })
+      }, 1000)
+    },
+    checkTarget(item) {
+      this.loading = true
+      // console.log(item)
+      let list = cloneDeep(expertsIndicatorsList)
+      list.filter(item => {
+        // console.log(item.valList)
+        item.value = item.valList[0]
+        item.startVal = this.$randomVal(30, 50)
+        item.endVal = this.$randomVal(60, 90)
+      })
+      setTimeout(() => {
+        this.loading = false
+        // 图表标题
+        this.currentTitle = '血红蛋白'
+        this.visualType = 0
+        // 传递X轴数据
+        this.yDataLine = []
+        this.yDataBar = []
+        for (let i = 0; i < 7; i++) {
+          this.yDataLine.push(this.$randomVal(10, 90))
+          this.yDataBar.push(this.$randomVal(10, 90))
+        }
+        this.expertsIndicatorsList = list
+      }, 1000)
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -286,7 +319,7 @@ export default {
     .el-input {
       width: 60%;
       margin-left: 10px;
-      margin-right: 15px;
+      margin-right: 6px;
     }
     /deep/.el-card__body {
       padding: 6px 8px;
@@ -309,7 +342,7 @@ export default {
 }
 .line_item {
   position: relative;
-  margin-top: 50px;
+  margin: 20px 0;
   span {
     width: 100%;
     display: inline-block;
@@ -318,6 +351,8 @@ export default {
 }
 .tag_cont {
   display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
   & > div {
     display: flex;
     align-items: center;
@@ -326,8 +361,7 @@ export default {
     display: inline-block;
     width: 30px;
     height: 20px;
-    margin-top: 20px;
-    margin-right: 20px;
+    margin-right: 10px;
   }
   span {
     margin-right: 20px;

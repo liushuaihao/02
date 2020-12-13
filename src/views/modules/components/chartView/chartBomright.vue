@@ -58,6 +58,7 @@ export default {
   methods: {
     getEchartsData() {
       this.option = {
+      color: ['red', 'blue'],
         title: {
           text: this.title,
           x: 'center'

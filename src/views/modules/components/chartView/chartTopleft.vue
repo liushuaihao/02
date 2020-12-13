@@ -12,29 +12,29 @@ export default {
   props: {
     title: {
       type: [String],
-      default: ''
+      default: '综合评分：'
     },
     xDatap: {
       type: [Array],
-      default: () => ['20201101', '20201102', '20201103', '20201104', '20201105', '20201106', '20201107']
+      default: () => [50, 60, 10, 13, 12, 13, 10]
+    },
+    yDatap: {
+      type: [Array],
+      default: () => ['BMI', '皮质醇', '体重', '体脂率', '血尿素', '血睾酮', '血红蛋白']
     }
   },
   data() {
     return {
-      option: {},
-      xData: this.xDatap,
-      yData: [50, 60, 10, 13, 12, 13, 10]
+      option: {}
     }
   },
-  mounted() {
-    this.getEchartsData()
-  },
+  mounted() {},
   methods: {
     getEchartsData() {
       this.option = {
         color: ['#409EFF'],
         title: {
-          text: this.title,
+          text: this.computedTitle,
           x: 'center'
         },
         tooltip: {
@@ -67,7 +67,7 @@ export default {
         yAxis: [
           {
             type: 'category',
-            data: this.xData,
+            data: this.yDatap,
             axisTick: {
               alignWithLabel: true,
               show: false
@@ -83,7 +83,7 @@ export default {
             name: '%', // 系列名称
             type: 'bar',
             barWidth: '60%',
-            data: this.yData,
+            data: this.xDatap,
             label: {
               // 图形上的文本标签
               show: true,
@@ -95,6 +95,26 @@ export default {
             }
           }
         ]
+      }
+    }
+  },
+  computed: {
+    computedTitle() {
+      if (this.xDatap.length) {
+        let score = parseInt(this.xDatap.reduce((prev, next) => prev + next) / 7)
+        let type = ''
+        if (score >= 0 && score < 20) {
+          type = '优'
+        } else if (score >= 20 && score < 30) {
+          type = '良'
+        } else if (score >= 30 && score < 50) {
+          type = '中'
+        } else {
+          type = '差'
+        }
+        return this.title + score + '%（ ' + type + ' ）'
+      } else {
+        return this.title
       }
     }
   }

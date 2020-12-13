@@ -44,41 +44,43 @@
       </div>
     </el-card>
     <el-card v-if="raceType == 0">
-      <chartView v-if="raceType == 0" />
+      <chartView v-if="raceType == 0" @itemClick="itemClick" />
     </el-card>
     <el-card>
       <h4>关联详情</h4>
-      <div class="particulars">
-        <div class="particulars_left">
-          <div class="demo-input-suffix">
-            关联关系：
-            <span>血尿素→血红蛋白</span>
+      <div v-if="source">
+        <div v-loading="loading" class="particulars">
+          <div class="particulars_left">
+            <div class="demo-input-suffix">
+              关联关系：
+              <span>{{ source }}→{{ target }}</span>
+            </div>
+            <div class="demo-input-suffix">
+              关联系数：
+              <span>0.9</span>
+            </div>
+            <div class="demo-input-suffix">
+              关联类型：
+              <span>300条</span>
+            </div>
+            <div class="demo-input-suffix">
+              关联时域：
+              <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+              </el-select>
+            </div>
+            <div class="demo-input-suffix">
+              关联时间：
+              <el-date-picker v-model="date" type="date" placeholder="选择日期"></el-date-picker>
+            </div>
           </div>
-          <div class="demo-input-suffix">
-            关联系数：
-            <span>0.9</span>
-          </div>
-          <div class="demo-input-suffix">
-            关联类型：
-            <span>300条</span>
-          </div>
-          <div class="demo-input-suffix">
-            关联时域：
-            <el-select v-model="value2" clearable style="margin-left: 20px;" placeholder="请选择">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
-          </div>
-          <div class="demo-input-suffix">
-            关联时间：
-            <el-date-picker v-model="date" type="date" placeholder="选择日期"></el-date-picker>
-          </div>
-        </div>
-        <div class="particulars_right">
-          <div>
-            <chartTopright title="血尿素" />
-          </div>
-          <div>
-            <chartTopright title="血红蛋白" />
+          <div class="particulars_right">
+            <div>
+              <chartTopright title="血尿素" :yDatap="yDataLine" :bDatap="yDataBar" />
+            </div>
+            <div>
+              <chartTopright title="血红蛋白" :yDatap="yDataLine2" :bDatap="yDataBar2"  />
+            </div>
           </div>
         </div>
       </div>
@@ -132,6 +134,8 @@ export default {
   },
   data() {
     return {
+      source: '',
+      target: '',
       date: '',
       raceType: 0,
       value2: '选项1',
@@ -321,7 +325,37 @@ export default {
           d: '域值相关',
           e: 80
         }
-      ]
+      ],
+      loading: false,
+      yDataLine: [],
+      yDataBar: [],
+      yDataLine2: [],
+      yDataBar2: []
+    }
+  },
+  methods: {
+    itemClick(data) {
+      console.log(data)
+      this.loading = true
+      setTimeout(() => {
+        this.source = data.source
+        this.target = data.target
+        this.loading = false
+        // 图表标题
+        this.currentTitle = '血红蛋白'
+        this.visualType = 0
+        // 传递X轴数据
+        this.yDataLine = []
+        this.yDataBar = []
+        this.yDataLine2 = []
+        this.yDataBar2 = []
+        for (let i = 0; i < 7; i++) {
+          this.yDataLine.push(this.$randomVal(10, 90))
+          this.yDataBar.push(this.$randomVal(10, 90))
+          this.yDataLine2.push(this.$randomVal(10, 90))
+          this.yDataBar2.push(this.$randomVal(10, 90))
+        }
+      }, 1000)
     }
   }
 }

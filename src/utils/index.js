@@ -5,7 +5,7 @@ import store from '@/store'
  * 权限
  * @param {*} key
  */
-export function hasPermission (key) {
+export function hasPermission(key) {
   return window.SITE_CONFIG['permissions'].indexOf(key) !== -1 || false
 }
 
@@ -13,8 +13,8 @@ export function hasPermission (key) {
  * 获取字典数据列表
  * @param dictType  字典类型
  */
-export function getDictDataList (dictType) {
-  const type = window.SITE_CONFIG['dictList'].find((element) => (element.dictType === dictType))
+export function getDictDataList(dictType) {
+  const type = window.SITE_CONFIG['dictList'].find(element => element.dictType === dictType)
   if (type) {
     return type.dataList
   } else {
@@ -27,10 +27,10 @@ export function getDictDataList (dictType) {
  * @param dictType  字典类型
  * @param dictValue  字典值
  */
-export function getDictLabel (dictType, dictValue) {
-  const type = window.SITE_CONFIG['dictList'].find((element) => (element.dictType === dictType))
+export function getDictLabel(dictType, dictValue) {
+  const type = window.SITE_CONFIG['dictList'].find(element => element.dictType === dictType)
   if (type) {
-    const val = type.dataList.find((element) => (element.dictValue === dictValue.toString()))
+    const val = type.dataList.find(element => element.dictValue === dictValue.toString())
     if (val) {
       return val.dictLabel
     } else {
@@ -44,7 +44,7 @@ export function getDictLabel (dictType, dictValue) {
 /**
  * 清除登录信息
  */
-export function clearLoginInfo () {
+export function clearLoginInfo() {
   store.commit('resetStore')
   Cookies.remove('token')
   window.SITE_CONFIG['dynamicMenuRoutesHasAdded'] = false
@@ -53,16 +53,16 @@ export function clearLoginInfo () {
 /**
  * 获取uuid
  */
-export function getUUID () {
+export function getUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-    return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
+    return (c === 'x' ? (Math.random() * 16) | 0 : 'r&0x3' | '0x8').toString(16)
   })
 }
 
 /**
  * 获取svg图标(id)列表
  */
-export function getIconList () {
+export function getIconList() {
   var res = []
   var list = document.querySelectorAll('svg symbol')
   for (var i = 0; i < list.length; i++) {
@@ -78,7 +78,7 @@ export function getIconList () {
  * @param {*} id
  * @param {*} pid
  */
-export function treeDataTranslate (data, id = 'id', pid = 'pid') {
+export function treeDataTranslate(data, id = 'id', pid = 'pid') {
   var res = []
   var temp = {}
   for (var i = 0; i < data.length; i++) {
@@ -98,7 +98,7 @@ export function treeDataTranslate (data, id = 'id', pid = 'pid') {
   return res
 }
 // 时间戳转换
-export function formatDate (date, fmt) {
+export function formatDate(date, fmt) {
   if (/(y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
   }
@@ -112,28 +112,22 @@ export function formatDate (date, fmt) {
   for (let k in o) {
     if (new RegExp(`(${k})`).test(fmt)) {
       let str = o[k] + ''
-      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str))
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : padLeftZero(str))
     }
   }
   return fmt
 }
-function padLeftZero (str) {
+function padLeftZero(str) {
   return ('00' + str).substr(str.length)
 }
 
 // 时间 格式
-export function  setData( date ) {
-  var Y = date.getFullYear() + "-";
-  var M =
-    (date.getMonth() + 1 < 10
-      ? "0" + (date.getMonth() + 1)
-      : date.getMonth() + 1) + "-";
-  var D =
-    (date.getDate() < 10 ? "0" + date.getDate() + " " : date.getDate()) + " ";
-  return Y + M + D;
-};
-
-
+export function setData(date) {
+  var Y = date.getFullYear() + '-'
+  var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+  var D = (date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate()) + ' '
+  return Y + M + D
+}
 
 /**
  * Created by jiachenpan on 16/11/18.
@@ -158,7 +152,7 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay(),
+    a: date.getDay()
   }
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key]
@@ -244,7 +238,7 @@ export function param(json) {
     Object.keys(json).map(key => {
       if (json[key] === undefined) return ''
       return encodeURIComponent(key) + '=' + encodeURIComponent(json[key])
-    }),
+    })
   ).join('&')
 }
 
@@ -259,7 +253,7 @@ export function param2Obj(url) {
         .replace(/"/g, '\\"')
         .replace(/&/g, '","')
         .replace(/=/g, '":"') +
-      '"}',
+      '"}'
   )
 }
 
@@ -324,7 +318,7 @@ export const pickerOptions = [
       const start = new Date(new Date().toDateString())
       end.setTime(start.getTime())
       picker.$emit('pick', [start, end])
-    },
+    }
   },
   {
     text: '最近一周',
@@ -333,7 +327,7 @@ export const pickerOptions = [
       const start = new Date()
       start.setTime(end.getTime() - 3600 * 1000 * 24 * 7)
       picker.$emit('pick', [start, end])
-    },
+    }
   },
   {
     text: '最近一个月',
@@ -342,7 +336,7 @@ export const pickerOptions = [
       const start = new Date()
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
       picker.$emit('pick', [start, end])
-    },
+    }
   },
   {
     text: '最近三个月',
@@ -351,8 +345,8 @@ export const pickerOptions = [
       const start = new Date()
       start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
       picker.$emit('pick', [start, end])
-    },
-  },
+    }
+  }
 ]
 
 export function getTime(type) {
@@ -419,20 +413,31 @@ export function uniqueArr(arr) {
 }
 
 //验证非空
-export function validate(obj,msg,_this){
-  if(obj===''||obj===undefined||obj===null){
-      _this.$message({
-          message:msg+'不能为空!',
-          type:'warning'
-      })
-      return false
+export function validate(obj, msg, _this) {
+  if (obj === '' || obj === undefined || obj === null) {
+    _this.$message({
+      message: msg + '不能为空!',
+      type: 'warning'
+    })
+    return false
   }
   return true
 }
 
-export function isNull(obj){
-  if(obj===''||obj===undefined||obj===null){
-      return ''
+export function isNull(obj) {
+  if (obj === '' || obj === undefined || obj === null) {
+    return ''
   }
   return obj
+}
+
+/**
+ * @description: 生成随机数
+ * @param {Number} min 最小范围
+ * @param {Number} max 最大范围
+ * @param {String} type 返回类型
+ * @return {Number}
+ */
+export function randomVal(min, max, type) {
+  return Math.ceil((max + 1 - min) * Math.random() + min) - 1
 }

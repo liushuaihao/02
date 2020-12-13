@@ -16,7 +16,7 @@ import renProcessRunning from '@/components/ren-process-running'
 import renProcessDetail from '@/components/ren-process-detail'
 import renDeptTree from '@/components/ren-dept-tree'
 import renRegionTree from '@/components/ren-region-tree'
-import { hasPermission, getDictLabel, formatDate } from '@/utils'
+import { hasPermission, getDictLabel, formatDate, randomVal } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 import VueScroller from 'vue-scroller'
 import moment from 'moment'
@@ -42,6 +42,7 @@ Vue.use(renProcessDetail)
 Vue.prototype.$http = http
 Vue.prototype.$hasPermission = hasPermission
 Vue.prototype.$getDictLabel = getDictLabel
+Vue.prototype.$randomVal = randomVal
 Vue.prototype.$moment = moment
 
 // 保存整站vuex本地储存初始状态

@@ -32,13 +32,17 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <el-form :model="formQurey" class="el-form--inline">
+      <!-- <el-form :model="formQurey" class="el-form--inline"> -->
+      <el-form class="el-form--inline">
         <el-form-item>
           <el-transfer :titles="['当日比赛场次', '分析比赛场次']" v-model="value1" :data="data" filterable filter-placeholder="请输入比赛场次" @change="handleChange"> </el-transfer>
         </el-form-item>
       </el-form>
+      <p style="overflow:hidden">
+        <el-button style="float:right" size="medium" @click="submit">查询/加载</el-button>
+      </p>
     </el-card>
-    <analysisPhase />
+    <analysisPhase :isShow="isShow" />
   </div>
 </template>
 <script>
@@ -55,7 +59,21 @@ export default {
     analysisPhase
   },
   data() {
+    const generateData = _ => {
+      const data = []
+      const cities = ['小明', '小王', '小花']
+      cities.forEach((city, index) => {
+        data.push({
+          label: city,
+          key: index
+        })
+      })
+      return data
+    }
+
     return {
+      data: generateData(),
+      isShow: false,
       cities: cityOptions,
       checkedCities: [],
       dataList: [
@@ -186,7 +204,12 @@ export default {
       console.log(i, t)
       this.dataIndex = i
       this.type = t
-    }
+    },
+    // 加载查询按钮
+    submit() {
+      this.isShow = true
+    },
+    handleChange() {}
   }
 }
 </script>

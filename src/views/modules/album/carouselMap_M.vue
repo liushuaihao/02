@@ -10,7 +10,7 @@
           </el-tab-pane>
           <el-tab-pane name="chart" label="综合分析">
             <template v-if="tabPane == 'chart'">
-              <chartView></chartView>
+              <chartView :isShow="isShow"></chartView>
             </template>
           </el-tab-pane>
         </el-tabs>
@@ -27,6 +27,12 @@ export default {
     originalView: () => import('./../components/carouselview/index1'),
     chartView: () => import('./../components/carouselview/index2'),
     targetView: () => import('./../components/targetView/index3')
+  },
+  props: {
+    isShow: {
+      type: [Boolean],
+      default: false
+    }
   },
   data() {
     const generateData = _ => {
@@ -83,7 +89,7 @@ export default {
     }
   },
   activated() {
-   console.log(12312321312231)
+    console.log(12312321312231)
   },
   computed: {},
   created() {
