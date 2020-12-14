@@ -14,7 +14,7 @@
             </el-form-item>
           </el-form>
           <div>
-            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
+            <chartTopright :y="cities[visualType].u" ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
           </div>
           <div>
             <div class="info_title">范围列表 {{ currentTitle }}</div>
@@ -51,13 +51,13 @@ import chartTopleft from './../chartView/chartTopleft.vue'
 import cloneDeep from 'lodash/cloneDeep'
 
 const citiess = [
-  { name: '血红蛋白', type: 0 },
-  { name: '血睾酮', type: 1 },
-  { name: '血尿素', type: 2 },
-  { name: '体质', type: 3 },
-  { name: '体重', type: 4 },
-  { name: '皮质醇', type: 5 },
-  { name: 'BMI', type: 6 }
+  {u:'g/l', name: '血红蛋白', type: 0 },
+  {u:'mmol/L', name: '血睾酮', type: 1 },
+  {u:'mmol/L', name: '血尿素', type: 2 },
+  {u:'%', name: '体脂', type: 3 },
+  {u:'kg', name: '体重', type: 4 },
+  {u:'ng/L', name: '皮质醇', type: 5 },
+  {u:'', name: 'BMI', type: 6 }
 ]
 export default {
   components: { chartTopright, chartTopleft },
@@ -84,7 +84,7 @@ export default {
           value: 20
         },
         {
-          name: '体质',
+          name: '体脂',
           value: 10
         }
       ],

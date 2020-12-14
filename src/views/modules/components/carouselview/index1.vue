@@ -15,7 +15,7 @@
     <el-card v-if="raceType == 1">
       <div class="tableMode">
         <div>
-          <el-table :data="tableData3" align="center">
+          <el-table @row-click="clickData"  :data="tableData3" align="center">
             <el-table-column prop="a" label="序号"></el-table-column>
             <el-table-column prop="b" min-width="150px" label="关联要素"></el-table-column>
             <el-table-column prop="c" label="成绩"></el-table-column>
@@ -24,7 +24,7 @@
           </el-table>
         </div>
         <div>
-          <el-table :data="tableData4" align="center">
+          <el-table @row-click="clickData" :data="tableData4" align="center">
             <el-table-column prop="a" label="序号"></el-table-column>
             <el-table-column prop="b" min-width="150px" label="关联要素"></el-table-column>
             <el-table-column prop="c" label="成绩"></el-table-column>
@@ -33,7 +33,7 @@
           </el-table>
         </div>
         <div>
-          <el-table :data="tableData5" align="center">
+          <el-table @row-click="clickData" :data="tableData5" align="center">
             <el-table-column prop="a" label="序号"></el-table-column>
             <el-table-column prop="b" min-width="150px" label="关联要素"></el-table-column>
             <el-table-column prop="c" label="成绩"></el-table-column>
@@ -76,13 +76,16 @@
           </div>
           <div class="particulars_right">
             <div>
-              <chartTopright title="血尿素" :yDatap="yDataLine" :bDatap="yDataBar" />
+              <chartTopright :title="source" :yDatap="yDataLine" :bDatap="yDataBar" />
             </div>
             <div>
-              <chartTopright title="血红蛋白" :yDatap="yDataLine2" :bDatap="yDataBar2"  />
+              <chartTopright :title="target" :yDatap="yDataLine2" :bDatap="yDataBar2" />
             </div>
           </div>
         </div>
+      </div>
+      <div v-else class="page-null">
+        暂无数据
       </div>
     </el-card>
     <el-card>
@@ -240,6 +243,8 @@ export default {
         {
           a: 0,
           b: '体脂→体重',
+          source:"体脂",
+          target:"体重",
           c: '良好',
           d: '正相关',
           e: 80
@@ -247,6 +252,8 @@ export default {
         {
           a: 1,
           b: '体脂→血尿素',
+          source:"体脂",
+          target:"血尿素",
           c: '良好',
           d: '负相关',
           e: 80
@@ -254,6 +261,8 @@ export default {
         {
           a: 2,
           b: '血尿素→血红蛋白',
+          source:"血尿素",
+          target:"血红蛋白",
           c: '良好',
           d: '域值相关',
           e: 80
@@ -261,6 +270,8 @@ export default {
         {
           a: 3,
           b: '血红蛋白→血睾酮',
+          source:"血红蛋白",
+          target:"血睾酮",
           c: '良好',
           d: '域值相关',
           e: 80
@@ -270,6 +281,8 @@ export default {
         {
           a: 0,
           b: '体重→左脚蹬冰角度',
+          source:"体重",
+          target:"左脚蹬冰角度",
           c: '良好',
           d: '正相关',
           e: 80
@@ -277,6 +290,8 @@ export default {
         {
           a: 1,
           b: '体重→右脚蹬冰角度',
+          source:"体重",
+          target:"右脚蹬冰角度",
           c: '良好',
           d: '负相关',
           e: 80
@@ -284,6 +299,8 @@ export default {
         {
           a: 2,
           b: '血尿素→髋关节角度',
+          source:"血尿素",
+          target:"髋关节角度",
           c: '良好',
           d: '域值相关',
           e: 80
@@ -291,6 +308,8 @@ export default {
         {
           a: 3,
           b: '血尿素→踝关节角度',
+          source:"血尿素",
+          target:"踝关节角度",
           c: '良好',
           d: '域值相关',
           e: 80
@@ -300,6 +319,8 @@ export default {
         {
           a: 0,
           b: '体重→左脚蹬冰角度',
+          source:"体重",
+          target:"左脚蹬冰角度",
           c: '良好',
           d: '正相关',
           e: 80
@@ -307,6 +328,8 @@ export default {
         {
           a: 1,
           b: '体重→右脚蹬冰角度',
+          source:"体重",
+          target:"右脚蹬冰角度",
           c: '良好',
           d: '负相关',
           e: 80
@@ -314,6 +337,8 @@ export default {
         {
           a: 2,
           b: '血尿素→髋关节角度',
+          source:"血尿素",
+          target:"髋关节角度",
           c: '良好',
           d: '域值相关',
           e: 80
@@ -321,6 +346,8 @@ export default {
         {
           a: 3,
           b: '血尿素→踝关节角度',
+          source:"血尿素",
+          target:"踝关节角度",
           c: '良好',
           d: '域值相关',
           e: 80
@@ -334,8 +361,10 @@ export default {
     }
   },
   methods: {
+    clickData(row){
+      this.itemClick(row)
+    },
     itemClick(data) {
-      console.log(data)
       this.loading = true
       setTimeout(() => {
         this.source = data.source

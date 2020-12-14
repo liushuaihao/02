@@ -63,7 +63,8 @@ export default {
                 },
                 name: '血尿素',
                 x: 300,
-                y: 100
+                y: 100,
+                value: 50
               },
               {
                 itemStyle: {
@@ -73,7 +74,8 @@ export default {
                 },
                 name: '血红蛋白',
                 x: 400,
-                y: 80
+                y: 80,
+                value: 50
               },
               {
                 itemStyle: {
@@ -83,7 +85,8 @@ export default {
                 },
                 name: '血睾酮',
                 x: 500,
-                y: 100
+                y: 100,
+                value: 100
               },
               {
                 itemStyle: {
@@ -93,7 +96,8 @@ export default {
                 },
                 name: '髋关节角度',
                 x: 330,
-                y: 150
+                y: 150,
+                value: 100
               },
               {
                 itemStyle: {
@@ -103,7 +107,8 @@ export default {
                 },
                 name: '膝关节角度',
                 x: 380,
-                y: 140
+                y: 140,
+                value: 50
               },
               {
                 itemStyle: {
@@ -113,7 +118,8 @@ export default {
                 },
                 name: '踝关节角度',
                 x: 450,
-                y: 150
+                y: 150,
+                value: 50
               }
             ],
             // links: [],
