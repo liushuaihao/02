@@ -20,7 +20,7 @@ export default {
     },
     yDatap: {
       type: [Array],
-      default: () => ['BMI', '皮质醇', '体重', '体脂率', '血尿素', '血睾酮', '血红蛋白']
+      default: () => []
     }
   },
   data() {
@@ -34,7 +34,7 @@ export default {
       this.option = {
         color: ['#409EFF'],
         title: {
-          text: this.computedTitle,
+          text: this.title,
           x: 'center'
         },
         tooltip: {
@@ -98,25 +98,8 @@ export default {
       }
     }
   },
-  computed: {
-    computedTitle() {
-      if (this.xDatap.length) {
-        let score = parseInt(this.xDatap.reduce((prev, next) => prev + next) / 7)
-        let type = ''
-        if (score >= 0 && score < 20) {
-          type = '优'
-        } else if (score >= 20 && score < 30) {
-          type = '良'
-        } else if (score >= 30 && score < 50) {
-          type = '中'
-        } else {
-          type = '差'
-        }
-        return this.title + score + '%（ ' + type + ' ）'
-      } else {
-        return this.title
-      }
-    }
+  created(){
+    this.getEchartsData()
   }
 }
 </script>

@@ -45,7 +45,7 @@
           </el-row>
 
           <div style="text-align:right">
-            <el-button :disabled="!currentTitle" size="medium" @click="showTargetScore">指标评估</el-button>
+            <el-button :disabled="!currentTitle" size="medium" @click="lineIndex = 0,showTargetScore()">指标评估</el-button>
           </div>
         </el-card>
       </el-col>
@@ -62,18 +62,18 @@
             <div v-loading="showTargetScoreCont" v-if="isShow">
               <!-- 比例占比条 -->
               <div class="tag_cont">
-                <div v-for="(item, index) in line" :key="index">
+                <div v-for="(item, index) in line" :key="index" @click="lineIndex = index,showTargetScore()">
                   <i class="tag" :style="{ background: item.bgColor }"></i>
                   <span>{{ item.type }}</span>
                 </div>
               </div>
               <div class="flex">
-                <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+                <div class="line_item" v-for="(item, index) in line" @click="lineIndex = index,showTargetScore()" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
                   <span>{{ item.number }}%</span>
                 </div>
               </div>
               <!-- 横向数据展示 -->
-              <chartTopleft ref="chartTopleft" :xDatap="xData" :yDatap="yData"></chartTopleft>
+              <chartTopleft ref="chartTopleft" :title="'综合评分:('+line[lineIndex].type+ line[lineIndex].number+'%)'" :xDatap="xData" :yDatap="yData"></chartTopleft>
             </div>
           </div>
         </el-card>
@@ -174,6 +174,7 @@ export default {
       scoreRange: 1,
       yDataBar: [],
       yDataLine: [],
+      lineIndex: 0,
       line: [
         {
           number: 50,
@@ -198,7 +199,7 @@ export default {
       ],
       visualType: 0,
       currentTitle: '',
-      xData: [],
+      xData: [10, 50, 10, 10, 50, 50, 10],
       yData: ['BMI', '皮质醇', '体重', '体脂率', '血尿素', '血睾酮', '血红蛋白'],
       loading: false,
       showTargetScoreCont: false,
@@ -223,6 +224,7 @@ export default {
     // 显示评估、
     showTargetScore() {
       this.showTargetScoreCont = true
+      this.xData = []
       setTimeout(() => {
         this.isShow = true
         this.showTargetScoreCont = false
