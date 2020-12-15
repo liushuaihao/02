@@ -4,6 +4,9 @@
       <el-row :gutter="20">
         <el-col :span="10">
           <chartView2 v-if="isShow" />
+          <div v-else class="page-null">
+            暂无数据
+          </div>
         </el-col>
         <el-col :span="14">
           <el-row :gutter="20">
@@ -21,6 +24,9 @@
                 <el-table-column prop="serial" label="排名"></el-table-column>
                 <el-table-column prop="performance" label="评分"></el-table-column>
               </el-table>
+              <div v-else class="page-null">
+                暂无数据
+              </div>
             </el-col>
             <el-col :span="12">
               <h4>赛段评估</h4>
@@ -39,6 +45,9 @@
                 <el-table-column prop="d" min-width="100px" label="速度"></el-table-column>
                 <el-table-column prop="e" min-width="100px" label="评分"></el-table-column>
               </el-table>
+              <div v-else class="page-null">
+                暂无数据
+              </div>
             </el-col>
           </el-row>
         </el-col>
@@ -69,6 +78,10 @@
               所处位置：
               <chartTopright :yDatap="yDataLine" :bDatap="yDataBar" />
             </p>
+          </div>
+
+          <div v-else class="page-null">
+            暂无数据
           </div>
         </el-col>
       </el-row>

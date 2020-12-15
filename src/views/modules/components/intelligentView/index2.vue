@@ -1,10 +1,10 @@
 <template>
   <div>
     <p>
-      <el-button size="medium">智能分析/结果显示</el-button>
+      <el-button size="medium" @click="checkTarget()">智能分析/结果显示</el-button>
     </p>
     <!--可视化 -->
-    <el-row class="target_score_visaul_cont">
+    <el-row class="target_score_visaul_cont" v-loading="loading">
       <el-col :span="12" class="target_visual">
         <el-card>
           <div class="info_title">范围显示图表</div>
@@ -14,7 +14,7 @@
             </el-form-item>
           </el-form>
           <div>
-            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
+            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="yDataBar" :yDatap="yDataLine"></chartTopright>
           </div>
           <div>
             <div class="info_title">范围列表 {{ currentTitle }}</div>
@@ -28,13 +28,7 @@
       <el-col :offset="1" :span="11">
         <el-card>
           <div>
-            <div class="tag_cont">
-              <div v-for="(item, index) in line" :key="index">
-                <i class="tag" :style="{ background: item.bgColor }"></i>
-                <span>{{ item.type }}</span>
-              </div>
-            </div>
-            <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft></div
+            <chartTopleft ref="chartTopleft" :xDatap="xData" :yDatap="yData" :title="'综合评分：90分'"></chartTopleft></div
         ></el-card>
       </el-col>
     </el-row>
@@ -61,22 +55,46 @@ export default {
       cities: citiess,
       scoreRange: 1,
       checked1: false,
-      bDatap: [0, 0, 100, 0, 0, 0, 0],
+      xData: [50, 60, 80, 40],
       visualType: 0,
       currentTitle: '髋关节',
-      xData: ['髋关节', '踝关节', '膝关节', '左脚蹬冰角度']
+      yData: ['髋关节', '踝关节', '膝关节', '左脚蹬冰角度'],
+      yDataBar: [],
+      yDataLine: [],
+      loading: false
     }
   },
   watch: {
-    checked1(a) {
-      this.bDatap = a ? [0, 0, 100, 0, 0, 0, 0] : []
-    },
     visualType(a, b) {
-      console.log(this.cities[a].name)
+      // console.log(this.cities[a].name)
       this.currentTitle = this.cities[a].name
+      // 传递X轴数据
+      this.yDataLine = []
+      this.yDataBar = []
+      for (let i = 0; i < 7; i++) {
+        this.yDataLine.push(this.$randomVal(10, 90))
+        this.yDataBar.push(this.$randomVal(10, 90))
+      }
     }
   },
-  mounted() {}
+  mounted() {
+    this.checkTarget()
+  },
+  methods: {
+    checkTarget() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+        // 传递X轴数据
+        this.yDataLine = []
+        this.yDataBar = []
+        for (let i = 0; i < 7; i++) {
+          this.yDataLine.push(this.$randomVal(10, 90))
+          this.yDataBar.push(this.$randomVal(10, 90))
+        }
+      }, 1000)
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

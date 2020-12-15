@@ -30,15 +30,15 @@
 
             <div style="text-align:right">
               <el-button size="medium">保存</el-button>
-              <el-button size="medium" @click="isShow = !isShow">指标评估</el-button>
+              <el-button size="medium" @click=";(isShow = !isShow), _click()">指标评估</el-button>
             </div>
           </div>
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card>
-          <chartBomright title="多场次成绩变化" y="s" :legendData="legendData" :seriesData="seriesData" ref="chartBomright"></chartBomright>
-          <chartTopleft ref="chartTopleft" title="运动员优秀成绩比例" :xDatap="legendData"></chartTopleft>
+          <chartBomright v-loading="isShow" title="多场次成绩变化" y="s" :legendData="legendData" :seriesData="seriesData" ref="chartBomright"></chartBomright>
+          <chartTopleft v-loading="isShow" ref="chartTopleft2" title="运动员优秀成绩比例" :xDatap="yDatap" :yDatap="legendData"></chartTopleft>
           <el-form class="el-form--inline"
             ><el-form-item label="运动员">
               <el-select v-model="value" clearable style="margin-left: 20px;" placeholder="请选择">
@@ -52,7 +52,7 @@
             </el-form-item>
           </el-form>
 
-          <chartTopleft ref="chartTopleft" :xDatap="xData"></chartTopleft>
+          <chartTopleft v-loading="isShow" ref="chartTopleft" title="综合评分：(50%)" :xDatap="xData" :yDatap="chart2"></chartTopleft>
         </el-card>
       </el-col>
     </el-row>
@@ -104,8 +104,10 @@ export default {
       }
     ]
     return {
+      chart2: ['优秀范围', '良好范围', '中等范围', '偏差范围'],
       raceType: 1,
-      xData: ['偏差', '中等', '良好', '优秀'],
+      yDatap: [20, 30, 10, 50],
+      xData: [20, 30, 10, 50],
       expertsIndicatorsList: expertsIndicatorsList,
       targetData: [],
       scoreRange: 1,
@@ -136,8 +138,9 @@ export default {
           data: [200, 10, 300, 20, 90, 50, 300]
         }
       ],
-      value: '',
-      value2: '',
+      isShow: false,
+      value: '选项1',
+      value2: '选项1',
       options1: [
         {
           value: '选项1',
@@ -200,6 +203,34 @@ export default {
           label: '赛段全程'
         }
       ]
+    }
+  },
+  watch: {
+    value(a) {
+      this.xData = []
+      this.$nextTick(() => {
+        for (let i = 0; i < 7; i++) {
+          this.xData.push(this.$randomVal(0, 80))
+          this.$refs.chartTopleft.getEchartsData()
+        }
+      })
+    }
+  },
+  methods: {
+    _click() {
+      this.xData = []
+      this.yDatap = []
+      setTimeout(() => {
+        this.isShow = false
+        this.$nextTick(() => {
+          for (let i = 0; i < 7; i++) {
+            this.xData.push(this.$randomVal(0, 80))
+            this.yDatap.push(this.$randomVal(0, 80))
+            this.$refs.chartTopleft.getEchartsData()
+            this.$refs.chartTopleft2.getEchartsData()
+          }
+        })
+      }, 1000)
     }
   },
   mounted() {}

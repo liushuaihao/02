@@ -3,7 +3,7 @@
     <!-- 上面横向滚动数据 -->
     <div class="x_target_data_cont">
       <div class="x_target_data">
-        <el-card class="item_cont" v-for="item in targetData" :key="item.id">
+        <el-card class="item_cont" v-for="(item, index) in targetData" :key="item.id">
           <div class="title item">
             <span>个人指标：</span>
             <span>{{ item.name }}</span>
@@ -16,7 +16,7 @@
             <span>责任专家：</span>
             <el-link type="primary">{{ item.speciallist }}</el-link>
           </div>
-          <el-button @click="checkTarget(item)">加载/查看</el-button>
+          <el-button @click="checkTarget(item, index)">加载/查看</el-button>
           <el-button>更新/生成指标</el-button>
         </el-card>
       </div>
@@ -45,7 +45,7 @@
           </el-row>
 
           <div style="text-align:right">
-            <el-button :disabled="!currentTitle" size="medium" @click="showTargetScore">指标评估</el-button>
+            <el-button :disabled="!currentTitle" size="medium" @click="lineIndex = 0,showTargetScore()">指标评估</el-button>
           </div>
         </el-card>
       </el-col>
@@ -58,22 +58,22 @@
             </el-form-item>
           </el-form>
           <div>
-            <chartTopright ref="chartRight" y="g/L" :title="currentTitle" :bDatap="yDataBar" :yDatap="yDataLine"></chartTopright>
+            <chartTopright ref="chartRight" :y="cities[visualType].u" :title="currentTitle" :bDatap="yDataBar" :yDatap="yDataLine"></chartTopright>
             <div v-loading="showTargetScoreCont" v-if="isShow">
               <!-- 比例占比条 -->
               <div class="tag_cont">
-                <div v-for="(item, index) in line" :key="index">
+                <div v-for="(item, index) in line" :key="index" @click="lineIndex = index,showTargetScore()">
                   <i class="tag" :style="{ background: item.bgColor }"></i>
                   <span>{{ item.type }}</span>
                 </div>
               </div>
               <div class="flex">
-                <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+                <div class="line_item" v-for="(item, index) in line" @click="lineIndex = index,showTargetScore()" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
                   <span>{{ item.number }}%</span>
                 </div>
               </div>
               <!-- 横向数据展示 -->
-              <chartTopleft ref="chartTopleft" :xDatap="xData" :yDatap="yData"></chartTopleft>
+              <chartTopleft ref="chartTopleft" :title="'综合评分:('+line[lineIndex].type+ line[lineIndex].number+'%)'" :xDatap="xData" :yDatap="yData"></chartTopleft>
             </div>
           </div>
         </el-card>
@@ -153,13 +153,13 @@ const expertsIndicatorsList = [
   }
 ]
 const citiess = [
-  { name: '血红蛋白', type: 0 },
-  { name: '血睾酮', type: 1 },
-  { name: '血尿素', type: 2 },
-  { name: '体脂率', type: 3 },
-  { name: '体重', type: 4 },
-  { name: '皮质醇', type: 5 },
-  { name: 'BMI', type: 6 }
+  { u: 'g/l', name: '血红蛋白', type: 0 },
+  { u: 'mmol/L', name: '血睾酮', type: 1 },
+  { u: 'mmol/L', name: '血尿素', type: 2 },
+  { u: '%', name: '体脂', type: 3 },
+  { u: 'kg', name: '体重', type: 4 },
+  { u: 'ng/L', name: '皮质醇', type: 5 },
+  { u: '', name: 'BMI', type: 6 }
 ]
 export default {
   components: { chartTopright, chartTopleft },
@@ -174,6 +174,7 @@ export default {
       scoreRange: 1,
       yDataBar: [],
       yDataLine: [],
+      lineIndex: 0,
       line: [
         {
           number: 50,
@@ -196,12 +197,13 @@ export default {
           bgColor: '#DD2D21'
         }
       ],
-      visualType: '',
+      visualType: 0,
       currentTitle: '',
-      xData: [],
+      xData: [10, 50, 10, 10, 50, 50, 10],
       yData: ['BMI', '皮质醇', '体重', '体脂率', '血尿素', '血睾酮', '血红蛋白'],
       loading: false,
-      showTargetScoreCont: false
+      showTargetScoreCont: false,
+      ind: ''
     }
   },
   watch: {
@@ -222,6 +224,7 @@ export default {
     // 显示评估、
     showTargetScore() {
       this.showTargetScoreCont = true
+      this.xData = []
       setTimeout(() => {
         this.isShow = true
         this.showTargetScoreCont = false
@@ -234,7 +237,8 @@ export default {
         })
       }, 1000)
     },
-    checkTarget(item) {
+    checkTarget(item, index) {
+      this.ind = index
       this.loading = true
       // console.log(item)
       let list = cloneDeep(expertsIndicatorsList)
@@ -366,5 +370,8 @@ export default {
   span {
     margin-right: 20px;
   }
+}
+.active {
+  box-shadow: 10px 10px firebrick;
 }
 </style>

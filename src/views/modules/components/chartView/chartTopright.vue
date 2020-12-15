@@ -76,33 +76,51 @@ export default {
             name: this.y // 单位
           }
         ],
+        visualMap: {
+          type: 'piecewise',
+          show: false,
+          dimension: 0,
+          seriesIndex: 0,
+          pieces: [
+            {
+              gt: 4,
+              lt: 5,
+              color: 'rgba(0, 180, 0, 0.5)'
+            }
+          ]
+        },
         series: [
           {
             name: '',
             type: 'line',
+            smooth: true,
             data: this.yDatap,
-            areaStyle: {}
-          },
-          {
-            name: '',
-            type: 'bar',
-            barWidth: 20, //柱图宽度
-            itemStyle: {
-              normal: {
-                color: 'rgba(0,0,0,.3)', //柱状颜色
-                label: {
-                  show: false, //柱头数字
-                  position: 'top',
-                  textStyle: {
-                    fontSize: '20',
-                    fontFamily: '微软雅黑',
-                    fontWeight: 'bold'
-                  }
-                }
-              }
-            },
-            data: this.bDatap
+            areaStyle: {},
+            lineStyle: {
+              color: 'green',
+              width: 3
+            }
           }
+          // {
+          //   name: '',
+          //   type: 'bar',
+          //   barWidth: 20, //柱图宽度
+          //   itemStyle: {
+          //     normal: {
+          //       color: 'rgba(0,0,0,.3)', //柱状颜色
+          //       label: {
+          //         show: false, //柱头数字
+          //         position: 'top',
+          //         textStyle: {
+          //           fontSize: '20',
+          //           fontFamily: '微软雅黑',
+          //           fontWeight: 'bold'
+          //         }
+          //       }
+          //     }
+          //   },
+          //   data: [['20201103', 200]]
+          // }
         ]
       }
     }

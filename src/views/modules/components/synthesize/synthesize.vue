@@ -101,7 +101,7 @@
 </template>
 <script>
 import chartTopright from './../chartView/chartTopright.vue'
-const cityOptions = ['血红蛋白', '血睾酮', '血尿素', '体质']
+const cityOptions = ['血红蛋白', '血睾酮', '血尿素', '体脂']
 export default {
   components: {
     chartTopright

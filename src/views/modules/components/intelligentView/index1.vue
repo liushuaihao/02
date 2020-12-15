@@ -1,10 +1,10 @@
 <template>
   <div>
     <p>
-      <el-button size="medium">智能分析/结果显示</el-button>
+      <el-button size="medium" @click="checkTarget()">智能分析/结果显示</el-button>
     </p>
     <!--可视化 -->
-    <el-row class="target_score_visaul_cont">
+    <el-row class="target_score_visaul_cont" v-loading="loading">
       <el-col :span="12" class="target_visual">
         <el-card>
           <div class="info_title">范围显示图表</div>
@@ -14,7 +14,7 @@
             </el-form-item>
           </el-form>
           <div>
-            <chartTopright ref="chartRight" :title="currentTitle" :bDatap="bDatap"></chartTopright>
+            <chartTopright :y="cities[visualType].u" ref="chartRight" :title="currentTitle" :bDatap="bDatap" :yDatap="yDataLine"></chartTopright>
           </div>
           <div>
             <div class="info_title">范围列表 {{ currentTitle }}</div>
@@ -29,7 +29,13 @@
         <el-card>
           <div>
             <div class="flex">
-              <div class="line_item" v-for="(item, index) in line" :key="index" :style="{ width: item.number + '%', height: '20px', background: item.bgColor }">
+              <div
+                class="line_item"
+                @click=";(lineIndex = index), colorBar()"
+                v-for="(item, index) in line"
+                :key="index"
+                :style="{ width: item.number + '%', height: '20px', background: item.bgColor }"
+              >
                 <span>{{ item.number }}%</span>
               </div>
             </div>
@@ -39,7 +45,7 @@
                 <span>{{ item.type }}</span>
               </div>
             </div>
-            <chartTopleft ref="chartTopleft" :xDatap="xData" :title="'综合评分：90分'"></chartTopleft></div
+            <chartTopleft ref="chartTopleft" :title="'综合评分:(' + line[lineIndex].type + line[lineIndex].number + '%)'" :xDatap="xData" :yDatap="yData"></chartTopleft></div
         ></el-card>
       </el-col>
     </el-row>
@@ -51,13 +57,13 @@ import chartTopleft from './../chartView/chartTopleft.vue'
 import cloneDeep from 'lodash/cloneDeep'
 
 const citiess = [
-  { name: '血红蛋白', type: 0 },
-  { name: '血睾酮', type: 1 },
-  { name: '血尿素', type: 2 },
-  { name: '体质', type: 3 },
-  { name: '体重', type: 4 },
-  { name: '皮质醇', type: 5 },
-  { name: 'BMI', type: 6 }
+  { u: 'g/l', name: '血红蛋白', type: 0 },
+  { u: 'mmol/L', name: '血睾酮', type: 1 },
+  { u: 'mmol/L', name: '血尿素', type: 2 },
+  { u: '%', name: '体脂', type: 3 },
+  { u: 'kg', name: '体重', type: 4 },
+  { u: 'ng/L', name: '皮质醇', type: 5 },
+  { u: '', name: 'BMI', type: 6 }
 ]
 export default {
   components: { chartTopright, chartTopleft },
@@ -84,10 +90,11 @@ export default {
           value: 20
         },
         {
-          name: '体质',
+          name: '体脂',
           value: 10
         }
       ],
+      lineIndex: 0,
       line: [
         {
           number: 50,
@@ -112,7 +119,9 @@ export default {
       ],
       visualType: 0,
       currentTitle: '血红蛋白',
-      xData: ['BMI', '体脂率', '体重', '血红蛋白', '血尿素', '血睾酮', '皮质醇']
+      xData: [],
+      yData: ['BMI', '皮质醇', '体重', '体脂率', '血尿素', '血睾酮', '血红蛋白'],
+      loading: false
     }
   },
   watch: {
@@ -120,11 +129,49 @@ export default {
       this.bDatap = a ? [0, 0, 100, 0, 0, 0, 0] : []
     },
     visualType(a, b) {
-      console.log(this.cities[a].name)
+      // console.log(this.cities[a].name)
       this.currentTitle = this.cities[a].name
+      // 传递X轴数据
+      this.bDatap = []
+      this.yDataLine = []
+      for (let i = 0; i < 7; i++) {
+        this.yDataLine.push(this.$randomVal(10, 90))
+        this.bDatap.push(this.$randomVal(10, 90))
+      }
     }
   },
-  mounted() {}
+  created() {
+    this.$nextTick(() => {
+      if (this.xData.length) this.xData = []
+      for (let i = 0; i < 7; i++) {
+        this.xData.push(this.$randomVal(0, 80))
+      }
+      this.$refs.chartTopleft.getEchartsData()
+    })
+  },
+  mounted() {},
+  methods: {
+    colorBar() {
+      if (this.xData.length) this.xData = []
+      for (let i = 0; i < 7; i++) {
+        this.xData.push(this.$randomVal(0, 80))
+      }
+      this.$refs.chartTopleft.getEchartsData()
+    },
+    checkTarget() {
+      this.loading = true
+      setTimeout(() => {
+        this.loading = false
+        // 传递X轴数据
+        this.yDataLine = []
+        this.yDataBar = []
+        for (let i = 0; i < 7; i++) {
+          this.yDataLine.push(this.$randomVal(10, 90))
+          this.yDataBar.push(this.$randomVal(10, 90))
+        }
+      }, 1000)
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
