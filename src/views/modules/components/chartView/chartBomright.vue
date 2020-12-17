@@ -58,7 +58,7 @@ export default {
   methods: {
     getEchartsData() {
       this.option = {
-      color: ['red', 'blue'],
+        color: ['red', 'blue'],
         title: {
           text: this.title,
           x: 'center'
@@ -88,6 +88,14 @@ export default {
         },
         series: this.seriesData // 数据
       }
+    }
+  },
+  watch: {
+    seriesData: {
+      handler(n, o) {
+        this.getEchartsData()
+      },
+      deep: true
     }
   }
 }

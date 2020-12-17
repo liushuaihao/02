@@ -36,26 +36,11 @@ export default {
       raceType: 0,
       value2: '选项1',
       options: [
-        {
-          value: '选项1',
-          label: '启动阶段'
-        },
-        {
-          value: '选项2',
-          label: '冲刺阶段'
-        },
-        {
-          value: '选项3',
-          label: '直道赛段'
-        },
-        {
-          value: '选项4',
-          label: '弯道赛段'
-        },
-        {
-          value: '选项5',
-          label: '赛段全程'
-        }
+        { value: '选项1', label: '启动阶段' },
+        { value: '选项2', label: '冲刺阶段' },
+        { value: '选项3', label: '直道赛段' },
+        { value: '选项4', label: '弯道赛段' },
+        { value: '选项5', label: '赛段全程' }
       ],
       tableData1: [
         { id: 1, drillTime: '启动阶段', mean: '2', max: '5', min: '5', std: '1', median: '2', skewness: '5', isTrue: 1 },
@@ -71,6 +56,41 @@ export default {
         { id: 4, drillTime: '2020年12月02日04次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 0 },
         { id: 5, drillTime: '2020年12月02日05次', mean: '2', max: '3', min: '3', std: '1', median: '2', skewness: '5', isTrue: 1 }
       ]
+    }
+  },
+  mounted() {
+    this.tableData1.filter((item, index) => {
+      item.mean = index === 0 || index === 3 ? this.getVal(17, 21) : index === 1 || index === 2 ? this.getVal(10, 11) : this.getVal(14, 16)
+      item.max = index === 0 || index === 3 ? this.getVal(17, 21) : index === 1 || index === 2 ? this.getVal(10, 11) : this.getVal(14, 16)
+      item.min = index === 0 || index === 3 ? this.getVal(17, 21) : index === 1 || index === 2 ? this.getVal(10, 11) : this.getVal(14, 16)
+      item.std = index === 0 || index === 3 ? this.getVal(17, 21) : index === 1 || index === 2 ? this.getVal(10, 11) : this.getVal(14, 16)
+      item.median = index === 0 || index === 3 ? this.getVal(17, 21) : index === 1 || index === 2 ? this.getVal(10, 11) : this.getVal(14, 16)
+      item.skewness = index === 0 || index === 3 ? this.getVal(17, 21) : index === 1 || index === 2 ? this.getVal(10, 11) : this.getVal(14, 16)
+    })
+    this.tableData2.filter((item, index) => {
+      item.mean = this.getVal(17, 19)
+      item.max = this.getVal(17, 19)
+      item.min = this.getVal(17, 19)
+      item.std = this.getVal(17, 19)
+      item.median = this.getVal(17, 19)
+      item.skewness = this.getVal(17, 19)
+    })
+  },
+  methods: {
+    getVal(a, b) {
+      return this.$randomVal(a, b) + '.' + this.$randomVal(0, 9) + this.$randomVal(0, 9)
+    }
+  },
+  watch: {
+    value2(n, o) {
+      this.tableData2.filter((item, index) => {
+        item.mean = this.getVal(17, 19)
+        item.max = this.getVal(17, 19)
+        item.min = this.getVal(17, 19)
+        item.std = this.getVal(17, 19)
+        item.median = this.getVal(17, 19)
+        item.skewness = this.getVal(17, 19)
+      })
     }
   }
 }
