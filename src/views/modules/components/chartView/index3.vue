@@ -55,30 +55,30 @@ export default {
           name: '场次1',
           type: 'line',
           smooth: true,
-          data: [10, 6, 8, 20, 11, 5, 18,20]
+          data: [10, 6, 8, 20, 11, 5, 18, 20]
         },
         {
           name: '场次2',
           type: 'line',
           smooth: true,
-          data: [10, 5, 20, 4, 10, 9, 20,20]
+          data: [10, 5, 20, 4, 10, 9, 20, 20]
         },
         {
           name: '场次3',
           type: 'line',
-          data:[10, 20, 20, 20, 4, 5, 6,20]
+          data: [10, 20, 20, 20, 4, 5, 6, 20]
         },
         {
           name: '场次4',
           type: 'line',
           smooth: true,
-          data:[1, 2, 4, 5, 20, 20, 20,20]
+          data: [1, 2, 4, 5, 20, 20, 20, 20]
         },
         {
           name: '场次5',
           type: 'line',
           smooth: true,
-          data: [10, 4, 15, 5, 8, 9, 18,20]
+          data: [10, 4, 15, 5, 8, 9, 18, 20]
         }
       ],
       seriesData2: [
@@ -86,25 +86,25 @@ export default {
           name: '王小虎',
           type: 'line',
           smooth: true,
-          data: [10, 20, 1, 5, 6, 9, 5,20]
+          data: [10, 20, 1, 5, 6, 9, 5, 20]
         },
         {
           name: '李小芳',
           type: 'line',
           smooth: true,
-          data: [6, 20, 20, 15, 10, 5, 1,20]
+          data: [6, 20, 20, 15, 10, 5, 1, 20]
         },
         {
           name: '张大壮',
           type: 'line',
           smooth: true,
-          data: [5, 20, 18, 2, 10, 9, 5,20]
+          data: [5, 20, 18, 2, 10, 9, 5, 20]
         },
         {
           name: '赵大强',
           type: 'line',
           smooth: true,
-          data: [1, 20, 15, 15, 10, 20, 18,12]
+          data: [1, 20, 15, 15, 10, 20, 18, 12]
         }
       ],
       raceType: 1,
@@ -166,13 +166,72 @@ export default {
       showTrack: false // 显示跑道
     }
   },
-  mounted() {},
+  mounted() {
+    this.tableData.filter(item => {
+      item.mean = this.$randomVal(10, 19)
+      item.max = this.$randomVal(19, 20)
+      item.min = this.$randomVal(10, 15)
+      item.std = this.$randomVal(10, 20)
+    })
+    this.tableData2.filter(item => {
+      item.mean = this.$randomVal(10, 19)
+      item.max = this.$randomVal(19, 20)
+      item.min = this.$randomVal(10, 15)
+      item.std = this.$randomVal(10, 20)
+    })
+  },
   watch: {
     raceType(newV, oldV) {
       this.showTrack = newV === 2 ? true : false
+      this.seriesVal()
+    },
+    value2(n, o) {
+      this.tableData.filter(item => {
+        item.mean = this.$randomVal(10, 19)
+        item.max = this.$randomVal(19, 20)
+        item.min = this.$randomVal(10, 15)
+        item.std = this.$randomVal(10, 20)
+      })
+      this.tableData2.filter(item => {
+        item.mean = this.$randomVal(10, 19)
+        item.max = this.$randomVal(19, 20)
+        item.min = this.$randomVal(10, 15)
+        item.std = this.$randomVal(10, 20)
+      })
+      this.seriesVal()
+    },
+    value3(n, o) {
+      this.tableData.filter(item => {
+        item.mean = this.$randomVal(10, 19)
+        item.max = this.$randomVal(19, 20)
+        item.min = this.$randomVal(10, 15)
+        item.std = this.$randomVal(10, 20)
+      })
+      this.tableData2.filter(item => {
+        item.mean = this.$randomVal(10, 19)
+        item.max = this.$randomVal(19, 20)
+        item.min = this.$randomVal(10, 15)
+        item.std = this.$randomVal(10, 20)
+      })
+      this.seriesVal()
     }
   },
-  methods: {}
+  methods: {
+    seriesVal() {
+      this.seriesData1.filter(f => {
+        f.data = []
+        for (let i = 0; i < 8; i++) {
+          f.data.push(this.$randomVal(50, 200))
+        }
+      })
+      this.seriesData2.filter(f => {
+        f.data = []
+        for (let i = 0; i < 8; i++) {
+          f.data.push(this.$randomVal(50, 200))
+        }
+      })
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

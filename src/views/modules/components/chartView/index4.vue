@@ -87,10 +87,10 @@ export default {
         { id: 5, drillTime: '2020年11月11日5场', mean: '123fpm', max: '134fpm', min: '115fpm', std: '126fpm' }
       ],
       tableData2: [
-        { id: 1, name: '王小虎', mean: '137fpm', max: '154fpm', min: '110', std: '135fpm' },
-        { id: 2, name: '李小芳', mean: '140fpm', max: '147fpm', min: '123', std: '143fpm' },
-        { id: 3, name: '张大壮', mean: '152fpm', max: '157fpm', min: '132', std: '128fpm' },
-        { id: 4, name: '赵大强', mean: '123fpm', max: '134fpm', min: '145', std: '126fpm' }
+        { id: 1, name: '王小虎', mean: '137fpm', max: '154fpm', min: '110fpm', std: '135fpm' },
+        { id: 2, name: '李小芳', mean: '140fpm', max: '147fpm', min: '123fpm', std: '143fpm' },
+        { id: 3, name: '张大壮', mean: '152fpm', max: '157fpm', min: '132fpm', std: '128fpm' },
+        { id: 4, name: '赵大强', mean: '123fpm', max: '134fpm', min: '145fpm', std: '126fpm' }
       ],
       showTrack: false // 显示跑道
     }
