@@ -6,7 +6,7 @@
       <div class="aui-content__wrapper">
         <main-content v-if="!$store.state.contentIsNeedRefresh" />
       </div>
-      <main-theme-tools/>
+      <main-theme-tools />
     </template>
   </div>
 </template>
@@ -18,10 +18,10 @@ import MainContent from './main-content'
 import MainThemeTools from './main-theme-tools'
 import debounce from 'lodash/debounce'
 export default {
-  provide () {
+  provide() {
     return {
       // 刷新
-      refresh () {
+      refresh() {
         this.$store.state.contentIsNeedRefresh = true
         this.$nextTick(() => {
           this.$store.state.contentIsNeedRefresh = false
@@ -29,7 +29,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       loading: true
     }
@@ -43,26 +43,26 @@ export default {
   watch: {
     $route: 'routeHandle'
   },
-  created () {
+  created() {
     this.windowResizeHandle()
     this.routeHandle(this.$route)
-    Promise.all([
-      this.getUserInfo(),
-      // this.getPermissions()
-    ]).then(() => {
+    Promise.all([this.getUserInfo(), this.getPermissions()]).then(() => {
       this.loading = false
     })
   },
   methods: {
     // 窗口改变大小
-    windowResizeHandle () {
+    windowResizeHandle() {
       this.$store.state.sidebarFold = document.documentElement['clientWidth'] <= 992 || false
-      window.addEventListener('resize', debounce(() => {
-        this.$store.state.sidebarFold = document.documentElement['clientWidth'] <= 992 || false
-      }, 150))
+      window.addEventListener(
+        'resize',
+        debounce(() => {
+          this.$store.state.sidebarFold = document.documentElement['clientWidth'] <= 992 || false
+        }, 150)
+      )
     },
     // 路由, 监听
-    routeHandle (route) {
+    routeHandle(route) {
       if (!route.meta.isTab) {
         return false
       }
@@ -71,9 +71,9 @@ export default {
         tab = {
           ...window.SITE_CONFIG['contentTabDefault'],
           ...route.meta,
-          'name': route.name,
-          'params': { ...route.params },
-          'query': { ...route.query }
+          name: route.name,
+          params: { ...route.params },
+          query: { ...route.query }
         }
         this.$store.state.contentTabs = this.$store.state.contentTabs.concat(tab)
       }
@@ -81,26 +81,32 @@ export default {
       this.$store.state.contentTabsActiveName = tab.name
     },
     // 获取当前管理员信息
-    getUserInfo () {
-      return this.$http.get('/sys/user/info').then(({ data: res }) => {
-        if (res.code !== 0) {
-          return this.$message.error(res.msg)
-        }
-        this.$store.state.user.id = res.data.id
-        this.$store.state.user.name = res.data.username
-        this.$store.state.user.realName = res.data.realName
-        this.$store.state.user.headUrl = res.data.headUrl
-        this.$store.state.user.superAdmin = res.data.superAdmin
-      }).catch(() => {})
+    getUserInfo() {
+      return this.$http
+        .get('/sys/user/info')
+        .then(({ data: res }) => {
+          if (res.code !== 0) {
+            return this.$message.error(res.msg)
+          }
+          this.$store.state.user.id = res.data.id
+          this.$store.state.user.name = res.data.username
+          this.$store.state.user.realName = res.data.realName
+          this.$store.state.user.headUrl = res.data.headUrl
+          this.$store.state.user.superAdmin = res.data.superAdmin
+        })
+        .catch(() => {})
     },
     // 获取权限
-    getPermissions () {
-      return this.$http.get('/sys/menu/permissions').then(({ data: res }) => {
-        if (res.code !== 0) {
-          return this.$message.error(res.msg)
-        }
-        window.SITE_CONFIG['permissions'] = res.data
-      }).catch(() => {})
+    getPermissions() {
+      return this.$http
+        .get('/sys/menu/permissions')
+        .then(({ data: res }) => {
+          if (res.code !== 0) {
+            return this.$message.error(res.msg)
+          }
+          window.SITE_CONFIG['permissions'] = res.data
+        })
+        .catch(() => {})
     }
   }
 }
