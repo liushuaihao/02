@@ -2,7 +2,7 @@
  * @Author: tb659
  * @Date: 2021-01-10 16:08:22
  * @LastEditors: tb659
- * @LastEditTime: 2021-01-10 18:05:36
+ * @LastEditTime: 2021-01-10 19:30:08
  * @Description: 运动员列表
  * @FilePath: \02\src\views\modules\athlete\personnel\index.vue
 -->
@@ -14,7 +14,10 @@
           <el-input v-model="dataForm.name" placeholder="运动员姓名/运动员手机号" clearable></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="addOrUpdateHandle()">搜索</el-button>
+          <el-button @click="getDataList()">{{ $t('query') }}</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
         </el-form-item>
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
@@ -44,6 +47,16 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+        :current-page="page"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="limit"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="pageSizeChangeHandle"
+        @current-change="pageCurrentChangeHandle"
+      >
+      </el-pagination>
       <!-- 弹窗, 新增 / 修改 -->
       <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
     </div>
@@ -58,8 +71,8 @@ export default {
   data() {
     return {
       mixinViewModuleOptions: {
-        // getDataListURL: '/sys/dept/list',
-        // deleteURL: '/sys/dept'
+        getDataListURL: '',
+        deleteURL: ''
       },
       dataList: [
         { id: 12, name: '张三', sex: 1, age: 18, project: '1', height: 180, nativePlace: '哈尔滨', phone: '13888888888', equipmentId: '224-2424-2345' },

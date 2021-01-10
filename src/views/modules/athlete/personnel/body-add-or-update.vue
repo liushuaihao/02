@@ -51,6 +51,70 @@ export default {
       deptList: [],
       deptListVisible: false,
       dataForm: {
+        id: '',
+        name: '',
+        height: '',
+        weight: '',
+        heartRate: '',
+        blood: '',
+        breath: '',
+        bloodOxygen: '',
+        temperature: '',
+        muscleContent: '',
+        bodyFat: '',
+        LowOxygenTest: '',
+        targetNum: '',
+        time: ''
+      }
+    }
+  },
+  computed: {
+    dataRule() {
+      return {
+        name: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        height: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        weight: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        heartRate: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        blood: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        breath: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        bloodOxygen: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        temperature: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        muscleContent: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        bodyFat: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        LowOxygenTest: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        targetNum: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+      }
+    }
+  },
+  methods: {
+    init() {
+      this.visible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].resetFields()
+        // this.getDeptList().then(() => {
+          if (this.dataForm.id) {
+            this.getInfo()
+          } else if (this.$store.state.user.superAdmin === 1) {
+            
+          }
+        // })
+      })
+    },
+    // 获取部门列表
+    getDeptList() {
+      // return this.$http
+      //   .get('/sys/dept/list')
+      //   .then(({ data: res }) => {
+      //     if (res.code !== 0) {
+      //       return this.$message.error(res.msg)
+      //     }
+      //     this.deptList = res.data
+      //   })
+      //   .catch(() => {})
+    },
+    // 获取信息
+    getInfo() {
+      this.dataForm = {
         id: 12,
         name: '张三',
         height: 180,
@@ -66,64 +130,22 @@ export default {
         targetNum: '123-124-5423',
         time: '2020.09.20 10:20:24'
       }
-    }
-  },
-  computed: {},
-  methods: {
-    init() {
-      this.visible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].resetFields()
-        this.getDeptList().then(() => {
-          if (this.dataForm.id) {
-            this.getInfo()
-          } else if (this.$store.state.user.superAdmin === 1) {
-            this.deptListTreeSetDefaultHandle()
-          }
-        })
-      })
-    },
-    // 获取部门列表
-    getDeptList() {
-      return this.$http
-        .get('/sys/dept/list')
-        .then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
-          this.deptList = res.data
-        })
-        .catch(() => {})
-    },
-    // 获取信息
-    getInfo() {
-      this.$http
-        .get(`/sys/dept/${this.dataForm.id}`)
-        .then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
-          this.dataForm = {
-            ...this.dataForm,
-            ...res.data
-          }
-          if (this.dataForm.pid === '0') {
-            return this.deptListTreeSetDefaultHandle()
-          }
-          this.$refs.deptListTree.setCurrentKey(this.dataForm.pid)
-        })
-        .catch(() => {})
-    },
-    // 上级部门树, 设置默认值
-    deptListTreeSetDefaultHandle() {
-      this.dataForm.pid = '0'
-      this.dataForm.parentName = this.$t('dept.parentNameDefault')
-    },
-    // 上级部门树, 选中
-    deptListTreeCurrentChangeHandle(data) {
-      this.dataForm.pid = data.id
-      this.dataForm.parentName = data.name
-      this.deptListVisible = false
+      // this.$http
+      //   .get(`/sys/dept/${this.dataForm.id}`)
+      //   .then(({ data: res }) => {
+      //     if (res.code !== 0) {
+      //       return this.$message.error(res.msg)
+      //     }
+      //     this.dataForm = {
+      //       ...this.dataForm,
+      //       ...res.data
+      //     }
+      //     if (this.dataForm.pid === '0') {
+      //       return this.deptListTreeSetDefaultHandle()
+      //     }
+      //     this.$refs.deptListTree.setCurrentKey(this.dataForm.pid)
+      //   })
+      //   .catch(() => {})
     },
     // 表单提交
     dataFormSubmitHandle: debounce(

@@ -52,6 +52,70 @@ export default {
       deptList: [],
       deptListVisible: false,
       dataForm: {
+        id: '',
+        name: '',
+        sex: '',
+        age: '',
+        project: '',
+        height: '',
+        weight: '',
+        nativePlace: '',
+        phone: '',
+        equipmentId: '',
+        wound: '',
+        other: ''
+      },
+      options: [
+        { value: '1', label: '速滑400米' },
+        { value: '2', label: '速滑800米' },
+        { value: '3', label: '速滑1000米' }
+      ]
+    }
+  },
+  computed: {
+    dataRule() {
+      return {
+        name: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        sex: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
+        age: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        project: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
+        height: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        weight: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        nativePlace: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        phone: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        equipmentId: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        wound: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
+      }
+    }
+  },
+  methods: {
+    init() {
+      this.visible = true
+      this.$nextTick(() => {
+        this.$refs['dataForm'].resetFields()
+        // this.getDeptList().then(() => {
+        if (this.dataForm.id) {
+          this.getInfo()
+        } else if (this.$store.state.user.superAdmin === 1) {
+        }
+        // })
+      })
+    },
+    // 获取部门列表
+    getDeptList() {
+      //   return this.$http
+      //     .get('/sys/dept/list')
+      //     .then(({ data: res }) => {
+      //       if (res.code !== 0) {
+      //         return this.$message.error(res.msg)
+      //       }
+      //       this.deptList = res.data
+      //     })
+      //     .catch(() => {})
+    },
+    // 获取信息
+    getInfo() {
+      this.dataForm = {
         id: 12,
         name: '张三',
         sex: 1,
@@ -64,70 +128,23 @@ export default {
         equipmentId: '224-2424-2345',
         wound: 1,
         other: ''
-      },
-      options: [
-        { value: '1', label: '速滑400米' },
-        { value: '2', label: '速滑800米' },
-        { value: '3', label: '速滑1000米' }
-      ]
-    }
-  },
-  computed: {},
-  methods: {
-    init() {
-      this.visible = true
-      this.$nextTick(() => {
-        this.$refs['dataForm'].resetFields()
-        this.getDeptList().then(() => {
-          if (this.dataForm.id) {
-            this.getInfo()
-          } else if (this.$store.state.user.superAdmin === 1) {
-            this.deptListTreeSetDefaultHandle()
-          }
-        })
-      })
-    },
-    // 获取部门列表
-    getDeptList() {
-      return this.$http
-        .get('/sys/dept/list')
-        .then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
-          this.deptList = res.data
-        })
-        .catch(() => {})
-    },
-    // 获取信息
-    getInfo() {
-      this.$http
-        .get(`/sys/dept/${this.dataForm.id}`)
-        .then(({ data: res }) => {
-          if (res.code !== 0) {
-            return this.$message.error(res.msg)
-          }
-          this.dataForm = {
-            ...this.dataForm,
-            ...res.data
-          }
-          if (this.dataForm.pid === '0') {
-            return this.deptListTreeSetDefaultHandle()
-          }
-          this.$refs.deptListTree.setCurrentKey(this.dataForm.pid)
-        })
-        .catch(() => {})
-    },
-    // 上级部门树, 设置默认值
-    deptListTreeSetDefaultHandle() {
-      this.dataForm.pid = '0'
-      this.dataForm.parentName = this.$t('dept.parentNameDefault')
-    },
-    // 上级部门树, 选中
-    deptListTreeCurrentChangeHandle(data) {
-      this.dataForm.pid = data.id
-      this.dataForm.parentName = data.name
-      this.deptListVisible = false
+      }
+      // this.$http
+      //   .get(`/sys/dept/${this.dataForm.id}`)
+      //   .then(({ data: res }) => {
+      //     if (res.code !== 0) {
+      //       return this.$message.error(res.msg)
+      //     }
+      //     this.dataForm = {
+      //       ...this.dataForm,
+      //       ...res.data
+      //     }
+      //     if (this.dataForm.pid === '0') {
+      //       return
+      //     }
+      //     this.$refs.deptListTree.setCurrentKey(this.dataForm.pid)
+      //   })
+      //   .catch(() => {})
     },
     // 表单提交
     dataFormSubmitHandle: debounce(
@@ -136,7 +153,6 @@ export default {
           if (!valid) {
             return false
           }
-
           this.visible = false
         })
       },

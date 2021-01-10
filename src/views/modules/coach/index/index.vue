@@ -2,7 +2,7 @@
  * @Author: tb659
  * @Date: 2021-01-10 17:33:34
  * @LastEditors: tb659
- * @LastEditTime: 2021-01-10 18:07:45
+ * @LastEditTime: 2021-01-10 19:00:23
  * @Description: 教练员列表
  * @FilePath: \02\src\views\modules\coach\index\index.vue
 -->
@@ -14,7 +14,10 @@
           <el-input v-model="dataForm.name" placeholder="教练员姓名/教练员手机号" clearable></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="addOrUpdateHandle()">搜索</el-button>
+          <el-button @click="getDataList()">{{ $t('query') }}</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
         </el-form-item>
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
@@ -38,6 +41,16 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination
+        :current-page="page"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="limit"
+        :total="total"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="pageSizeChangeHandle"
+        @current-change="pageCurrentChangeHandle"
+      >
+      </el-pagination>
       <!-- 弹窗, 新增 / 修改 -->
       <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
     </div>
@@ -46,14 +59,14 @@
 
 <script>
 import mixinViewModule from '@/mixins/view-module'
-import AddOrUpdate from '@/views/modules/athlete/personnel/index-add-or-update'
+import AddOrUpdate from './add-or-update'
 export default {
   mixins: [mixinViewModule],
   data() {
     return {
       mixinViewModuleOptions: {
-        // getDataListURL: '/sys/dept/list',
-        // deleteURL: '/sys/dept'
+        getDataListURL: '',
+        deleteURL: ''
       },
       dataList: [
         { id: 12, name: '张三', sex: 1, age: 45, project: '1', duty: '主教练', phone: '13888888888' },
