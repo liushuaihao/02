@@ -1,3 +1,4 @@
+<!-- 成绩分析 -->
 <template>
   <div>
     <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" />
@@ -86,7 +87,7 @@ export default {
     }
   },
   activated() {
-   console.log(12312321312231)
+    console.log(12312321312231)
   },
   computed: {},
   created() {

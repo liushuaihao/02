@@ -1,3 +1,4 @@
+<!-- 综合分析 -->
 <template>
   <div class="content">
     <el-card class="content_right" style="margin-bottom:20px">
@@ -49,7 +50,7 @@
 import chartTopright from './../components/chartView/chartTopright.vue'
 import synthesize from './../components/synthesize/synthesize.vue'
 import personage from './../components/synthesize/personage.vue'
-import analysisPhase from '../album/carouselMap_M.vue'
+import analysisPhase from './analysisPhase.vue'
 const cityOptions = ['血红蛋白', '血睾酮', '血尿素', '体脂']
 export default {
   components: {

@@ -1,12 +1,16 @@
+<!-- 竞技状态分析 -->
 <template>
   <div>
-    <headerCard  :typeList="typeList" :athlateInfo="athlateInfo" />
+    <headerCard :typeList="typeList" :athleteList="athleteList" @changeType="getPlayerListByProject" @submit="submit" />
     <el-card>
       <div class="securityCenter">
         <h3>分析与可视化</h3>
         <!--  -->
         <el-tabs type="border-card" v-model="tabPane">
-          <el-tab-pane name="data" label="统计数据">
+          <el-tab-pane name="origina" label="原始数据">
+            <originalView />
+          </el-tab-pane>
+          <el-tab-pane name="data" label="统计对比">
             <dataView />
           </el-tab-pane>
           <el-tab-pane name="chart" label="图表显示">
@@ -16,6 +20,9 @@
           </el-tab-pane>
           <el-tab-pane name="target" label="专家评估">
             <targetView v-if="tabPane == 'target'" />
+          </el-tab-pane>
+          <el-tab-pane name="heart" label="心率分析">
+            <heartView v-if="tabPane == 'heart'" />
           </el-tab-pane>
           <el-tab-pane name="intelligent" label="智能分析">
             <intelligentView v-if="tabPane == 'intelligent'" />
@@ -32,10 +39,11 @@ export default {
   components: {
     headerCard: () => import('./../components/headerCard'),
     originalView: () => import('./../components/originalView'),
-    dataView: () => import('./../components/dataView/index2.vue'),
-    chartView: () => import('./../components/chartView/index2.vue'),
-    targetView: () => import('./../components/targetView/index2'),
-    intelligentView: () => import('./../components/intelligentView/index2')
+    dataView: () => import('./../components/dataView'),
+    chartView: () => import('./../components/chartView'),
+    targetView: () => import('./../components/targetView'),
+    heartView: () => import('./../components/chartView/index4'),
+    intelligentView: () => import('./../components/intelligentView/index1')
   },
   data() {
     const generateData = _ => {
@@ -59,37 +67,11 @@ export default {
         region: '' // 运动员
       },
       value: '',
-      // 选择框
-      selectOption: [
-        {
-          label: '小明',
-          value: 0
-        },
-        {
-          label: '小王',
-          value: 1
-        },
-        {
-          label: '小花',
-          value: 2
-        }
-      ],
-      listData: [
-        {
-          name: '小张',
-          id: 0
-        },
-        {
-          name: '小王',
-          id: 1
-        }
-      ],
+      typeList: [],
+      athleteList: [],
       dataForm: {
         type: '1'
-      },
-      typeList: [],
-      // 运动员个人信息
-      athlateInfo: {}
+      }
     }
   },
   computed: {},
@@ -99,28 +81,26 @@ export default {
     })
     //
   },
-  mounted() {
-    basicInfo({ athleteid: 1 }).then(res => {
-      console.log(res)
-      this.athlateInfo = res
-    })
-    biophysInfo({ athletes: [1, 2, 3], 'start-date': '2019-11-01 00:00:00', 'stop-date': '2020-01-01 00:00:00' }).then(res => {
-      console.log(res)
-    })
-  },
+  mounted() {},
   methods: {
-    // 时间范围
-    datePicker(e) {
-      this.$set(this.dataForm, 'end_time', e.end_time)
-      this.$set(this.dataForm, 'start_time', e.start_time)
+    // 选择运动员
+    getPlayerListByProject(id) {
+      getPlayerListByProject({ projectid: id }).then(({ data: res }) => {
+        this.athleteList = res.data
+      })
     },
-    //
-    handleChange(value, direction, movedKeys) {
-      console.log(value, direction, movedKeys)
-    },
-    // 粒度
-    selectGranularity(e) {
+    // 查询
+    submit(e) {
       console.log(e)
+      basicInfo({ athleteid: 1 }).then(res => {
+        console.log(res)
+        this.athlateInfo = res
+      })
+      biophysInfo({ athletes: [1, 2, 3], 'start-date': '2019-11-01 00:00:00', 'stop-date': '2020-01-01 00:00:00' }).then(res => {
+        console.log(res)
+        //census-data
+        //origin-data
+      })
     }
   }
 }
