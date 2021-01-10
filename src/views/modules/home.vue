@@ -123,7 +123,7 @@ export default {
     }
   },
   created() {
-    // this.getSysInfo()
+    this.getSysInfo()
   },
   methods: {
     getSysInfo() {

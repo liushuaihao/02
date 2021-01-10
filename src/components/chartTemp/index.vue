@@ -63,7 +63,7 @@
 		mounted() {
 			//console.log(11111, this.option)
 			this.chartDom = document.getElementById(this.echartsId)
-			console.log(this.chartDom)
+			// console.log(this.chartDom)
 			this.chartObj = this.echarts.init(this.chartDom)
 			this.chartObj.on('click', params => {
 				this.itemClick(params)
