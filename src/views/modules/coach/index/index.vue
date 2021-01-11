@@ -1,11 +1,3 @@
-<!--
- * @Author: tb659
- * @Date: 2021-01-10 17:33:34
- * @LastEditors: tb659
- * @LastEditTime: 2021-01-10 19:00:23
- * @Description: 教练员列表
- * @FilePath: \02\src\views\modules\coach\index\index.vue
--->
 <template>
   <el-card shadow="never" class="aui-card--fill">
     <div class="mod-sys__dept">

@@ -1,11 +1,3 @@
-<!--
- * @Author: tb659
- * @Date: 2021-01-10 17:28:22
- * @LastEditors: tb659
- * @LastEditTime: 2021-01-10 19:29:43
- * @Description: 体成分
- * @FilePath: \02\src\views\modules\athlete\personnel\bodyComposition.vue
--->
 <template>
   <el-card shadow="never" class="aui-card--fill">
     <div class="mod-sys__dept">
@@ -69,8 +61,38 @@ export default {
         deleteURL: ''
       },
       dataList: [
-        { id: 12, name: '张三', height: 180, weight: 60, heartRate: '70', blood: '134', breath: '120', bloodOxygen: '99', temperature: '36.6', muscleContent: '60%', bodyFat: '30%', LowOxygenTest: '通过', targetNum: '123-124-5423', time: '2020.09.20 10:20:24' },
-        { id: 13, name: '李四', height: 180, weight: 60, heartRate: '70', blood: '134', breath: '120', bloodOxygen: '99', temperature: '36.6', muscleContent: '60%', bodyFat: '30%', LowOxygenTest: '不通过', targetNum: '123-124-5423', time: '2020.09.20 10:20:24' },
+        {
+          id: 12,
+          name: '张三',
+          height: 180,
+          weight: 60,
+          heartRate: '70',
+          blood: '134',
+          breath: '120',
+          bloodOxygen: '99',
+          temperature: '36.6',
+          muscleContent: '60%',
+          bodyFat: '30%',
+          LowOxygenTest: '通过',
+          targetNum: '123-124-5423',
+          time: '2020.09.20 10:20:24'
+        },
+        {
+          id: 13,
+          name: '李四',
+          height: 180,
+          weight: 60,
+          heartRate: '70',
+          blood: '134',
+          breath: '120',
+          bloodOxygen: '99',
+          temperature: '36.6',
+          muscleContent: '60%',
+          bodyFat: '30%',
+          LowOxygenTest: '不通过',
+          targetNum: '123-124-5423',
+          time: '2020.09.20 10:20:24'
+        }
       ]
     }
   },

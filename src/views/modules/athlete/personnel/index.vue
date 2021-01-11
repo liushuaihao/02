@@ -1,11 +1,3 @@
-<!--
- * @Author: tb659
- * @Date: 2021-01-10 16:08:22
- * @LastEditors: tb659
- * @LastEditTime: 2021-01-10 19:30:08
- * @Description: 运动员列表
- * @FilePath: \02\src\views\modules\athlete\personnel\index.vue
--->
 <template>
   <el-card shadow="never" class="aui-card--fill">
     <div class="mod-sys__dept">
