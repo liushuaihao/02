@@ -17,17 +17,24 @@
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
         <el-table-column prop="realName" label="姓名" align="center" min-width="100"></el-table-column>
-        <el-table-column prop="sex" label="性别" align="center" min-width="80"></el-table-column>
-        <el-table-column prop="age" label="年龄" align="center" min-width="80"></el-table-column>
-        <el-table-column prop="project" label="项目" align="center" min-width="80">
+        <el-table-column prop="gender" label="性别" align="center" min-width="80">
           <template slot-scope="scope">
-            <span v-if="scope.row.project === '1'">速滑400米</span>
-            <span v-if="scope.row.project === '2'">速滑800米</span>
-            <span v-if="scope.row.project === '3'">速滑1000米</span>
+          {{scope.row.gender === 1 ? '男' : '女'}}
           </template>
         </el-table-column>
-        <el-table-column prop="height" label="身高" align="center" min-width="80"></el-table-column>
-        <el-table-column prop="nativePlace" label="籍贯" align="center" min-width="80"></el-table-column>
+        <el-table-column prop="age" label="年龄" align="center" min-width="80"></el-table-column>
+        <el-table-column prop="projects" label="项目" align="center" min-width="140">
+          <template slot-scope="scope">
+            <el-tag style="margin: 2px" v-for="item in scope.row.projects" :key="item.id">{{item.projectName}}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="height" label="身高" align="center" min-width="80">
+         <template slot-scope="scope">
+          {{scope.row.height}}cm
+          </template>
+        </el-table-column>
+        </el-table-column>
+        <el-table-column prop="cityName" label="籍贯" align="center" min-width="80"></el-table-column>
         <el-table-column prop="mobile" label="手机号" align="center" min-width="120"></el-table-column>
         <el-table-column prop="equipmentId" label="绑定设备号" align="center" min-width="140"></el-table-column>
         <el-table-column label="操作" fixed="right" align="center" min-width="140">
@@ -67,7 +74,7 @@ export default {
       mixinViewModuleOptions: {
         getDataListURL: '/user/playerList',
         getDataListIsPage: true,
-        deleteURL: '',
+        deleteURL: '/user/delete',
         deleteIsBatch: true,
         exportURL: ''
       }
