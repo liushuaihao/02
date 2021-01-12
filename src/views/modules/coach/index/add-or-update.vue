@@ -1,21 +1,21 @@
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
-      <el-form-item prop="name" label="姓名">
-        <el-input v-model="dataForm.name" placeholder="请输入姓名"></el-input>
+      <el-form-item prop="realName" label="姓名">
+        <el-input v-model="dataForm.realName" placeholder="请输入姓名"></el-input>
       </el-form-item>
-      <el-form-item prop="phone" label="手机号">
-        <el-input v-model="dataForm.phone" placeholder="请输入手机号"></el-input>
+      <el-form-item prop="mobile" label="手机号">
+        <el-input v-model="dataForm.mobile" placeholder="请输入手机号"></el-input>
       </el-form-item>
-      <el-form-item prop="duty" label="职务">
-        <el-input v-model="dataForm.duty" placeholder="请输入职务"></el-input>
+      <el-form-item prop="jobName" label="职务">
+        <el-input v-model="dataForm.jobName" placeholder="请输入职务"></el-input>
       </el-form-item>
       <el-form-item prop="age" label="年龄">
         <el-input v-model="dataForm.age" placeholder="请输入年龄"></el-input>
       </el-form-item>
-      <el-form-item prop="project" label="负责项目">
-        <el-select v-model="value" multiple filterable allow-create default-first-option collapse-tags placeholder="请选择负责项目">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+      <el-form-item prop="projects" label="项目">
+        <el-select v-model="dataForm.projects" multiple collapse-tags placeholder="请选择项目">
+          <el-option v-for="projects in projectList" :key="projects.id" :label="projects.projectName" :value="projects.id"> </el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -28,6 +28,7 @@
 
 <script>
 import debounce from 'lodash/debounce'
+import { isMobile } from '@/utils/validate'
 export default {
   data() {
     return {
@@ -36,29 +37,31 @@ export default {
       deptListVisible: false,
       dataForm: {
         id: '',
-        name: '',
+        realName: '',
         sex: '',
         age: '',
-        project: '',
-        duty: '',
-        phone: ''
+        projects: [],
+        jobName: '',
+        mobile: ''
       },
-      options: [
-        { value: '1', label: '速滑400米' },
-        { value: '2', label: '速滑800米' },
-        { value: '3', label: '速滑1000米' }
-      ]
+      projectList: []
     }
   },
 
   computed: {
     dataRule() {
+      var validateMobile = (rule, value, callback) => {
+        if (value && !isMobile(value)) {
+          return callback(new Error(this.$t('validate.format', { attr: this.$t('user.mobile') })))
+        }
+        callback()
+      }
       return {
-        name: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
-        phone: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
-        duty: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        realName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        mobile: [{ validator: validateMobile, trigger: 'blur' }],
+        jobName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         age: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
-        project: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }]
+        projects: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }]
       }
     }
   },
@@ -67,54 +70,38 @@ export default {
       this.visible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
-        // this.getDeptList().then(() => {
-        if (this.dataForm.id) {
-          this.getInfo()
-          // } else if (this.$store.state.user.superAdmin === 1) {
-          // this.deptListTreeSetDefaultHandle()
-        }
+        Promise.all([this.getProjectList()]).then(() => {
+          if (this.dataForm.id) {
+            this.getInfo()
+          }
+        })
       })
-      // })
     },
-    // 获取部门列表
-    getDeptList() {
-      return this.$http
-        .get('/sys/dept/list')
+    // 获取项目列表
+    getProjectList() {
+      let params = { page: 1, limit: 100 }
+      this.$http.get('/project/page', params).then(({ data: res }) => {
+        if (res.code !== 0) {
+          return this.$message.error(res.msg)
+        }
+        console.log(res)
+        this.projectList = res.data.list
+      })
+    },
+    // 获取信息
+    getInfo() {
+      this.$http
+        .get(`/user/getCoachById?coachId=${this.dataForm.id}`)
         .then(({ data: res }) => {
           if (res.code !== 0) {
             return this.$message.error(res.msg)
           }
-          this.deptList = res.data
+          this.dataForm = {
+            ...this.dataForm,
+            ...res.data
+          }
         })
         .catch(() => {})
-    },
-    // 获取信息
-    getInfo() {
-      this.dataForm = {
-        id: 12,
-        name: '张三',
-        sex: 1,
-        age: 45,
-        project: '1',
-        duty: '主教练',
-        phone: '13888888888'
-      }
-      // this.$http
-      //   .get(`/sys/dept/${this.dataForm.id}`)
-      //   .then(({ data: res }) => {
-      // if (res.code !== 0) {
-      //   return this.$message.error(res.msg)
-      // }
-      // this.dataForm = {
-      //   ...this.dataForm,
-      //   ...res.data
-      // }
-      // if (this.dataForm.pid === '0') {
-      //   return this.deptListTreeSetDefaultHandle()
-      // }
-      // this.$refs.deptListTree.setCurrentKey(this.dataForm.pid)
-      // })
-      // .catch(() => {})
     },
     // 表单提交
     dataFormSubmitHandle: debounce(
@@ -123,8 +110,23 @@ export default {
           if (!valid) {
             return false
           }
-
-          this.visible = false
+          this.$http
+            .post(this.dataForm.id ? '/user/updateCoach' : '/user/addCoach', this.dataForm)
+            .then(({ data: res }) => {
+              if (res.code !== 0) {
+                return this.$message.error(res.msg)
+              }
+              this.$message({
+                message: this.$t('prompt.success'),
+                type: 'success',
+                duration: 500,
+                onClose: () => {
+                  this.visible = false
+                  this.$emit('refreshDataList')
+                }
+              })
+            })
+            .catch(() => {})
         })
       },
       1000,
