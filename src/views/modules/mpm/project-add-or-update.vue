@@ -1,5 +1,6 @@
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
+    {{ !dataForm.id }}
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
       <el-form-item prop="projectName" label="项目名称">
         <el-input v-model="dataForm.projectName" placeholder="请输入项目名称"></el-input>
@@ -21,13 +22,12 @@ export default {
       deptList: [],
       deptListVisible: false,
       dataForm: {
-        id: '',
+        id: undefined,
         projectName: ''
       },
       form: {}
     }
   },
-
   computed: {
     dataRule() {
       return {
@@ -41,7 +41,8 @@ export default {
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
         if (this.dataForm.id) {
-          console.log(this.dataForm)
+          console.log(this.form)
+          this.dataForm = this.form
         }
       })
     },

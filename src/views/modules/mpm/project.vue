@@ -9,7 +9,7 @@
           <el-button @click="getDataList()">{{ $t('query') }}</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
+          <el-button type="primary" @click="addOrUpdateHandle(null, form)">{{ $t('add') }}</el-button>
         </el-form-item>
       </el-form>
       <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
@@ -49,7 +49,11 @@ export default {
         getDataListIsPage: true,
         deleteURL: '/project/delete'
       },
-      dataList: []
+      dataList: [],
+      form: {
+        id: undefined,
+        projectName: ''
+      }
     }
   },
   components: {
@@ -57,10 +61,12 @@ export default {
   },
   methods: {
     // 新增 / 修改
-    addOrUpdateHandle(form) {
+    addOrUpdateHandle(id, form) {
       this.addOrUpdateVisible = true
       this.$nextTick(() => {
-        this.$refs.addOrUpdate.init(form)
+        this.$refs.addOrUpdate.dataForm.id = id
+        this.$refs.addOrUpdate.form = JSON.parse(JSON.stringify(form))
+        this.$refs.addOrUpdate.init()
       })
     }
   }
