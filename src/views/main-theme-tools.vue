@@ -24,18 +24,18 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       isOpen: false,
       themeList: require('@/element-ui/config.js'),
-      themeColor: 'red'
+      themeColor: 'default'
     }
   },
-  created () {
-    this.themeColorChangeHandle('red')
+  created() {
+    this.themeColorChangeHandle('default')
   },
   methods: {
-    themeColorChangeHandle (val) {
+    themeColorChangeHandle(val) {
       var styleList = [
         {
           id: 'J_elementTheme',

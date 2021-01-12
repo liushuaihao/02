@@ -3,8 +3,8 @@ const t = {}
 t.loading = '加载中...'
 
 t.brand = {}
-t.brand.lg = ''
-t.brand.mini = ''
+t.brand.lg = '速滑图形工作站系统'
+t.brand.mini = '速滑图形工作站'
 
 t.add = '添加'
 t.delete = '删除'

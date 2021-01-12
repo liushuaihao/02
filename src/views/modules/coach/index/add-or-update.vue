@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update') + '体成分信息'" :close-on-click-modal="false" :close-on-press-escape="false">
+  <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
       <el-form-item prop="name" label="姓名">
         <el-input v-model="dataForm.name" placeholder="请输入姓名"></el-input>
@@ -14,7 +14,7 @@
         <el-input v-model="dataForm.age" placeholder="请输入年龄"></el-input>
       </el-form-item>
       <el-form-item prop="project" label="负责项目">
-        <el-select v-model="dataForm.project" placeholder="请选择负责项目" style="width: 100%">
+        <el-select v-model="value" multiple filterable allow-create default-first-option collapse-tags placeholder="请选择负责项目">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
         </el-select>
       </el-form-item>
@@ -78,15 +78,15 @@ export default {
     },
     // 获取部门列表
     getDeptList() {
-      // return this.$http
-      //   .get('/sys/dept/list')
-      //   .then(({ data: res }) => {
-      //     if (res.code !== 0) {
-      //       return this.$message.error(res.msg)
-      //     }
-      //     this.deptList = res.data
-      // })
-      // .catch(() => {})
+      return this.$http
+        .get('/sys/dept/list')
+        .then(({ data: res }) => {
+          if (res.code !== 0) {
+            return this.$message.error(res.msg)
+          }
+          this.deptList = res.data
+        })
+        .catch(() => {})
     },
     // 获取信息
     getInfo() {
