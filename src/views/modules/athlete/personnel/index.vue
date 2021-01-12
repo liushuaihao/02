@@ -19,20 +19,17 @@
         <el-table-column prop="realName" label="姓名" align="center" min-width="100"></el-table-column>
         <el-table-column prop="gender" label="性别" align="center" min-width="80">
           <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '男' : '女'}}
+            {{ scope.row.gender === 1 ? '男' : '女' }}
           </template>
         </el-table-column>
         <el-table-column prop="age" label="年龄" align="center" min-width="80"></el-table-column>
         <el-table-column prop="projects" label="项目" align="center" min-width="140">
           <template slot-scope="scope">
-            <el-tag style="margin: 2px" v-for="item in scope.row.projects" :key="item.id">{{item.projectName}}</el-tag>
+            <el-tag style="margin: 2px" v-for="item in scope.row.projects" :key="item.id">{{ item.projectName }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="height" label="身高" align="center" min-width="80">
-         <template slot-scope="scope">
-          {{scope.row.height}}cm
-          </template>
-        </el-table-column>
+          <template slot-scope="scope"> {{ scope.row.height }}cm </template>
         </el-table-column>
         <el-table-column prop="cityName" label="籍贯" align="center" min-width="80"></el-table-column>
         <el-table-column prop="mobile" label="手机号" align="center" min-width="120"></el-table-column>
@@ -75,8 +72,7 @@ export default {
         getDataListURL: '/user/playerList',
         getDataListIsPage: true,
         deleteURL: '/user/delete',
-        deleteIsBatch: true,
-        exportURL: ''
+        deleteIsBatch: true
       }
     }
   },
@@ -86,6 +82,43 @@ export default {
   methods: {
     bodyComposition() {
       this.$router.push('/athlete-personnel-bodyComposition')
+    },
+
+    // 删除
+    deleteHandle(id) {
+      if (this.mixinViewModuleOptions.deleteIsBatch && !id && this.dataListSelections.length <= 0) {
+        return this.$message({
+          message: this.$t('prompt.deleteBatch'),
+          type: 'warning',
+          duration: 500
+        })
+      }
+      this.$confirm(this.$t('prompt.info', { handle: this.$t('delete') }), this.$t('prompt.title'), {
+        confirmButtonText: this.$t('confirm'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      })
+        .then(() => {
+          this.$http
+            .post(`/user/delete`, {
+              id: [id]
+            })
+            .then(({ data: res }) => {
+              if (res.code !== 0) {
+                return this.$message.error(res.msg)
+              }
+              this.$message({
+                message: this.$t('prompt.success'),
+                type: 'success',
+                duration: 500,
+                onClose: () => {
+                  this.query()
+                }
+              })
+            })
+            .catch(() => {})
+        })
+        .catch(() => {})
     }
   }
 }

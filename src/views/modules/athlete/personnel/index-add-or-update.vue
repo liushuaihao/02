@@ -25,8 +25,10 @@
           <el-option v-for="project in projectList" :key="project.id" :label="project.projectName" :value="project.id"> </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item prop="cityName" label="籍贯">
-        <el-input v-model="dataForm.cityName" placeholder="请输入籍贯"></el-input>
+      <el-form-item prop="cityId" label="籍贯">
+        <el-select v-model="dataForm.cityId" placeholder="请选择籍贯">
+          <el-option v-for="region in regionList" :key="region.id" :label="region.name" :value="region.id"> </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item prop="injuries" label="是否有伤病">
         <el-radio v-model="dataForm.injuries" label="1">有</el-radio>
@@ -58,20 +60,21 @@ export default {
         projects: [],
         height: '',
         weight: '',
-        cityName: '',
+        cityId: '',
         mobile: '',
         equipmentId: '',
         injuries: '',
         remark: ''
       },
-      projectList: []
+      projectList: [],
+      regionList: []
     }
   },
   computed: {
     dataRule() {
       var validateMobile = (rule, value, callback) => {
         if (value && !isMobile(value)) {
-          return callback(new Error(this.$t('validate.format', { 'attr': this.$t('user.mobile') })))
+          return callback(new Error(this.$t('validate.format', { attr: this.$t('user.mobile') })))
         }
         callback()
       }
@@ -82,7 +85,7 @@ export default {
         projects: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
         height: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         weight: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
-        cityName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        cityId: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
         mobile: [{ validator: validateMobile, trigger: 'blur' }],
         equipmentId: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         injuries: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }]
@@ -94,11 +97,20 @@ export default {
       this.visible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
-        Promise.all([this.getProjectList()]).then(() => {
+        Promise.all([this.getProjectList(), this.getRegionList()]).then(() => {
           if (this.dataForm.id) {
             this.getInfo()
           }
         })
+      })
+    },
+    // 地区 /sys/region/list
+    getRegionList() {
+      this.$http.get('/sys/region/list').then(({ data: res }) => {
+        if (res.code !== 0) {
+          return this.$message.error(res.msg)
+        }
+        this.regionList = res.data
       })
     },
     // 获取项目列表
