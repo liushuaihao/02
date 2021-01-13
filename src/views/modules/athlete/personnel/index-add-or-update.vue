@@ -87,7 +87,7 @@ export default {
         height: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         weight: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         cityId: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
-        mobile: [{ validator: validateMobile, trigger: 'blur' }],
+        mobile: [{ required: true, validator: validateMobile, trigger: 'blur' }],
         equipmentId: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         injuries: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }]
       }

@@ -1,8 +1,8 @@
 <template>
   <el-dialog :visible.sync="visible" :title="!dataForm.id ? $t('add') : $t('update')" :close-on-click-modal="false" :close-on-press-escape="false">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmitHandle()" label-width="120px">
-      <el-form-item prop="projectName" label="项目名称">
-        <el-input v-model="dataForm.projectName" placeholder="请输入项目名称"></el-input>
+      <el-form-item prop="jobName" label="职务名称">
+        <el-input v-model="dataForm.jobName" placeholder="请输入职务名称"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -22,7 +22,7 @@ export default {
       deptListVisible: false,
       dataForm: {
         id: undefined,
-        projectName: ''
+        jobName: ''
       },
       form: {}
     }
@@ -30,7 +30,7 @@ export default {
   computed: {
     dataRule() {
       return {
-        projectName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }]
+        jobName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }]
       }
     }
   },
@@ -52,7 +52,7 @@ export default {
           if (!valid) {
             return false
           }
-          this.$http['post'](!this.dataForm.id ? '/project/add' : '/project/update', this.dataForm)
+          this.$http['post'](!this.dataForm.id ? '/job/add' : '/job/update', this.dataForm)
             .then(({ data: res }) => {
               if (res.code !== 0) {
                 return this.$message.error(res.msg)

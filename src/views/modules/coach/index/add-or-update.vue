@@ -7,11 +7,13 @@
       <el-form-item prop="mobile" label="手机号">
         <el-input v-model="dataForm.mobile" placeholder="请输入手机号"></el-input>
       </el-form-item>
-      <el-form-item prop="jobName" label="职务">
-        <el-input v-model="dataForm.jobName" placeholder="请输入职务"></el-input>
+      <el-form-item prop="jobId" label="职务">
+        <el-select v-model="dataForm.jobId" placeholder="请选择职务">
+          <el-option v-for="item in jobList" :key="item.value" :label="item.jobName" :value="item.id"> </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item prop="age" label="年龄">
-        <el-input-number v-model="dataForm.age" placeholder="请输入年龄" :min="6" :max="100" controls-position="right"></el-input-number>
+        <el-input-number v-model="dataForm.age" placeholder="请输入年龄" :min="1" :max="100" controls-position="right"></el-input-number>
       </el-form-item>
       <el-form-item prop="projects" label="项目">
         <!-- collapse-tags -->
@@ -40,12 +42,13 @@ export default {
         id: '',
         realName: '',
         sex: '',
-        age: '',
+        age: '18',
         projects: [],
-        jobName: '',
+        jobId: '',
         mobile: ''
       },
-      projectList: []
+      projectList: [],
+      jobList: []
     }
   },
 
@@ -59,8 +62,8 @@ export default {
       }
       return {
         realName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
-        mobile: [{ validator: validateMobile, trigger: 'blur' }],
-        jobName: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
+        mobile: [{ required: true, validator: validateMobile, trigger: 'blur' }],
+        jobId: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }],
         age: [{ required: true, message: this.$t('validate.required'), trigger: 'blur' }],
         projects: [{ required: true, message: this.$t('validate.required'), trigger: 'change' }]
       }
@@ -71,7 +74,7 @@ export default {
       this.visible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].resetFields()
-        Promise.all([this.getProjectList()]).then(() => {
+        Promise.all([this.getProjectList(), this.getJobList()]).then(() => {
           if (this.dataForm.id) {
             this.getInfo()
           }
@@ -87,6 +90,17 @@ export default {
         }
         console.log(res)
         this.projectList = res.data.list
+      })
+    },
+    // 获取职务列表
+    getJobList() {
+      let params = { page: 1, limit: 100 }
+      this.$http.get('/job/page', params).then(({ data: res }) => {
+        if (res.code !== 0) {
+          return this.$message.error(res.msg)
+        }
+        console.log(res)
+        this.jobList = res.data.list
       })
     },
     // 获取信息
