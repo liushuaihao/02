@@ -3,16 +3,14 @@
     <div class="mod-sys__dept">
       <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
         <el-form-item>
-          <el-input v-model="dataForm.projectName" placeholder="项目名称" clearable></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="getDataList()">{{ $t('query') }}</el-button>
-        </el-form-item>
-        <el-form-item>
           <el-button type="primary" @click="addOrUpdateHandle(null, form)">{{ $t('add') }}</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
+        </el-form-item>
       </el-form>
-      <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
+      <el-table v-loading="dataListLoading" :data="dataList" border @selection-change="dataListSelectionChangeHandle" @sort-change="dataListSortChangeHandle" style="width: 100%;">
+        <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
         <el-table-column prop="projectName" label="项目名称" align="center"></el-table-column>
         <el-table-column label="操作" fixed="right" align="center" width="120">
           <template slot-scope="scope">
@@ -47,7 +45,8 @@ export default {
       mixinViewModuleOptions: {
         getDataListURL: '/project/page',
         getDataListIsPage: true,
-        deleteURL: '/project/delete'
+        deleteURL: '/project/delete',
+        deleteIsBatch: true
       },
       dataList: [],
       form: {
@@ -68,6 +67,43 @@ export default {
         this.$refs.addOrUpdate.form = JSON.parse(JSON.stringify(form))
         this.$refs.addOrUpdate.init()
       })
+    },
+    // 删除
+    deleteHandle(id) {
+      if (this.mixinViewModuleOptions.deleteIsBatch && !id && this.dataListSelections.length <= 0) {
+        return this.$message({
+          message: this.$t('prompt.deleteBatch'),
+          type: 'warning',
+          duration: 500
+        })
+      }
+      this.$confirm(this.$t('prompt.info', { handle: this.$t('delete') }), this.$t('prompt.title'), {
+        confirmButtonText: this.$t('confirm'),
+        cancelButtonText: this.$t('cancel'),
+        type: 'warning'
+      })
+        .then(() => {
+          this.$http
+            .post(
+              `${this.mixinViewModuleOptions.deleteURL}${this.mixinViewModuleOptions.deleteIsBatch ? '' : '/' + id}`,
+              this.mixinViewModuleOptions.deleteIsBatch ? (id ? [id] : this.dataListSelections.map(item => item[this.mixinViewModuleOptions.deleteIsBatchKey])) : {}
+            )
+            .then(({ data: res }) => {
+              if (res.code !== 0) {
+                return this.$message.error(res.msg)
+              }
+              this.$message({
+                message: this.$t('prompt.success'),
+                type: 'success',
+                duration: 500,
+                onClose: () => {
+                  this.query()
+                }
+              })
+            })
+            .catch(() => {})
+        })
+        .catch(() => {})
     }
   }
 }

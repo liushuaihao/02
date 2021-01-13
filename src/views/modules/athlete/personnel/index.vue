@@ -14,8 +14,12 @@
         <el-form-item>
           <el-button type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button v-if="$hasPermission('sys:user:delete')" type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
+        </el-form-item>
       </el-form>
-      <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
+      <el-table v-loading="dataListLoading" :data="dataList" border @selection-change="dataListSelectionChangeHandle" @sort-change="dataListSortChangeHandle" style="width: 100%;">
+        <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
         <el-table-column prop="realName" label="姓名" align="center" min-width="100"></el-table-column>
         <el-table-column prop="gender" label="性别" align="center" min-width="80">
           <template slot-scope="scope">
@@ -33,7 +37,7 @@
         </el-table-column>
         <el-table-column prop="cityName" label="籍贯" align="center" min-width="80"></el-table-column>
         <el-table-column prop="mobile" label="手机号" align="center" min-width="120"></el-table-column>
-        <el-table-column prop="equipmentId" label="绑定设备号" align="center" min-width="140"></el-table-column>
+        <!-- <el-table-column prop="equipmentId" label="绑定设备号" align="center" min-width="140"></el-table-column> -->
         <el-table-column label="操作" fixed="right" align="center" min-width="140">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
@@ -71,7 +75,7 @@ export default {
       mixinViewModuleOptions: {
         getDataListURL: '/user/playerList',
         getDataListIsPage: true,
-        deleteURL: '/user/delete',
+        deleteURL: '/sys/user',
         deleteIsBatch: true
       }
     }
@@ -82,43 +86,6 @@ export default {
   methods: {
     bodyComposition() {
       this.$router.push('/athlete-personnel-bodyComposition')
-    },
-
-    // 删除
-    deleteHandle(id) {
-      if (this.mixinViewModuleOptions.deleteIsBatch && !id && this.dataListSelections.length <= 0) {
-        return this.$message({
-          message: this.$t('prompt.deleteBatch'),
-          type: 'warning',
-          duration: 500
-        })
-      }
-      this.$confirm(this.$t('prompt.info', { handle: this.$t('delete') }), this.$t('prompt.title'), {
-        confirmButtonText: this.$t('confirm'),
-        cancelButtonText: this.$t('cancel'),
-        type: 'warning'
-      })
-        .then(() => {
-          this.$http
-            .post(`/user/delete`, {
-              id: [id]
-            })
-            .then(({ data: res }) => {
-              if (res.code !== 0) {
-                return this.$message.error(res.msg)
-              }
-              this.$message({
-                message: this.$t('prompt.success'),
-                type: 'success',
-                duration: 500,
-                onClose: () => {
-                  this.query()
-                }
-              })
-            })
-            .catch(() => {})
-        })
-        .catch(() => {})
     }
   }
 }

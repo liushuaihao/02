@@ -9,19 +9,20 @@
         <el-radio v-model="dataForm.gender" :label="0">女</el-radio>
       </el-form-item>
       <el-form-item prop="age" label="年龄">
-        <el-input v-model="dataForm.age" placeholder="请输入年龄"></el-input>
+        <el-input-number v-model="dataForm.age" placeholder="请输入年龄" :min="1" :max="100" step-strictly controls-position="right"></el-input-number>
       </el-form-item>
       <el-form-item prop="mobile" label="手机号">
         <el-input v-model="dataForm.mobile" placeholder="请输入手机号"></el-input>
       </el-form-item>
       <el-form-item prop="height" label="身高">
-        <el-input v-model="dataForm.height" placeholder="请输入身高"></el-input>
+        <el-input-number v-model="dataForm.height" placeholder="请输入身高" :min="1" :max="300" :precision="2" controls-position="right"></el-input-number>
       </el-form-item>
       <el-form-item prop="weight" label="体重">
-        <el-input v-model="dataForm.weight" placeholder="请输入体重"></el-input>
+        <el-input-number v-model="dataForm.weight" placeholder="请输入体重" :min="1" :max="1000" :precision="2" controls-position="right"></el-input-number>
       </el-form-item>
       <el-form-item prop="projects" label="项目">
-        <el-select v-model="dataForm.projects" multiple collapse-tags placeholder="请选择项目">
+        <!-- collapse-tags -->
+        <el-select v-model="dataForm.projects" multiple placeholder="请选择项目" style="width:100%">
           <el-option v-for="project in projectList" :key="project.id" :label="project.projectName" :value="project.id"> </el-option>
         </el-select>
       </el-form-item>
@@ -135,7 +136,8 @@ export default {
           }
           this.dataForm = {
             ...this.dataForm,
-            ...res.data
+            ...res.data,
+            projects: res.data.projects.length ? res.data.projects.map(item => item.id) : []
           }
         })
         .catch(() => {})

@@ -11,10 +11,11 @@
         <el-input v-model="dataForm.jobName" placeholder="请输入职务"></el-input>
       </el-form-item>
       <el-form-item prop="age" label="年龄">
-        <el-input v-model="dataForm.age" placeholder="请输入年龄"></el-input>
+        <el-input-number v-model="dataForm.age" placeholder="请输入年龄" :min="6" :max="100" controls-position="right"></el-input-number>
       </el-form-item>
       <el-form-item prop="projects" label="项目">
-        <el-select v-model="dataForm.projects" multiple collapse-tags placeholder="请选择项目">
+        <!-- collapse-tags -->
+        <el-select v-model="dataForm.projects" style="width:100%" multiple placeholder="请选择项目">
           <el-option v-for="projects in projectList" :key="projects.id" :label="projects.projectName" :value="projects.id"> </el-option>
         </el-select>
       </el-form-item>
@@ -98,7 +99,8 @@ export default {
           }
           this.dataForm = {
             ...this.dataForm,
-            ...res.data
+            ...res.data,
+            projects: res.data.projects.length ? res.data.projects.map(item => item.id) : []
           }
         })
         .catch(() => {})

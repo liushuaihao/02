@@ -14,19 +14,22 @@
         <el-form-item>
           <el-button type="primary" @click="addOrUpdateHandle()">{{ $t('add') }}</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button v-if="$hasPermission('sys:user:delete')" type="danger" @click="deleteHandle()">{{ $t('deleteBatch') }}</el-button>
+        </el-form-item>
       </el-form>
-      <el-table v-loading="dataListLoading" :data="dataList" row-key="id" border style="width: 100%;">
-        <el-table-column prop="id" label="ID" align="center" width="150"></el-table-column>
+      <el-table v-loading="dataListLoading" :data="dataList" border @selection-change="dataListSelectionChangeHandle" @sort-change="dataListSortChangeHandle" style="width: 100%;">
+        <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
         <el-table-column prop="realName" label="姓名" align="center"></el-table-column>
         <el-table-column prop="gender" label="性别" align="center" min-width="80">
           <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '男' : '女'}}
+            {{ scope.row.gender === 1 ? '男' : '女' }}
           </template>
         </el-table-column>
         <el-table-column prop="age" label="年龄" align="center"></el-table-column>
         <el-table-column prop="project" label="项目" align="center">
           <template slot-scope="scope">
-            <el-tag style="margin: 2px" v-for="item in scope.row.projects" :key="item.id">{{item.projectName}}</el-tag>
+            <el-tag style="margin: 2px" v-for="item in scope.row.projects" :key="item.id">{{ item.projectName }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="jobName" label="职务" align="center"></el-table-column>
@@ -64,9 +67,8 @@ export default {
       mixinViewModuleOptions: {
         getDataListURL: '/user/coachList',
         getDataListIsPage: true,
-        deleteURL: '',
-        deleteIsBatch: true,
-        exportURL: '/user/delete'
+        deleteURL: '/sys/user',
+        deleteIsBatch: true
       },
       dataList: []
     }
