@@ -21,8 +21,24 @@ import cloneDeep from 'lodash/cloneDeep'
 import VueScroller from 'vue-scroller'
 import moment from 'moment'
 Vue.config.productionTip = false
+import VueXgplayer from 'vue-xgplayer'
 import echarts from 'echarts'
 Vue.prototype.echarts = echarts
+//视频插件
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+Vue.use(VideoPlayer)
+
+Vue.use(VueXgplayer, {
+  playsinline: true,
+  enterLogo: {
+    // url: '/images/video-player-loading.png',
+    width: 100,
+    height: 40
+  }
+})
+
 Vue.use(Element, {
   size: 'small',
   i18n: (key, value) => i18n.t(key, value)
